@@ -14,11 +14,11 @@
   </avrgcc.compiler.symbols.DefSymbols>
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
-      <Value>../Config</Value>
       <Value>../include</Value>
       <Value>../utils</Value>
       <Value>../utils/assembler</Value>
       <Value>../</Value>
+      <Value>../Config</Value>
       <Value>%24(PackRepoDir)\Atmel\ATtiny_DFP\1.9.337\include\</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>

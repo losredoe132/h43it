@@ -51,10 +51,12 @@
         </TopLevelComponents>
         <AcmeActionInfos>
           <AcmeProjectActionInfo Action="File" Source="main.c" IsConfig="false" Hash="k0AH7j+BrmdFhBPzCCMptA" />
-          <AcmeProjectActionInfo Action="File" Source="src/driver_init.c" IsConfig="false" Hash="4TSQN5dIeukRQ3OL+3QF8w" />
-          <AcmeProjectActionInfo Action="File" Source="include/driver_init.h" IsConfig="false" Hash="FSgwqwYizTYRatpdcIaCTA" />
-          <AcmeProjectActionInfo Action="File" Source="include/atmel_start_pins.h" IsConfig="false" Hash="byP3miugmyS+UYAV+CBKPA" />
+          <AcmeProjectActionInfo Action="File" Source="src/driver_init.c" IsConfig="false" Hash="h+uRX8CwybdTm7e0FF9R3g" />
+          <AcmeProjectActionInfo Action="File" Source="include/driver_init.h" IsConfig="false" Hash="HyT4oGt3nXSyyzSo0b2rzA" />
+          <AcmeProjectActionInfo Action="File" Source="include/atmel_start_pins.h" IsConfig="false" Hash="MmO8XcxcV8jff5NkpmYcFg" />
           <AcmeProjectActionInfo Action="File" Source="driver_isr.c" IsConfig="false" Hash="MvMMK2GhxVFkAQcdYQz48Q" />
+          <AcmeProjectActionInfo Action="File" Source="examples/include/usart_basic_example.h" IsConfig="false" Hash="jqzG72KywS875Xh6BBr/EA" />
+          <AcmeProjectActionInfo Action="File" Source="examples/src/usart_basic_example.c" IsConfig="false" Hash="8EWqyc6nUHi+MQFT49+DRw" />
           <AcmeProjectActionInfo Action="File" Source="include/bod.h" IsConfig="false" Hash="ZLQQMk2tvecp7+/rnFJ88w" />
           <AcmeProjectActionInfo Action="File" Source="include/ccp.h" IsConfig="false" Hash="5tZzJbuv1SnHXckp4Dkw+w" />
           <AcmeProjectActionInfo Action="File" Source="include/clkctrl.h" IsConfig="false" Hash="zM1JGmuFxSf4GSXRFGmwTg" />
@@ -64,11 +66,13 @@
           <AcmeProjectActionInfo Action="File" Source="include/rstctrl.h" IsConfig="false" Hash="QzSR3iFGzImWwhFxG4W8ag" />
           <AcmeProjectActionInfo Action="File" Source="include/slpctrl.h" IsConfig="false" Hash="RmK0UGftfBRePkRJ8R5ifw" />
           <AcmeProjectActionInfo Action="File" Source="include/system.h" IsConfig="false" Hash="6lIl0Yf4JRdQVZRXxV8mwg" />
+          <AcmeProjectActionInfo Action="File" Source="include/usart_basic.h" IsConfig="false" Hash="mr78EcCCrmp9Glqx1dh9ZQ" />
           <AcmeProjectActionInfo Action="File" Source="src/bod.c" IsConfig="false" Hash="RcfdUegRSFfgBJb87SJpvA" />
-          <AcmeProjectActionInfo Action="File" Source="src/clkctrl.c" IsConfig="false" Hash="M7QZGuRNsho+ZkhjbO/THA" />
+          <AcmeProjectActionInfo Action="File" Source="src/clkctrl.c" IsConfig="false" Hash="55XMEfZH22IRnTPJdj1NlA" />
           <AcmeProjectActionInfo Action="File" Source="src/cpuint.c" IsConfig="false" Hash="8QNlbJZ6R6wBiCT5nh902g" />
           <AcmeProjectActionInfo Action="File" Source="src/protected_io.S" IsConfig="false" Hash="sgFkmFP7h1y8L07bVZahaQ" />
           <AcmeProjectActionInfo Action="File" Source="src/slpctrl.c" IsConfig="false" Hash="QkIqUubBLg6fH7ESMxxauQ" />
+          <AcmeProjectActionInfo Action="File" Source="src/usart_basic.c" IsConfig="false" Hash="tO3oeQ/+KKbtunqYyuuO5g" />
           <AcmeProjectActionInfo Action="File" Source="utils/assembler.h" IsConfig="false" Hash="jaaWqpCXnRJMciuXpjSfgQ" />
           <AcmeProjectActionInfo Action="File" Source="utils/assembler/gas.h" IsConfig="false" Hash="wV+34zXWOOJ7jfwQibBgLQ" />
           <AcmeProjectActionInfo Action="File" Source="utils/assembler/iar.h" IsConfig="false" Hash="re7qP3QC0FK72z2UZ4UoFg" />
@@ -79,7 +83,7 @@
           <AcmeProjectActionInfo Action="File" Source="utils/utils_assert.h" IsConfig="false" Hash="lJZG/QWOeOnUhe4wcXVztA" />
           <AcmeProjectActionInfo Action="File" Source="atmel_start.h" IsConfig="false" Hash="ZPe6iT3s4OihW8t8wDF53g" />
           <AcmeProjectActionInfo Action="File" Source="atmel_start.c" IsConfig="false" Hash="1RHIE7zTtYK4DURNPUqF9w" />
-          <AcmeProjectActionInfo Action="File" Source="config/clock_config.h" IsConfig="true" Hash="53bXjLngpND0q56MrwgO2w" />
+          <AcmeProjectActionInfo Action="File" Source="config/clock_config.h" IsConfig="true" Hash="H6oWR1f/wsiRtGK//OqDgg" />
         </AcmeActionInfos>
         <NonsecureFilesInfo />
       </AcmeProjectConfig>
@@ -136,6 +140,7 @@
       <Value>../utils/assembler</Value>
       <Value>../</Value>
       <Value>../Config</Value>
+      <Value>../examples/include</Value>
       <Value>%24(PackRepoDir)\Atmel\ATtiny_DFP\1.9.337\include\</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
@@ -151,6 +156,7 @@
   <avrgcc.assembler.general.IncludePaths>
     <ListValues>
       <Value>../Config</Value>
+      <Value>../examples/include</Value>
       <Value>../include</Value>
       <Value>../utils</Value>
       <Value>../utils/assembler</Value>
@@ -184,6 +190,7 @@
       <Value>../utils/assembler</Value>
       <Value>../</Value>
       <Value>../Config</Value>
+      <Value>../examples/include</Value>
       <Value>%24(PackRepoDir)\Atmel\ATtiny_DFP\1.9.337\include\</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
@@ -200,6 +207,7 @@
   <avrgcc.assembler.general.IncludePaths>
     <ListValues>
       <Value>../Config</Value>
+      <Value>../examples/include</Value>
       <Value>../include</Value>
       <Value>../utils</Value>
       <Value>../utils/assembler</Value>
@@ -215,6 +223,9 @@
     <Folder Include="Config\" />
     <Folder Include="doxygen\" />
     <Folder Include="doxygen\generator\" />
+    <Folder Include="examples\" />
+    <Folder Include="examples\include\" />
+    <Folder Include="examples\src\" />
     <Folder Include="include\" />
     <Folder Include="modules\" />
     <Folder Include="modules\bod\" />
@@ -225,6 +236,8 @@
     <Folder Include="modules\cpuint\doc\" />
     <Folder Include="modules\slpctrl\" />
     <Folder Include="modules\slpctrl\doc\" />
+    <Folder Include="modules\usart\" />
+    <Folder Include="modules\usart\doc\" />
     <Folder Include="src\" />
     <Folder Include="utils\" />
     <Folder Include="utils\assembler\" />
@@ -243,6 +256,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="driver_isr.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="examples\include\usart_basic_example.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="examples\src\usart_basic_example.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="include\atmel_start_pins.h">
@@ -278,6 +297,9 @@
     <Compile Include="include\system.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="include\usart_basic.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -297,6 +319,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\slpctrl.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\usart_basic.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="utils\assembler.h">
@@ -337,6 +362,12 @@
     <None Include="doxygen\system.dox">
       <SubType>compile</SubType>
     </None>
+    <None Include="doxygen\usart.dox">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="doxygen\usart_basic.dox">
+      <SubType>compile</SubType>
+    </None>
     <None Include="modules\bod\doc\bod.rst">
       <SubType>compile</SubType>
     </None>
@@ -347,6 +378,9 @@
       <SubType>compile</SubType>
     </None>
     <None Include="modules\slpctrl\doc\slpctrl.rst">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="modules\usart\doc\usart_basic.rst">
       <SubType>compile</SubType>
     </None>
   </ItemGroup>

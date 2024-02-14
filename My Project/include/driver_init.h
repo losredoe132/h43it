@@ -42,6 +42,9 @@
 #include <atmel_start_pins.h>
 
 #include <clkctrl.h>
+
+#include <usart_basic.h>
+
 #include <cpuint.h>
 #include <slpctrl.h>
 #include <bod.h>

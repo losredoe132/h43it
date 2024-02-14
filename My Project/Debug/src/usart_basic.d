@@ -1,5 +1,5 @@
-atmel_start.d atmel_start.o: .././atmel_start.c ../atmel_start.h \
- ../include/driver_init.h ../utils/compiler.h \
+src/usart_basic.d src/usart_basic.o: ../src/usart_basic.c \
+ ../utils/compiler.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
@@ -18,13 +18,10 @@ atmel_start.d atmel_start.o: .././atmel_start.c ../atmel_start.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  ../utils/interrupt_avr8.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
- ../Config/clock_config.h ../include/port.h ../include/atmel_start_pins.h \
- ../include/clkctrl.h ../include/usart_basic.h ../include/cpuint.h \
- ../include/slpctrl.h ../include/bod.h ../include/atmel_start_pins.h
-
-../atmel_start.h:
-
-../include/driver_init.h:
+ ../Config/clock_config.h ../include/usart_basic.h ../atmel_start.h \
+ ../include/driver_init.h ../include/port.h ../include/atmel_start_pins.h \
+ ../include/clkctrl.h ../include/cpuint.h ../include/slpctrl.h \
+ ../include/bod.h ../include/atmel_start_pins.h ../utils/atomic.h
 
 ../utils/compiler.h:
 
@@ -66,13 +63,17 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 
 ../Config/clock_config.h:
 
+../include/usart_basic.h:
+
+../atmel_start.h:
+
+../include/driver_init.h:
+
 ../include/port.h:
 
 ../include/atmel_start_pins.h:
 
 ../include/clkctrl.h:
-
-../include/usart_basic.h:
 
 ../include/cpuint.h:
 
@@ -81,3 +82,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../include/bod.h:
 
 ../include/atmel_start_pins.h:
+
+../utils/atomic.h:

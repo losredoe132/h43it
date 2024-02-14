@@ -5,8 +5,16 @@
 // <<< Use Configuration Wizard in Context Menu >>>
 
 #ifndef F_CPU
-#define F_CPU 312500
+#define F_CPU 3333333
 #endif
+// <h> USART Clock Settings
+// <y> USART Clock source
+// <CLK_MAIN"> Main Clock (CLK_MAIN)
+// <i> This defines the clock source for the USART module
+// <id> usart_clock_source
+#define CONF_USART_SRC CLK_MAIN
+
+// </h>
 
 // <<< end of configuration section >>>
 

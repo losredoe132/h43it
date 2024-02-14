@@ -32,11 +32,11 @@ drivers:
       RESERVED_InputFreq_id: 20MHz Internal Oscillator (OSC20M)
       _$freq_output_32KHz divided by 32: 1024
       _$freq_output_External Clock (EXTCLK): 32768
-      _$freq_output_Main Clock (CLK_MAIN): 312500
+      _$freq_output_Main Clock (CLK_MAIN): 3333333.3333333335
       _$freq_output_TCD0 Clock (CLK_TCD0): 20000000
       clkctrl_mclkctrla_cksel: 20MHz Internal Oscillator (OSC20M)
       clkctrl_mclkctrla_clkout: false
-      clkctrl_mclkctrlb_pdiv: '64'
+      clkctrl_mclkctrlb_pdiv: '6'
       clkctrl_mclkctrlb_pen: true
       clkctrl_mclklock_locken: false
       clkctrl_osc16mctrla_runstdby: false
@@ -72,6 +72,57 @@ drivers:
           external: false
           external_frequency: 0
         configuration: {}
+  USART_0:
+    user_label: USART_0
+    definition: Atmel:ATtiny417_81x_161x_321x_drivers:1.0.0::ATtiny1614-SSNR::USART0::driver_config_definition::Async.Polled.Mode::Drivers:USART:Basic
+    functionality: USART
+    api: Drivers:USART:Basic
+    configuration:
+      baud_rate: 9600
+      ctrla_abeie: false
+      ctrla_dreie: false
+      ctrla_lbme: false
+      ctrla_rs485: RS485 Mode disabled
+      ctrla_rxcie: false
+      ctrla_rxsie: false
+      ctrla_txcie: false
+      ctrlb_mpcm: false
+      ctrlb_odme: false
+      ctrlb_rxen: true
+      ctrlb_rxmode: Normal mode
+      ctrlb_sfden: false
+      ctrlb_txen: true
+      ctrlc_chsize: 'Character size: 8 bit'
+      ctrlc_cmode: Asynchronous USART
+      ctrlc_pmode: No Parity
+      ctrlc_sbmode: 1 stop bit
+      ctrlc_ucpha: false
+      ctrlc_udord: false
+      dbgctrl_abmbp: false
+      dbgctrl_dbgrun: false
+      evctrl_irei: false
+      printf_support: false
+      rxplctrl_rxpl: 0
+      txplctrl_txpl: 0
+    optional_signals: []
+    variant:
+      specification: CMODE=0
+      required_signals:
+      - name: USART0/RXD
+        pad: PB3
+        label: RXD
+      - name: USART0/TXD
+        pad: PB2
+        label: TXD
+    clocks:
+      domain_group:
+        nodes:
+        - name: USART
+          input: Main Clock (CLK_MAIN)
+          external: false
+          external_frequency: 0
+        configuration:
+          usart_clock_source: Main Clock (CLK_MAIN)
   CPUINT:
     user_label: CPUINT
     definition: Atmel:ATtiny417_81x_161x_321x_drivers:1.0.0::ATtiny1614-SSNR::CPUINT::driver_config_definition::CPUINT::Drivers:CPUINT:Init
@@ -136,21 +187,19 @@ pads:
     mode: Digital output
     user_label: LED_BLUE
     configuration: null
-  SW1:
+  PB3:
+    name: PB3
+    definition: Atmel:ATtiny417_81x_161x_321x_drivers:1.0.0::ATtiny1614-SSNR::pad::PB3
+    mode: ''
+    user_label: PB3
+    configuration: null
+  PB2:
     name: PB2
     definition: Atmel:ATtiny417_81x_161x_321x_drivers:1.0.0::ATtiny1614-SSNR::pad::PB2
-    mode: Digital input
-    user_label: SW1
-    configuration:
-      pad_pull_config: Pull-up
+    mode: ''
+    user_label: PB2
+    configuration: null
 toolchain_options:
-- definition:
-    identifier: Atmel:ATtiny417_81x_161x_321x_drivers:1.0.0::ATtiny1614-SSNR::environment_definition::All:Microchip.Studio.gcc:7.0.0
-  configuration:
-    compiler_config:
-      avrgcc_compiler_miscellaneous_OtherFlags: -std=gnu99
-    linker_config:
-      avrgcc_linker_miscellaneous_LinkerFlags: ''
 - definition:
     identifier: Atmel:ATtiny417_81x_161x_321x_drivers:1.0.0::ATtiny1614-SSNR::environment_definition::All:Microchip.Studio.xc8:7.0.0
   configuration:
@@ -158,6 +207,13 @@ toolchain_options:
       xc8_compiler_miscellaneous_OtherFlags: -std=gnu99
     linker_config:
       xc8_linker_miscellaneous_LinkerFlags: ''
+- definition:
+    identifier: Atmel:ATtiny417_81x_161x_321x_drivers:1.0.0::ATtiny1614-SSNR::environment_definition::All:Microchip.Studio.gcc:7.0.0
+  configuration:
+    compiler_config:
+      avrgcc_compiler_miscellaneous_OtherFlags: -std=gnu99
+    linker_config:
+      avrgcc_linker_miscellaneous_LinkerFlags: ''
 - definition:
     identifier: Atmel:ATtiny417_81x_161x_321x_drivers:1.0.0::ATtiny1614-SSNR::environment_definition::All:Atmel.Studio:7.0.0
   configuration:

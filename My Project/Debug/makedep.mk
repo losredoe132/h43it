@@ -6,6 +6,8 @@ atmel_start.c
 
 driver_isr.c
 
+examples\src\usart_basic_example.c
+
 main.c
 
 src\bod.c
@@ -19,4 +21,6 @@ src\driver_init.c
 src\protected_io.S
 
 src\slpctrl.c
+
+src\usart_basic.c
 
