@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <avr/sleep.h>
 #include <avr/interrupt.h>
+#include <util/delay.h>
 
 void RTC_init(void);
 void USART0_init(void);
@@ -51,5 +52,6 @@ int main(void)
 	while (1)
 	{
 		printf("hello from ATtiny printf"); 
+		_delay_ms(1000);
 	}
 }
