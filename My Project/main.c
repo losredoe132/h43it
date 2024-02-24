@@ -13,24 +13,39 @@ int main()
 	// PA6
 	
 	int port_a_outs[4]={
-		0b1111101,
-		0b1111011,
-		0b1101111,
-		0b1011111
+		0b11111101,
+		0b11111011,
+		0b11101110,
+		0b11011110,
 	};
-	int i ;
+	
+	int port_b_outs[4]={
+		0b00000001,
+		0b00000010,
+		0b00000100,
+		0b00001000,
+	};
+	
+	int i, j;
 	while(1){
 
-		PORTB.OUT = 0b00000001; // all off
-		
-		
-		for (i=0; i<4; i++)
-		{
-			
-			PORTA.OUT =port_a_outs[i]; // Toggle state of pin 4
-			_delay_ms(120);
-		}
 
+		for (i=0; i<=3; i++)
+		{
+			PORTB.OUT = port_b_outs[i];
+			
+			for (j=0; j<=3; j++)
+			{
+				
+				PORTA.OUT =port_a_outs[j]; // Toggle state of pin 4
+				_delay_ms(150);
+			}
+
+		}
+		
+		
+		
+		
 
 
 	}
