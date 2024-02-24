@@ -6,7 +6,6 @@ int main()
 {
 	PORTB.DIR = 0b1111111;    // Set pin 4 as output
 	PORTA.DIR = 0b1111111;    // Set pin 4 as output
-	PORTA.OUT = 0b1111111;
 	
 	PORTA.DIRCLR = PIN6_bm;
 	PORTA.PIN6CTRL = PORT_PULLUPEN_bm;
@@ -41,9 +40,15 @@ int main()
 
 		for (i=0; i<=15; i++)
 		{
-			PORTA.OUT = port_a_b_outs[i][0];
-			PORTB.OUT = port_a_b_outs[i][1];
-			// Toggle state of pin 4
+			if(~PORTA.IN & PIN6_bm){
+				
+			}
+			else{
+				PORTA.OUT = port_a_b_outs[i][0];
+				PORTB.OUT = port_a_b_outs[i][1];
+				// Toggle state of pin 4
+			}
+
 			_delay_ms(50);
 		}
 	}
