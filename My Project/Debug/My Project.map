@@ -447,7 +447,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x146
+.text           0x00000000      0x116
  *(.vectors)
  .vectors       0x00000000       0x7c C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATtiny_DFP/1.9.337/gcc/dev/attiny1614/avrxmega3/crtattiny1614.o
                 0x00000000                __vector_default
@@ -537,13 +537,13 @@ END GROUP
                 0x000000a0                __vector_20
                 0x000000a4                . = ALIGN (0x2)
  *(.text.*)
- .text.main     0x000000a4       0x9e main.o
+ .text.main     0x000000a4       0x6e main.o
                 0x000000a4                main
-                0x00000142                . = ALIGN (0x2)
+                0x00000112                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000142        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_exit.o)
-                0x00000142                _exit
-                0x00000142                exit
+ .fini9         0x00000112        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_exit.o)
+                0x00000112                _exit
+                0x00000112                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -562,13 +562,13 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000142        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_exit.o)
+ .fini0         0x00000112        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000146                _etext = .
+                0x00000116                _etext = .
 
-.rodata         0x00008146       0x10 load address 0x00000146
+.rodata         0x00008116       0x40 load address 0x00000116
  *(.rodata)
- .rodata        0x00008146       0x10 main.o
+ .rodata        0x00008116       0x40 main.o
  *(.rodata*)
  *(.gnu.linkonce.r*)
 
@@ -667,34 +667,34 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1b6b
+.debug_info     0x00000000     0x1b56
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000     0x1897 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATtiny_DFP/1.9.337/gcc/dev/attiny1614/avrxmega3/crtattiny1614.o
- .debug_info    0x00001897      0x2d4 main.o
+ .debug_info    0x00001897      0x2bf main.o
 
 .debug_abbrev   0x00000000     0x1878
  *(.debug_abbrev)
  .debug_abbrev  0x00000000     0x1744 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATtiny_DFP/1.9.337/gcc/dev/attiny1614/avrxmega3/crtattiny1614.o
  .debug_abbrev  0x00001744      0x134 main.o
 
-.debug_line     0x00000000      0x31b
+.debug_line     0x00000000      0x30f
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x151 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATtiny_DFP/1.9.337/gcc/dev/attiny1614/avrxmega3/crtattiny1614.o
- .debug_line    0x00000151      0x1ca main.o
+ .debug_line    0x00000151      0x1be main.o
 
 .debug_frame    0x00000000       0x34
  *(.debug_frame)
  .debug_frame   0x00000000       0x34 main.o
 
-.debug_str      0x00000000      0xca8
+.debug_str      0x00000000      0xc9e
  *(.debug_str)
  .debug_str     0x00000000      0xa49 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATtiny_DFP/1.9.337/gcc/dev/attiny1614/avrxmega3/crtattiny1614.o
- .debug_str     0x00000a49      0x25f main.o
-                                0x293 (size before relaxing)
+ .debug_str     0x00000a49      0x255 main.o
+                                0x289 (size before relaxing)
 
-.debug_loc      0x00000000       0xb7
+.debug_loc      0x00000000       0xa4
  *(.debug_loc)
- .debug_loc     0x00000000       0xb7 main.o
+ .debug_loc     0x00000000       0xa4 main.o
 
 .debug_macinfo
  *(.debug_macinfo)
