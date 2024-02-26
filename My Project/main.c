@@ -1,11 +1,12 @@
 #define F_CPU 3333333
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
 
 int main()
 {
-	PORTB.DIR = 0b1111111;    // Set pin 4 as output
-	PORTA.DIR = 0b1111111;    // Set pin 4 as output
+	PORTA.DIR = 0b10111111;
+	PORTB.DIR = 0b11111111;
 	
 	PORTA.DIRCLR = PIN6_bm;
 	PORTA.PIN6CTRL = PORT_PULLUPEN_bm;
@@ -44,12 +45,14 @@ int main()
 				
 			}
 			else{
-				PORTA.OUT = port_a_b_outs[i][0];
-				PORTB.OUT = port_a_b_outs[i][1];
-				// Toggle state of pin 4
+						PORTA.OUT = port_a_b_outs[i][0];
+						PORTB.OUT = port_a_b_outs[i][1];
+						// Toggle state of pin 4
+				
 			}
-
-			_delay_ms(50);
+			
+	
+			_delay_ms(250);
 		}
 	}
 }
