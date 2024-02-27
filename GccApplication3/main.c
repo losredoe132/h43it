@@ -1,7 +1,13 @@
 #define F_CPU 3333333
+
+
 #include <avr/io.h>
 
+#include <avr/sleep.h>
+
 #include <avr/interrupt.h>
+
+#include <stdint.h>
 
 #include <util/delay.h>
 
@@ -27,6 +33,7 @@ int port_a_b_outs[16][2]={
 	{0b11101110,0b00000010}, // LED 14
 	{0b11111011,0b00000010}, // LED 15
 	{0b11111101,0b00000010}, // LED 16
+	{0b00000000,0b00000000}, // ALL OFF
 	
 };
 
@@ -38,10 +45,23 @@ const uint8_t btn_pin = PIN6_bm; // PORT C
 volatile int x ;
 int i ;
 
+void RTC_init(int RTCdelay)
+{
+	RTC.CLKSEL = RTC_CLKSEL_INT32K_gc;    // 32.768kHz Internal Crystal Oscillator (INT32K)
+
+	while (RTC.STATUS > 0);               // Wait for all register to be synchronized
+	RTC.PER = RTCdelay;                   // Set period for delay
+	RTC.INTCTRL |= RTC_OVF_bm;            // Enable overflow Interrupt which will trigger ISR
+	RTC.CTRLA = RTC_PRESCALER_DIV32_gc    // 32768 / 32 = 1024 (sec) ~ 1 ms
+	| RTC_RTCEN_bm                        // Enable: enabled
+	| RTC_RUNSTDBY_bm;                    // Run In Standby: enabled
+}
+
 int main() {
 
-	// LED setup
 
+	// LED setup
+	RTC_init(1000);
 	//
 	// 	PORTA.DIRSET=0b00000100;
 	// 	PORTB.DIRSET=0b00000001;
@@ -55,46 +75,36 @@ int main() {
 	i=0;
 	x=2;
 
-	sei(); // Set global interrupts
 	PORTA.OUT = 0b00000000;
 	PORTB.OUT = 0b00000001;
 	
-	
-
+	sei(); // Set global interrupts
+	PORTA.OUT = port_a_b_outs[0][0];
+	PORTB.OUT = port_a_b_outs[0][1];
 	while(1){
+		
 
-		for (i=0; i<=x; i++)
-		{
-			if(~PORTA.IN & PIN6_bm){
-				
-			}
-			else{
-				PORTA.OUT = port_a_b_outs[i][0];
-				PORTB.OUT = port_a_b_outs[i][1];
-				// Toggle state of pin 4
-				
-			}
-			
-			
-			_delay_ms(1);
-		}
+		// Toggle state of pin 4
+		
+		
 	}
 
 
 }
-ISR(PORTA_PORT_vect) {
+// ISR(PORTA_PORT_vect) {
+//
+//
+// 	PORTB.OUTTGL= port_a_b_outs[0][1];
+// 	_delay_ms(100);
+// 	while (~PORTA.IN& btn_pin){
+//
+// 	}
+// 	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
+//
+// }
 
-	
-	if (i <=15){
-		x++;
-	}
-	else{
-		x=1;
-	}
-	_delay_ms(100);
-	while (~PORTA.IN& btn_pin){
-		
-	}
-	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
-
+ISR(RTC_CNT_vect)
+{
+	RTC.INTFLAGS = RTC_OVF_bm;            // Clear flag by writing '1':
+	PORTB.OUTTGL= port_a_b_outs[0][1];
 }
