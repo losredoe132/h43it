@@ -43,7 +43,7 @@ const uint8_t led_pin = PIN2_bm; // PORT C
 
 const uint8_t btn_pin = PIN6_bm; // PORT C
 volatile int x ;
-int i ;
+volatile int i ;
 
 void RTC_init(int RTCdelay)
 {
@@ -61,7 +61,7 @@ int main() {
 
 
 	// LED setup
-	RTC_init(1000);
+	RTC_init(100);
 	//
 	// 	PORTA.DIRSET=0b00000100;
 	// 	PORTB.DIRSET=0b00000001;
@@ -72,15 +72,13 @@ int main() {
 	// Button setup
 	PORTA.PIN6CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
 
-	i=0;
-	x=2;
+	i=1;
+	x=200;
 
 	PORTA.OUT = 0b00000000;
 	PORTB.OUT = 0b00000001;
 	
 	sei(); // Set global interrupts
-	PORTA.OUT = port_a_b_outs[0][0];
-	PORTB.OUT = port_a_b_outs[0][1];
 	while(1){
 		
 
@@ -91,20 +89,21 @@ int main() {
 
 
 }
-// ISR(PORTA_PORT_vect) {
-//
-//
-// 	PORTB.OUTTGL= port_a_b_outs[0][1];
-// 	_delay_ms(100);
-// 	while (~PORTA.IN& btn_pin){
-//
-// 	}
-// 	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
-//
-// }
+ISR(PORTA_PORT_vect) {
+
+	i++;
+	_delay_ms(100);
+	while (~PORTA.IN& btn_pin){
+
+	}
+	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
+
+}
 
 ISR(RTC_CNT_vect)
 {
 	RTC.INTFLAGS = RTC_OVF_bm;            // Clear flag by writing '1':
-	PORTB.OUTTGL= port_a_b_outs[0][1];
+	PORTA.OUT = port_a_b_outs[i][0];
+	PORTB.OUTTGL= port_a_b_outs[i][1];
+	
 }
