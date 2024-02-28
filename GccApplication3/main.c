@@ -1,6 +1,6 @@
 #define F_CPU 3333333
-
-
+#define STAY_ON_TIME 5 // s
+#define RUN_TROUGH_SPEED 1 // ms
 #include <avr/io.h>
 
 #include <avr/sleep.h>
@@ -52,7 +52,7 @@ void RTC_init(int RTCdelay)
 	while (RTC.STATUS > 0);               // Wait for all register to be synchronized
 	RTC.PER = RTCdelay;                   // Set period for delay
 	RTC.INTCTRL |= RTC_OVF_bm;            // Enable overflow Interrupt which will trigger ISR
-	RTC.CTRLA = RTC_PRESCALER_DIV32_gc    // 32768 / 32 = 1024 (sec) ~ 1 ms
+	RTC.CTRLA = RTC_PRESCALER_DIV32768_gc    // 32768 / 32 = 1024 (sec) ~ 1 ms
 	| RTC_RTCEN_bm                        // Enable: enabled
 	| RTC_RUNSTDBY_bm;                    // Run In Standby: enabled
 }
@@ -60,11 +60,8 @@ void RTC_init(int RTCdelay)
 int main() {
 
 
-	// LED setup
 	//RTC_init(100);
-	//
-	// 	PORTA.DIRSET=0b00000100;
-	// 	PORTB.DIRSET=0b00000001;
+
 	
 	PORTA.DIRSET = 0b10111111;
 	PORTB.DIRSET = 0b11111111;
@@ -77,25 +74,35 @@ int main() {
 
 	sei(); // Set global interrupts
 	while(1){
-		for (i=0; i<=15; i++){
-			if (i<=x){
-				
-				PORTA.OUT = port_a_b_outs[i][0];
-				PORTB.OUT= port_a_b_outs[i][1];
-				_delay_ms(1);
+		for (int c=0; c<=STAY_ON_TIME*1000/RUN_TROUGH_SPEED/16; c++){
+			for (i=0; i<=15; i++){
+				if (i<=x){
+					
+					PORTA.OUT = port_a_b_outs[i][0];
+					PORTB.OUT= port_a_b_outs[i][1];
+				}
+				_delay_ms(RUN_TROUGH_SPEED);
 			}
 		}
-
-		// Toggle state of pin 4
 		
+		
+		PORTA.OUT = port_a_b_outs[16][0];
+		PORTB.OUT= port_a_b_outs[16][1];
+		set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+		cli();
+		sleep_enable();
+		PORTA_INTFLAGS |= PORT_INT7_bm;
+		// Toggle state of pin 4
+		sei();
+		sleep_cpu();
 		
 	}
 
 
 }
 ISR(PORTA_PORT_vect) {
-PORTA.OUT = port_a_b_outs[16][0];
-PORTB.OUT= port_a_b_outs[16][1];
+	PORTA.OUT = port_a_b_outs[16][0];
+	PORTB.OUT= port_a_b_outs[16][1];
 	while (~PORTA.IN& btn_pin){
 
 	}
@@ -108,6 +115,8 @@ PORTB.OUT= port_a_b_outs[16][1];
 	}
 	_delay_ms(100);
 	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
+
+	
 
 }
 
