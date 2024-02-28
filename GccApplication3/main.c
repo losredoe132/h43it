@@ -60,7 +60,7 @@ void RTC_init(int RTCdelay)
 int main() {
 
 
-	//RTC_init(100);
+	RTC_init(1);
 
 	
 	PORTA.DIRSET = 0b10111111;
@@ -74,7 +74,7 @@ int main() {
 
 	sei(); // Set global interrupts
 	while(1){
-		for (int c=0; c<=STAY_ON_TIME*1000/RUN_TROUGH_SPEED/16; c++){
+		for (int c=0; c<=STAY_ON_TIME*100/RUN_TROUGH_SPEED/16; c++){
 			for (i=0; i<=15; i++){
 				if (i<=x){
 					
@@ -88,7 +88,7 @@ int main() {
 		
 		PORTA.OUT = port_a_b_outs[16][0];
 		PORTB.OUT= port_a_b_outs[16][1];
-		set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+		set_sleep_mode(SLEEP_MODE_IDLE);
 		cli();
 		sleep_enable();
 		PORTA_INTFLAGS |= PORT_INT7_bm;
@@ -103,29 +103,16 @@ int main() {
 ISR(PORTA_PORT_vect) {
 	PORTA.OUT = port_a_b_outs[16][0];
 	PORTB.OUT= port_a_b_outs[16][1];
-	while (~PORTA.IN& btn_pin){
-
-	}
-	
-	
-	
+	while (~PORTA.IN& btn_pin){}
 	x++;
 	if (x >15){
 		x=0;
 	}
 	_delay_ms(100);
 	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
-
-	
-
 }
 
-// ISR(RTC_CNT_vect)
-// {
-// 		PORTA.OUT = port_a_b_outs[i][0];
-// 		PORTB.OUTTGL= port_a_b_outs[i][1];
-// 	_delay_ms(1);
-
-// 	RTC.INTFLAGS = RTC_OVF_bm;            // Clear flag by writing '1':
-
-//}
+ISR(RTC_CNT_vect)
+{
+	RTC.INTFLAGS = RTC_OVF_bm;            // Clear flag by writing '1':
+}
