@@ -1,6 +1,7 @@
 #define F_CPU 3333333
 #define STAY_ON_TIME 5 // s
 #define RUN_TROUGH_SPEED 1 // ms
+
 #include <avr/io.h>
 
 #include <avr/sleep.h>
@@ -12,7 +13,9 @@
 #include <util/delay.h>
 
 
-uint8_t port_a_b_outs[16][2]={
+const uint8_t port_a_b_outs[17][2]={
+	{0b11111111,0b00000000}, // ALL OFF
+	
 	{0b11111101,0b00000100}, // LED 1
 	{0b11111011,0b00000100}, // LED 3
 	{0b11101111,0b00000100}, // LED 4
@@ -32,20 +35,15 @@ uint8_t port_a_b_outs[16][2]={
 	{0b11101111,0b00000010}, // LED 14
 	{0b11111011,0b00000010}, // LED 15
 	{0b11111101,0b00000010}, // LED 16
-	
-	{0b11111111,0b00000000}, // ALL OFF
-	
 };
 
+const uint8_t btn_pin = PIN6_bm;
 
-
-const uint8_t led_pin = PIN2_bm; // PORT C
-
-const uint8_t btn_pin = PIN6_bm; // PORT C
 volatile int x ;
-volatile int i ;
+int i ;
+int j ;
 
-void RTC_init(int RTCdelay)
+void RTCA_init(int RTCdelay)
 {
 	RTC.CLKSEL = RTC_CLKSEL_INT32K_gc;    // 32.768kHz Internal Crystal Oscillator (INT32K)
 
@@ -57,10 +55,22 @@ void RTC_init(int RTCdelay)
 	| RTC_RUNSTDBY_bm;                    // Run In Standby: enabled
 }
 
+
+
+void LEDOnById(int i){
+	PORTA.OUT = port_a_b_outs[i][0];
+	PORTB.OUT= port_a_b_outs[i][1];
+}
+
+void allLEDoff(){
+	PORTA.OUT = port_a_b_outs[0][0];
+	PORTB.OUT= port_a_b_outs[0][1];
+}
+
 int main() {
 
 
-	RTC_init(1);
+	RTCA_init(10); // set periodic RTC triggering "awakening" delay in seconds
 
 	
 	PORTA.DIRSET = 0b10111111;
@@ -69,25 +79,32 @@ int main() {
 	// Button setup
 	PORTA.PIN6CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
 
-	i;
-	x=0;
+	x=8;
 
 	sei(); // Set global interrupts
+	
+	
+
+	
 	while(1){
-		for (int c=0; c<=STAY_ON_TIME*100/RUN_TROUGH_SPEED/16; c++){
-			for (i=0; i<=15; i++){
+		
+		// TODO AWAKEING Animation!
+
+		
+		for (int c=0; c<=STAY_ON_TIME*1000/RUN_TROUGH_SPEED/16; c++){
+			for (i=1; i<=16; i++){
 				if (i<=x){
 					
-					PORTA.OUT = port_a_b_outs[i][0];
-					PORTB.OUT= port_a_b_outs[i][1];
+					LEDOnById(i);
+				}
+				else{
+					allLEDoff();
 				}
 				_delay_ms(RUN_TROUGH_SPEED);
 			}
 		}
-		
-		
-		PORTA.OUT = port_a_b_outs[16][0];
-		PORTB.OUT= port_a_b_outs[16][1];
+
+		allLEDoff();
 		set_sleep_mode(SLEEP_MODE_IDLE);
 		cli();
 		sleep_enable();
@@ -101,14 +118,19 @@ int main() {
 
 }
 ISR(PORTA_PORT_vect) {
-	PORTA.OUT = port_a_b_outs[16][0];
-	PORTB.OUT= port_a_b_outs[16][1];
-	while (~PORTA.IN& btn_pin){}
-	x++;
-	if (x >15){
-		x=0;
+
+	_delay_ms(200);
+	// if button is still pressed
+	if (~PORTA.IN& btn_pin){
+		x++;
+		if (x >17){
+			x=16;
+		}
 	}
-	_delay_ms(100);
+	// wait until user released button
+	while (~PORTA.IN& btn_pin)
+	{
+	}
 	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
 }
 
