@@ -3,33 +3,33 @@ GccApplication3.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00803f00  00803f00  000002a0  2**0
+  0 .data         00000000  00803f00  00803f00  000002e4  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000001ea  00000000  00000000  00000094  2**1
+  1 .text         0000022e  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000022  000081ea  000001ea  0000027e  2**0
+  2 .rodata       00000022  0000822e  0000022e  000002c2  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .bss          00000006  00803f00  00803f00  000002a0  2**0
+  3 .bss          00000007  00803f00  00803f00  000002e4  2**0
                   ALLOC
-  4 .comment      00000030  00000000  00000000  000002a0  2**0
+  4 .comment      00000030  00000000  00000000  000002e4  2**0
                   CONTENTS, READONLY
-  5 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000002d0  2**2
+  5 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000314  2**2
                   CONTENTS, READONLY
-  6 .debug_aranges 00000060  00000000  00000000  0000030c  2**0
+  6 .debug_aranges 00000060  00000000  00000000  00000350  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_info   00002404  00000000  00000000  0000036c  2**0
+  7 .debug_info   00002458  00000000  00000000  000003b0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_abbrev 00001689  00000000  00000000  00002770  2**0
+  8 .debug_abbrev 00001689  00000000  00000000  00002808  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_line   00000477  00000000  00000000  00003df9  2**0
+  9 .debug_line   00000490  00000000  00000000  00003e91  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_frame  00000118  00000000  00000000  00004270  2**2
+ 10 .debug_frame  00000118  00000000  00000000  00004324  2**2
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_str    000013e4  00000000  00000000  00004388  2**0
+ 11 .debug_str    000013f6  00000000  00000000  0000443c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_loc    00000219  00000000  00000000  0000576c  2**0
+ 12 .debug_loc    00000261  00000000  00000000  00005832  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_ranges 00000050  00000000  00000000  00005985  2**0
+ 13 .debug_ranges 00000050  00000000  00000000  00005a93  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -38,12 +38,12 @@ Disassembly of section .text:
    0:	19 c0       	rjmp	.+50     	; 0x34 <__ctors_end>
    2:	28 c0       	rjmp	.+80     	; 0x54 <__bad_interrupt>
    4:	27 c0       	rjmp	.+78     	; 0x54 <__bad_interrupt>
-   6:	89 c0       	rjmp	.+274    	; 0x11a <__vector_3>
+   6:	a8 c0       	rjmp	.+336    	; 0x158 <__vector_3>
    8:	25 c0       	rjmp	.+74     	; 0x54 <__bad_interrupt>
    a:	24 c0       	rjmp	.+72     	; 0x54 <__bad_interrupt>
    c:	23 c0       	rjmp	.+70     	; 0x54 <__bad_interrupt>
-   e:	9a c0       	rjmp	.+308    	; 0x144 <__vector_7>
-  10:	a8 c0       	rjmp	.+336    	; 0x162 <__vector_8>
+   e:	bc c0       	rjmp	.+376    	; 0x188 <__vector_7>
+  10:	ca c0       	rjmp	.+404    	; 0x1a6 <__vector_8>
   12:	20 c0       	rjmp	.+64     	; 0x54 <__bad_interrupt>
   14:	1f c0       	rjmp	.+62     	; 0x54 <__bad_interrupt>
   16:	1e c0       	rjmp	.+60     	; 0x54 <__bad_interrupt>
@@ -80,11 +80,11 @@ Disassembly of section .text:
   48:	1d 92       	st	X+, r1
 
 0000004a <.do_clear_bss_start>:
-  4a:	a6 30       	cpi	r26, 0x06	; 6
+  4a:	a7 30       	cpi	r26, 0x07	; 7
   4c:	b2 07       	cpc	r27, r18
   4e:	e1 f7       	brne	.-8      	; 0x48 <.do_clear_bss_loop>
   50:	31 d0       	rcall	.+98     	; 0xb4 <main>
-  52:	c9 c0       	rjmp	.+402    	; 0x1e6 <_exit>
+  52:	eb c0       	rjmp	.+470    	; 0x22a <_exit>
 
 00000054 <__bad_interrupt>:
   54:	d5 cf       	rjmp	.-86     	; 0x0 <__vectors>
@@ -95,9 +95,9 @@ Disassembly of section .text:
 	
 }
 void RTC_PIT_init(){
-	RTC.CLKSEL = RTC_CLKSEL_INT1K_gc; 
+	RTC.CLKSEL = RTC_CLKSEL_INT1K_gc;
   56:	81 e0       	ldi	r24, 0x01	; 1
-  58:	80 93 47 01 	sts	0x0147, r24	; 0x800147 <port_a_b_outs+0x7f7f5d>
+  58:	80 93 47 01 	sts	0x0147, r24	; 0x800147 <port_a_b_outs+0x7f7f19>
 	while (RTC.PITSTATUS > 0) { /* Wait for all register to be synchronized */
   5c:	e0 e4       	ldi	r30, 0x40	; 64
   5e:	f1 e0       	ldi	r31, 0x01	; 1
@@ -110,8 +110,8 @@ void RTC_PIT_init(){
   68:	f1 e0       	ldi	r31, 0x01	; 1
   6a:	81 e0       	ldi	r24, 0x01	; 1
   6c:	82 8b       	std	Z+18, r24	; 0x12
-	RTC.PITCTRLA = RTC_PERIOD_CYC512_gc | RTC_PITEN_bm;
-  6e:	81 e4       	ldi	r24, 0x41	; 65
+	RTC.PITCTRLA = RTC_PERIOD_CYC8192_gc | RTC_PITEN_bm;
+  6e:	81 e6       	ldi	r24, 0x61	; 97
   70:	80 8b       	std	Z+16, r24	; 0x10
   72:	08 95       	ret
 
@@ -159,13 +159,13 @@ void LEDOnById(int i){
   90:	88 0f       	add	r24, r24
   92:	99 1f       	adc	r25, r25
   94:	fc 01       	movw	r30, r24
-  96:	e6 51       	subi	r30, 0x16	; 22
-  98:	fe 47       	sbci	r31, 0x7E	; 126
+  96:	e2 5d       	subi	r30, 0xD2	; 210
+  98:	fd 47       	sbci	r31, 0x7D	; 125
   9a:	80 81       	ld	r24, Z
-  9c:	80 93 04 04 	sts	0x0404, r24	; 0x800404 <port_a_b_outs+0x7f821a>
+  9c:	80 93 04 04 	sts	0x0404, r24	; 0x800404 <port_a_b_outs+0x7f81d6>
 	PORTB.OUT= port_a_b_outs[i][1];
   a0:	81 81       	ldd	r24, Z+1	; 0x01
-  a2:	80 93 24 04 	sts	0x0424, r24	; 0x800424 <port_a_b_outs+0x7f823a>
+  a2:	80 93 24 04 	sts	0x0424, r24	; 0x800424 <port_a_b_outs+0x7f81f6>
   a6:	08 95       	ret
 
 000000a8 <allLEDoff>:
@@ -174,9 +174,9 @@ void LEDOnById(int i){
 void allLEDoff(){
 	PORTA.OUT = port_a_b_outs[0][0];
   a8:	8f ef       	ldi	r24, 0xFF	; 255
-  aa:	80 93 04 04 	sts	0x0404, r24	; 0x800404 <port_a_b_outs+0x7f821a>
+  aa:	80 93 04 04 	sts	0x0404, r24	; 0x800404 <port_a_b_outs+0x7f81d6>
 	PORTB.OUT= port_a_b_outs[0][1];
-  ae:	10 92 24 04 	sts	0x0424, r1	; 0x800424 <port_a_b_outs+0x7f823a>
+  ae:	10 92 24 04 	sts	0x0424, r1	; 0x800424 <port_a_b_outs+0x7f81f6>
   b2:	08 95       	ret
 
 000000b4 <main>:
@@ -199,208 +199,255 @@ int main() {
   c2:	81 83       	std	Z+1, r24	; 0x01
 	PORTB.DIRSET = 0b11111111;
   c4:	8f ef       	ldi	r24, 0xFF	; 255
-  c6:	80 93 21 04 	sts	0x0421, r24	; 0x800421 <port_a_b_outs+0x7f8237>
+  c6:	80 93 21 04 	sts	0x0421, r24	; 0x800421 <port_a_b_outs+0x7f81f3>
 
 	// Button setup
 	PORTA.PIN6CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
   ca:	8b e0       	ldi	r24, 0x0B	; 11
   cc:	86 8b       	std	Z+22, r24	; 0x16
 
-	x=8;
-  ce:	88 e0       	ldi	r24, 0x08	; 8
+	x=1;
+  ce:	81 e0       	ldi	r24, 0x01	; 1
   d0:	90 e0       	ldi	r25, 0x00	; 0
-  d2:	80 93 02 3f 	sts	0x3F02, r24	; 0x803f02 <x>
-  d6:	90 93 03 3f 	sts	0x3F03, r25	; 0x803f03 <x+0x1>
+  d2:	80 93 03 3f 	sts	0x3F03, r24	; 0x803f03 <x>
+  d6:	90 93 04 3f 	sts	0x3F04, r25	; 0x803f04 <x+0x1>
 	i=0;
-  da:	10 92 04 3f 	sts	0x3F04, r1	; 0x803f04 <i>
-  de:	10 92 05 3f 	sts	0x3F05, r1	; 0x803f05 <i+0x1>
+  da:	10 92 05 3f 	sts	0x3F05, r1	; 0x803f05 <i>
+  de:	10 92 06 3f 	sts	0x3F06, r1	; 0x803f06 <i+0x1>
 
 	sei(); // Set global interrupts
   e2:	78 94       	sei
+	RTC_PIT_init();
+	}
 		
 		_delay_ms(1000);
+		
+		if  (~PORTA.IN & btn_pin)
+  e4:	e1 2c       	mov	r14, r1
+  e6:	68 94       	set
+  e8:	ff 24       	eor	r15, r15
+  ea:	f2 f8       	bld	r15, 2
+		_delay_ms(1000);
+		
 		// wait until button is released
 		allLEDoff();
 		
 		SLPCTRL.CTRLA |= SLPCTRL_SMODE_PDOWN_gc; // set POWER DOWN as sleep mode
-  e4:	c0 e5       	ldi	r28, 0x50	; 80
-  e6:	d0 e0       	ldi	r29, 0x00	; 0
+  ec:	c0 e5       	ldi	r28, 0x50	; 80
+  ee:	d0 e0       	ldi	r29, 0x00	; 0
 		SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
 		
 		cli();
+		manully_triggered  = 0 ; 
 		PORTA_INTFLAGS |= PORT_INT7_bm;
-  e8:	09 e0       	ldi	r16, 0x09	; 9
-  ea:	14 e0       	ldi	r17, 0x04	; 4
+  f0:	09 e0       	ldi	r16, 0x09	; 9
+  f2:	14 e0       	ldi	r17, 0x04	; 4
+
+	
+	while(1){
+		// TODO AWAKEING Animation!
+		
+	if (manully_triggered>0){
+  f4:	80 91 00 3f 	lds	r24, 0x3F00	; 0x803f00 <__DATA_REGION_ORIGIN__>
+  f8:	81 11       	cpse	r24, r1
+	RTC_PIT_init();
+  fa:	ad df       	rcall	.-166    	; 0x56 <RTC_PIT_init>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-  ec:	2a e2       	ldi	r18, 0x2A	; 42
-  ee:	8c e2       	ldi	r24, 0x2C	; 44
-  f0:	9a e0       	ldi	r25, 0x0A	; 10
-  f2:	21 50       	subi	r18, 0x01	; 1
-  f4:	80 40       	sbci	r24, 0x00	; 0
-  f6:	90 40       	sbci	r25, 0x00	; 0
-  f8:	e1 f7       	brne	.-8      	; 0xf2 <main+0x3e>
-  fa:	00 00       	nop
-	while(1){
-		// TODO AWAKEING Animation!
+  fc:	2a e2       	ldi	r18, 0x2A	; 42
+  fe:	8c e2       	ldi	r24, 0x2C	; 44
+ 100:	9a e0       	ldi	r25, 0x0A	; 10
+ 102:	21 50       	subi	r18, 0x01	; 1
+ 104:	80 40       	sbci	r24, 0x00	; 0
+ 106:	90 40       	sbci	r25, 0x00	; 0
+ 108:	e1 f7       	brne	.-8      	; 0x102 <__DATA_REGION_LENGTH__+0x2>
+ 10a:	00 00       	nop
+	}
 		
 		_delay_ms(1000);
+		
+		if  (~PORTA.IN & btn_pin)
+ 10c:	f7 01       	movw	r30, r14
+ 10e:	80 85       	ldd	r24, Z+8	; 0x08
+ 110:	86 fd       	sbrc	r24, 6
+ 112:	09 c0       	rjmp	.+18     	; 0x126 <__DATA_REGION_LENGTH__+0x26>
+		{
+			x++;
+ 114:	80 91 03 3f 	lds	r24, 0x3F03	; 0x803f03 <x>
+ 118:	90 91 04 3f 	lds	r25, 0x3F04	; 0x803f04 <x+0x1>
+ 11c:	01 96       	adiw	r24, 0x01	; 1
+ 11e:	80 93 03 3f 	sts	0x3F03, r24	; 0x803f03 <x>
+ 122:	90 93 04 3f 	sts	0x3F04, r25	; 0x803f04 <x+0x1>
+ 126:	fa e2       	ldi	r31, 0x2A	; 42
+ 128:	2c e2       	ldi	r18, 0x2C	; 44
+ 12a:	8a e0       	ldi	r24, 0x0A	; 10
+ 12c:	f1 50       	subi	r31, 0x01	; 1
+ 12e:	20 40       	sbci	r18, 0x00	; 0
+ 130:	80 40       	sbci	r24, 0x00	; 0
+ 132:	e1 f7       	brne	.-8      	; 0x12c <__DATA_REGION_LENGTH__+0x2c>
+ 134:	00 00       	nop
+		}
+		_delay_ms(1000);
+		
 		// wait until button is released
 		allLEDoff();
-  fc:	d5 df       	rcall	.-86     	; 0xa8 <allLEDoff>
+ 136:	b8 df       	rcall	.-144    	; 0xa8 <allLEDoff>
 		
 		SLPCTRL.CTRLA |= SLPCTRL_SMODE_PDOWN_gc; // set POWER DOWN as sleep mode
-  fe:	88 81       	ld	r24, Y
- 100:	84 60       	ori	r24, 0x04	; 4
- 102:	88 83       	st	Y, r24
+ 138:	88 81       	ld	r24, Y
+ 13a:	84 60       	ori	r24, 0x04	; 4
+ 13c:	88 83       	st	Y, r24
 		SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
- 104:	88 81       	ld	r24, Y
- 106:	81 60       	ori	r24, 0x01	; 1
- 108:	88 83       	st	Y, r24
+ 13e:	88 81       	ld	r24, Y
+ 140:	81 60       	ori	r24, 0x01	; 1
+ 142:	88 83       	st	Y, r24
 		
 		cli();
- 10a:	f8 94       	cli
+ 144:	f8 94       	cli
+		manully_triggered  = 0 ; 
+ 146:	10 92 00 3f 	sts	0x3F00, r1	; 0x803f00 <__DATA_REGION_ORIGIN__>
 		PORTA_INTFLAGS |= PORT_INT7_bm;
- 10c:	f8 01       	movw	r30, r16
- 10e:	80 81       	ld	r24, Z
- 110:	80 68       	ori	r24, 0x80	; 128
- 112:	80 83       	st	Z, r24
+ 14a:	f8 01       	movw	r30, r16
+ 14c:	80 81       	ld	r24, Z
+ 14e:	80 68       	ori	r24, 0x80	; 128
+ 150:	80 83       	st	Z, r24
 		// Toggle state of pin 4
 		sei();
- 114:	78 94       	sei
+ 152:	78 94       	sei
 		sleep_cpu();
- 116:	88 95       	sleep
- 118:	e9 cf       	rjmp	.-46     	; 0xec <main+0x38>
-
-0000011a <__vector_3>:
-		
+ 154:	88 95       	sleep
 	}
+ 156:	ce cf       	rjmp	.-100    	; 0xf4 <main+0x40>
+
+00000158 <__vector_3>:
 
 
 }
 ISR(PORTA_PORT_vect) {
- 11a:	1f 92       	push	r1
- 11c:	0f 92       	push	r0
- 11e:	0f b6       	in	r0, 0x3f	; 63
- 120:	0f 92       	push	r0
- 122:	11 24       	eor	r1, r1
- 124:	8f 93       	push	r24
- 126:	ef 93       	push	r30
- 128:	ff 93       	push	r31
-
+ 158:	1f 92       	push	r1
+ 15a:	0f 92       	push	r0
+ 15c:	0f b6       	in	r0, 0x3f	; 63
+ 15e:	0f 92       	push	r0
+ 160:	11 24       	eor	r1, r1
+ 162:	8f 93       	push	r24
+ 164:	ef 93       	push	r30
+ 166:	ff 93       	push	r31
+	manully_triggered = 1;
+ 168:	81 e0       	ldi	r24, 0x01	; 1
+ 16a:	80 93 00 3f 	sts	0x3F00, r24	; 0x803f00 <__DATA_REGION_ORIGIN__>
 	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
- 12a:	e0 e0       	ldi	r30, 0x00	; 0
- 12c:	f4 e0       	ldi	r31, 0x04	; 4
- 12e:	81 85       	ldd	r24, Z+9	; 0x09
- 130:	80 64       	ori	r24, 0x40	; 64
- 132:	81 87       	std	Z+9, r24	; 0x09
+ 16e:	e0 e0       	ldi	r30, 0x00	; 0
+ 170:	f4 e0       	ldi	r31, 0x04	; 4
+ 172:	81 85       	ldd	r24, Z+9	; 0x09
+ 174:	80 64       	ori	r24, 0x40	; 64
+ 176:	81 87       	std	Z+9, r24	; 0x09
 }
- 134:	ff 91       	pop	r31
- 136:	ef 91       	pop	r30
- 138:	8f 91       	pop	r24
- 13a:	0f 90       	pop	r0
- 13c:	0f be       	out	0x3f, r0	; 63
- 13e:	0f 90       	pop	r0
- 140:	1f 90       	pop	r1
- 142:	18 95       	reti
+ 178:	ff 91       	pop	r31
+ 17a:	ef 91       	pop	r30
+ 17c:	8f 91       	pop	r24
+ 17e:	0f 90       	pop	r0
+ 180:	0f be       	out	0x3f, r0	; 63
+ 182:	0f 90       	pop	r0
+ 184:	1f 90       	pop	r1
+ 186:	18 95       	reti
 
-00000144 <__vector_7>:
+00000188 <__vector_7>:
 
 ISR(RTC_PIT_vect)
 {
- 144:	1f 92       	push	r1
- 146:	0f 92       	push	r0
- 148:	0f b6       	in	r0, 0x3f	; 63
- 14a:	0f 92       	push	r0
- 14c:	11 24       	eor	r1, r1
- 14e:	8f 93       	push	r24
+ 188:	1f 92       	push	r1
+ 18a:	0f 92       	push	r0
+ 18c:	0f b6       	in	r0, 0x3f	; 63
+ 18e:	0f 92       	push	r0
+ 190:	11 24       	eor	r1, r1
+ 192:	8f 93       	push	r24
 	RTC.PITINTFLAGS = RTC_PI_bm;// Clear interrupt flag
- 150:	81 e0       	ldi	r24, 0x01	; 1
- 152:	80 93 53 01 	sts	0x0153, r24	; 0x800153 <port_a_b_outs+0x7f7f69>
+ 194:	81 e0       	ldi	r24, 0x01	; 1
+ 196:	80 93 53 01 	sts	0x0153, r24	; 0x800153 <port_a_b_outs+0x7f7f25>
 }
- 156:	8f 91       	pop	r24
- 158:	0f 90       	pop	r0
- 15a:	0f be       	out	0x3f, r0	; 63
- 15c:	0f 90       	pop	r0
- 15e:	1f 90       	pop	r1
- 160:	18 95       	reti
+ 19a:	8f 91       	pop	r24
+ 19c:	0f 90       	pop	r0
+ 19e:	0f be       	out	0x3f, r0	; 63
+ 1a0:	0f 90       	pop	r0
+ 1a2:	1f 90       	pop	r1
+ 1a4:	18 95       	reti
 
-00000162 <__vector_8>:
+000001a6 <__vector_8>:
 
 ISR(TCA0_OVF_vect)
 {
- 162:	1f 92       	push	r1
- 164:	0f 92       	push	r0
- 166:	0f b6       	in	r0, 0x3f	; 63
- 168:	0f 92       	push	r0
- 16a:	11 24       	eor	r1, r1
- 16c:	2f 93       	push	r18
- 16e:	3f 93       	push	r19
- 170:	4f 93       	push	r20
- 172:	5f 93       	push	r21
- 174:	6f 93       	push	r22
- 176:	7f 93       	push	r23
- 178:	8f 93       	push	r24
- 17a:	9f 93       	push	r25
- 17c:	af 93       	push	r26
- 17e:	bf 93       	push	r27
- 180:	ef 93       	push	r30
- 182:	ff 93       	push	r31
+ 1a6:	1f 92       	push	r1
+ 1a8:	0f 92       	push	r0
+ 1aa:	0f b6       	in	r0, 0x3f	; 63
+ 1ac:	0f 92       	push	r0
+ 1ae:	11 24       	eor	r1, r1
+ 1b0:	2f 93       	push	r18
+ 1b2:	3f 93       	push	r19
+ 1b4:	4f 93       	push	r20
+ 1b6:	5f 93       	push	r21
+ 1b8:	6f 93       	push	r22
+ 1ba:	7f 93       	push	r23
+ 1bc:	8f 93       	push	r24
+ 1be:	9f 93       	push	r25
+ 1c0:	af 93       	push	r26
+ 1c2:	bf 93       	push	r27
+ 1c4:	ef 93       	push	r30
+ 1c6:	ff 93       	push	r31
 	i++;
- 184:	80 91 04 3f 	lds	r24, 0x3F04	; 0x803f04 <i>
- 188:	90 91 05 3f 	lds	r25, 0x3F05	; 0x803f05 <i+0x1>
- 18c:	01 96       	adiw	r24, 0x01	; 1
- 18e:	80 93 04 3f 	sts	0x3F04, r24	; 0x803f04 <i>
- 192:	90 93 05 3f 	sts	0x3F05, r25	; 0x803f05 <i+0x1>
+ 1c8:	80 91 05 3f 	lds	r24, 0x3F05	; 0x803f05 <i>
+ 1cc:	90 91 06 3f 	lds	r25, 0x3F06	; 0x803f06 <i+0x1>
+ 1d0:	01 96       	adiw	r24, 0x01	; 1
+ 1d2:	80 93 05 3f 	sts	0x3F05, r24	; 0x803f05 <i>
+ 1d6:	90 93 06 3f 	sts	0x3F06, r25	; 0x803f06 <i+0x1>
 	
-	if (i<x){LEDOnById(i);}
- 196:	20 91 02 3f 	lds	r18, 0x3F02	; 0x803f02 <x>
- 19a:	30 91 03 3f 	lds	r19, 0x3F03	; 0x803f03 <x+0x1>
- 19e:	82 17       	cp	r24, r18
- 1a0:	93 07       	cpc	r25, r19
- 1a2:	14 f4       	brge	.+4      	; 0x1a8 <__vector_8+0x46>
- 1a4:	75 df       	rcall	.-278    	; 0x90 <LEDOnById>
- 1a6:	01 c0       	rjmp	.+2      	; 0x1aa <__vector_8+0x48>
+	if (i<=x){LEDOnById(i);}
+ 1da:	20 91 03 3f 	lds	r18, 0x3F03	; 0x803f03 <x>
+ 1de:	30 91 04 3f 	lds	r19, 0x3F04	; 0x803f04 <x+0x1>
+ 1e2:	28 17       	cp	r18, r24
+ 1e4:	39 07       	cpc	r19, r25
+ 1e6:	14 f0       	brlt	.+4      	; 0x1ec <__vector_8+0x46>
+ 1e8:	53 df       	rcall	.-346    	; 0x90 <LEDOnById>
+ 1ea:	01 c0       	rjmp	.+2      	; 0x1ee <__vector_8+0x48>
 	else{allLEDoff();}
- 1a8:	7f df       	rcall	.-258    	; 0xa8 <allLEDoff>
+ 1ec:	5d df       	rcall	.-326    	; 0xa8 <allLEDoff>
 	
 	if (i>16){i=0;}
- 1aa:	80 91 04 3f 	lds	r24, 0x3F04	; 0x803f04 <i>
- 1ae:	90 91 05 3f 	lds	r25, 0x3F05	; 0x803f05 <i+0x1>
- 1b2:	41 97       	sbiw	r24, 0x11	; 17
- 1b4:	24 f0       	brlt	.+8      	; 0x1be <__vector_8+0x5c>
- 1b6:	10 92 04 3f 	sts	0x3F04, r1	; 0x803f04 <i>
- 1ba:	10 92 05 3f 	sts	0x3F05, r1	; 0x803f05 <i+0x1>
+ 1ee:	80 91 05 3f 	lds	r24, 0x3F05	; 0x803f05 <i>
+ 1f2:	90 91 06 3f 	lds	r25, 0x3F06	; 0x803f06 <i+0x1>
+ 1f6:	41 97       	sbiw	r24, 0x11	; 17
+ 1f8:	24 f0       	brlt	.+8      	; 0x202 <__vector_8+0x5c>
+ 1fa:	10 92 05 3f 	sts	0x3F05, r1	; 0x803f05 <i>
+ 1fe:	10 92 06 3f 	sts	0x3F06, r1	; 0x803f06 <i+0x1>
 
 	// The interrupt flag has to be cleared manually
 	TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;
- 1be:	81 e0       	ldi	r24, 0x01	; 1
- 1c0:	80 93 0b 0a 	sts	0x0A0B, r24	; 0x800a0b <port_a_b_outs+0x7f8821>
+ 202:	81 e0       	ldi	r24, 0x01	; 1
+ 204:	80 93 0b 0a 	sts	0x0A0B, r24	; 0x800a0b <port_a_b_outs+0x7f87dd>
 }
- 1c4:	ff 91       	pop	r31
- 1c6:	ef 91       	pop	r30
- 1c8:	bf 91       	pop	r27
- 1ca:	af 91       	pop	r26
- 1cc:	9f 91       	pop	r25
- 1ce:	8f 91       	pop	r24
- 1d0:	7f 91       	pop	r23
- 1d2:	6f 91       	pop	r22
- 1d4:	5f 91       	pop	r21
- 1d6:	4f 91       	pop	r20
- 1d8:	3f 91       	pop	r19
- 1da:	2f 91       	pop	r18
- 1dc:	0f 90       	pop	r0
- 1de:	0f be       	out	0x3f, r0	; 63
- 1e0:	0f 90       	pop	r0
- 1e2:	1f 90       	pop	r1
- 1e4:	18 95       	reti
+ 208:	ff 91       	pop	r31
+ 20a:	ef 91       	pop	r30
+ 20c:	bf 91       	pop	r27
+ 20e:	af 91       	pop	r26
+ 210:	9f 91       	pop	r25
+ 212:	8f 91       	pop	r24
+ 214:	7f 91       	pop	r23
+ 216:	6f 91       	pop	r22
+ 218:	5f 91       	pop	r21
+ 21a:	4f 91       	pop	r20
+ 21c:	3f 91       	pop	r19
+ 21e:	2f 91       	pop	r18
+ 220:	0f 90       	pop	r0
+ 222:	0f be       	out	0x3f, r0	; 63
+ 224:	0f 90       	pop	r0
+ 226:	1f 90       	pop	r1
+ 228:	18 95       	reti
 
-000001e6 <_exit>:
- 1e6:	f8 94       	cli
+0000022a <_exit>:
+ 22a:	f8 94       	cli
 
-000001e8 <__stop_program>:
- 1e8:	ff cf       	rjmp	.-2      	; 0x1e8 <__stop_program>
+0000022c <__stop_program>:
+ 22c:	ff cf       	rjmp	.-2      	; 0x22c <__stop_program>

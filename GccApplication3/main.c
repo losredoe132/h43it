@@ -39,6 +39,7 @@ const uint8_t port_a_b_outs[17][2]={
 
 const uint8_t btn_pin = PIN6_bm;
 
+volatile uint8_t manully_triggered = 0;
 volatile int x ;
 int i ;
 int j ;
@@ -54,11 +55,11 @@ void RTCA_init(int RTCdelay)
 	
 }
 void RTC_PIT_init(){
-	RTC.CLKSEL = RTC_CLKSEL_INT1K_gc; 
+	RTC.CLKSEL = RTC_CLKSEL_INT1K_gc;
 	while (RTC.PITSTATUS > 0) { /* Wait for all register to be synchronized */
 	}
 	RTC.PITINTCTRL = RTC_PI_bm;
-	RTC.PITCTRLA = RTC_PERIOD_CYC512_gc | RTC_PITEN_bm;
+	RTC.PITCTRLA = RTC_PERIOD_CYC8192_gc | RTC_PITEN_bm;
 }
 
 
@@ -104,15 +105,28 @@ int main() {
 	// Button setup
 	PORTA.PIN6CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
 
-	x=8;
+	x=1;
 	i=0;
 
 	sei(); // Set global interrupts
 	
+
+	
 	while(1){
 		// TODO AWAKEING Animation!
 		
+	if (manully_triggered>0){
+	RTC_PIT_init();
+	}
+		
 		_delay_ms(1000);
+		
+		if  (~PORTA.IN & btn_pin)
+		{
+			x++;
+		}
+		_delay_ms(1000);
+		
 		// wait until button is released
 		allLEDoff();
 		
@@ -120,17 +134,17 @@ int main() {
 		SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
 		
 		cli();
+		manully_triggered  = 0 ; 
 		PORTA_INTFLAGS |= PORT_INT7_bm;
 		// Toggle state of pin 4
 		sei();
 		sleep_cpu();
-		
 	}
 
 
 }
 ISR(PORTA_PORT_vect) {
-
+	manully_triggered = 1;
 	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
 }
 
@@ -143,7 +157,7 @@ ISR(TCA0_OVF_vect)
 {
 	i++;
 	
-	if (i<x){LEDOnById(i);}
+	if (i<=x){LEDOnById(i);}
 	else{allLEDoff();}
 	
 	if (i>16){i=0;}
