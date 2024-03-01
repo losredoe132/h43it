@@ -1,6 +1,7 @@
 #define F_CPU 3333333
 #define STAY_ON_TIME 5 // s
 #define RUN_TROUGH_SPEED 1 // ms
+#define TCB_CMP_EXAMPLE_VALUE   (0xffff)
 
 #include <avr/io.h>
 
@@ -54,13 +55,7 @@ void RTCA_init(int RTCdelay)
 	| 0 << RTC_RUNSTDBY_bp;   /* Run In Standby: disabled */
 	
 }
-void RTC_PIT_init(){
-	RTC.CLKSEL = RTC_CLKSEL_INT1K_gc;
-	while (RTC.PITSTATUS > 0) { /* Wait for all register to be synchronized */
-	}
-	RTC.PITINTCTRL = RTC_PI_bm;
-	RTC.PITCTRLA = RTC_PERIOD_CYC8192_gc | RTC_PITEN_bm;
-}
+
 
 
 void TCA0_init(int TCAdelay)
@@ -81,6 +76,18 @@ void TCA0_init(int TCAdelay)
 	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1024_gc | TCA_SINGLE_ENABLE_bm;    /* source (sys_clk/8) +  start timer */
 }
 
+void TCB0_init (void)
+{
+	/* Load the Compare or Capture register with the timeout value*/
+	TCB0.CCMP = TCB_CMP_EXAMPLE_VALUE;
+	
+	/* Enable TCB and set CLK_PER divider to 1 (No Prescaling) */
+	TCB0.CTRLA = TCB_CLKSEL_CLKDIV1_gc | TCB_ENABLE_bm | TCB_RUNSTDBY_bm;
+	
+	/* Enable Capture or Timeout interrupt */
+	TCB0.INTCTRL = TCB_CAPT_bm;
+}
+
 
 void LEDOnById(int i){
 	PORTA.OUT = port_a_b_outs[i][0];
@@ -97,7 +104,7 @@ int main() {
 
 	//RTCA_init(10); // set periodic RTC triggering "awakening" delay in seconds
 	TCA0_init(1);
-	RTC_PIT_init();
+	TCB0_init();
 	
 	PORTA.DIRSET = 0b10111111;
 	PORTB.DIRSET = 0b11111111;
@@ -115,30 +122,28 @@ int main() {
 	while(1){
 		// TODO AWAKEING Animation!
 		
-	if (manully_triggered>0){
-	RTC_PIT_init();
-	}
+	;
 		
-		_delay_ms(1000);
-		
-		if  (~PORTA.IN & btn_pin)
-		{
-			x++;
-		}
-		_delay_ms(1000);
-		
-		// wait until button is released
-		allLEDoff();
-		
-		SLPCTRL.CTRLA |= SLPCTRL_SMODE_PDOWN_gc; // set POWER DOWN as sleep mode
-		SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
-		
-		cli();
-		manully_triggered  = 0 ; 
-		PORTA_INTFLAGS |= PORT_INT7_bm;
-		// Toggle state of pin 4
-		sei();
-		sleep_cpu();
+// 		_delay_ms(1000);
+// 		
+// 		if  (~PORTA.IN & btn_pin)
+// 		{
+// 			x++;
+// 		}
+// 		_delay_ms(1000);
+// 		
+// 		// wait until button is released
+// 		allLEDoff();
+// 		
+// 		SLPCTRL.CTRLA |= SLPCTRL_SMODE_PDOWN_gc; // set POWER DOWN as sleep mode
+// 		SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
+// 		
+// 		cli();
+// 		manully_triggered  = 0 ; 
+// 		PORTA_INTFLAGS |= PORT_INT7_bm;
+// 		// Toggle state of pin 4
+// 		sei();
+// 		sleep_cpu();
 	}
 
 
@@ -164,4 +169,12 @@ ISR(TCA0_OVF_vect)
 
 	// The interrupt flag has to be cleared manually
 	TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;
+}
+
+
+ISR(TCB0_INT_vect)
+{
+	TCB0.INTFLAGS = TCB_CAPT_bm; /* Clear the interrupt flag */
+x++;
+if(x>16){x=0;}
 }
