@@ -47,17 +47,6 @@ int j ;
 volatile uint8_t consecutive_counts_pressed ;
 volatile uint8_t consecutive_counts_released ;
 
-void RTCA_init(int RTCdelay)
-{
-	while (RTC.STATUS > 0) { /* Wait for all register to be synchronized */
-	}
-
-	RTC.CTRLA = RTC_PRESCALER_DIV32768_gc /* 32768 */
-	| 1 << RTC_RTCEN_bp       /* Enable: enabled */
-	| 0 << RTC_RUNSTDBY_bp;   /* Run In Standby: disabled */
-	
-}
-
 
 
 void TCA0_init(int TCAdelay)
@@ -84,7 +73,7 @@ void TCB0_init (void)
 	TCB0.CCMP = TCB_CMP_EXAMPLE_VALUE;
 	
 	/* Enable TCB and set CLK_PER divider to 1 (No Prescaling) */
-	TCB0.CTRLA = TCB_CLKSEL_CLKDIV1_gc | TCB_ENABLE_bm | TCB_RUNSTDBY_bm;
+	TCB0.CTRLA = TCB_CLKSEL_CLKDIV1_gc | TCB_ENABLE_bm ;
 	
 	/* Enable Capture or Timeout interrupt */
 	TCB0.INTCTRL = TCB_CAPT_bm;
@@ -104,7 +93,7 @@ void allLEDoff(){
 int main() {
 
 
-	//RTCA_init(10); // set periodic RTC triggering "awakening" delay in seconds
+	//RTCA_init(1); // set periodic RTC triggering "awakening" delay in seconds
 	TCA0_init(1);
 	TCB0_init();
 	
@@ -121,24 +110,30 @@ int main() {
 	consecutive_counts_released=0;
 
 	sei();
+
 	
 	while (consecutive_counts_released<10){;}
 
 	// TODO AWAKEING Animation!
 
-	// 		SLPCTRL.CTRLA |= SLPCTRL_SMODE_PDOWN_gc; // set POWER DOWN as sleep mode
-	// 		SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
+	SLPCTRL.CTRLA |= SLPCTRL_SMODE_STDBY_gc; // set POWER DOWN as sleep mode
+	SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
 	// wait until user releases button
 
 
 	
 	while(1){
+		
+		if (consecutive_counts_pressed>50){
 			
-			if (consecutive_counts_pressed>50){
-				x ++;
-				while (consecutive_counts_released<10){;}
-	
-			}
+			x ++;
+			while (consecutive_counts_released<10){;}
+			
+		}
+		if (consecutive_counts_released>100){
+			allLEDoff();
+			sleep_cpu();
+		}
 
 		
 
@@ -155,14 +150,13 @@ int main() {
 
 }
 ISR(PORTA_PORT_vect) {
-	manully_triggered = 1;
 	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
 }
 
-// ISR(RTC_PIT_vect)
-// {
-// 	RTC.PITINTFLAGS = RTC_PI_bm;// Clear interrupt flag
-// }
+ISR(RTC_PIT_vect)
+{
+	RTC.PITINTFLAGS = RTC_PI_bm;// Clear interrupt flag
+}
 
 ISR(TCA0_OVF_vect)
 {
