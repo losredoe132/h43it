@@ -44,6 +44,8 @@ volatile uint8_t manully_triggered = 0;
 volatile int x ;
 int i ;
 int j ;
+volatile uint8_t consecutive_counts_pressed ;
+volatile uint8_t consecutive_counts_released ;
 
 void RTCA_init(int RTCdelay)
 {
@@ -115,6 +117,9 @@ int main() {
 	x=1;
 	i=0;
 
+consecutive_counts_pressed=0;
+consecutive_counts_released=0; 
+
 	sei(); // Set global interrupts
 	
 
@@ -161,6 +166,7 @@ ISR(RTC_PIT_vect)
 ISR(TCA0_OVF_vect)
 {
 	i++;
+	x = consecutive_counts_pressed;
 	
 	if (i<=x){LEDOnById(i);}
 	else{allLEDoff();}
@@ -174,7 +180,15 @@ ISR(TCA0_OVF_vect)
 
 ISR(TCB0_INT_vect)
 {
+	
+	if (~PORTA.IN & btn_pin){
+		consecutive_counts_pressed++;
+		consecutive_counts_released=0;
+	}
+	else{
+		consecutive_counts_pressed=0;
+		consecutive_counts_released++;
+	}
 	TCB0.INTFLAGS = TCB_CAPT_bm; /* Clear the interrupt flag */
-x++;
-if(x>16){x=0;}
+
 }
