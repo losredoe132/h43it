@@ -114,41 +114,42 @@ int main() {
 	// Button setup
 	PORTA.PIN6CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
 
-	x=1;
+	x=7;
 	i=0;
 
-consecutive_counts_pressed=0;
-consecutive_counts_released=0; 
+	consecutive_counts_pressed=0;
+	consecutive_counts_released=0;
 
-	sei(); // Set global interrupts
+	sei();
 	
+	while (consecutive_counts_released<10){;}
+
+	// TODO AWAKEING Animation!
+
+	// 		SLPCTRL.CTRLA |= SLPCTRL_SMODE_PDOWN_gc; // set POWER DOWN as sleep mode
+	// 		SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
+	// wait until user releases button
+
 
 	
 	while(1){
-		// TODO AWAKEING Animation!
+			
+			if (consecutive_counts_pressed>50){
+				x ++;
+				while (consecutive_counts_released<10){;}
+	
+			}
+
 		
-	;
-		
-// 		_delay_ms(1000);
-// 		
-// 		if  (~PORTA.IN & btn_pin)
-// 		{
-// 			x++;
-// 		}
-// 		_delay_ms(1000);
-// 		
-// 		// wait until button is released
-// 		allLEDoff();
-// 		
-// 		SLPCTRL.CTRLA |= SLPCTRL_SMODE_PDOWN_gc; // set POWER DOWN as sleep mode
-// 		SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
-// 		
-// 		cli();
-// 		manully_triggered  = 0 ; 
-// 		PORTA_INTFLAGS |= PORT_INT7_bm;
-// 		// Toggle state of pin 4
-// 		sei();
-// 		sleep_cpu();
+
+		//
+		// 		//
+		//
+		// 		// 		manully_triggered  = 0 ;
+		// 		// 		PORTA_INTFLAGS |= PORT_INT7_bm;
+		// 		// 		// Toggle state of pin 4
+		//
+		//
 	}
 
 
@@ -158,15 +159,14 @@ ISR(PORTA_PORT_vect) {
 	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
 }
 
-ISR(RTC_PIT_vect)
-{
-	RTC.PITINTFLAGS = RTC_PI_bm;// Clear interrupt flag
-}
+// ISR(RTC_PIT_vect)
+// {
+// 	RTC.PITINTFLAGS = RTC_PI_bm;// Clear interrupt flag
+// }
 
 ISR(TCA0_OVF_vect)
 {
 	i++;
-	x = consecutive_counts_pressed;
 	
 	if (i<=x){LEDOnById(i);}
 	else{allLEDoff();}
@@ -180,7 +180,7 @@ ISR(TCA0_OVF_vect)
 
 ISR(TCB0_INT_vect)
 {
-	
+	// Counting consecutive ticks of pressed or released button. Debouncing and short and long press detection.
 	if (~PORTA.IN & btn_pin){
 		consecutive_counts_pressed++;
 		consecutive_counts_released=0;
