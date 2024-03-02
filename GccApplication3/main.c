@@ -155,10 +155,10 @@ int main() {
 	SLPCTRL.CTRLA |= SLPCTRL_SMODE_STDBY_gc; // set POWER DOWN as sleep mode
 	SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
 	
+	printf("booting finished\n");
 	wait_until_button_released();
 
 	while(1){
-		
 		if (consecutive_counts_pressed> 25){
 			x++;
 			printf("Increasing x to %d\n", x);
@@ -166,16 +166,15 @@ int main() {
 			wait_until_button_released();
 		}
 		
-		if (consecutive_counts_released>50){
+		if (consecutive_counts_released>200){
 			printf("going to sleep...\n");
 			allLEDoff();
 			sleep_cpu();
-			printf("waking up...\n");
-// 
-// 			sei();
-// 			SLPCTRL.CTRLA |= SLPCTRL_SMODE_PDOWN_gc; // set POWER DOWN as sleep mode
-// 			SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
-			// wait until user releases button
+			consecutive_counts_pressed=0;
+			consecutive_counts_released=0;
+			_delay_ms(10);
+	
+			
 			wait_until_button_released();
 
 		}

@@ -285,7 +285,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x8f4
+.text           0x00000000      0x910
  *(.vectors)
  .vectors       0x00000000       0x34 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATtiny_DFP/1.10.348/gcc/dev/attiny414/avrxmega3/short-calls/crtattiny414.o
                 0x00000000                __vector_default
@@ -383,52 +383,52 @@ END GROUP
  .text.wait_until_button_released
                 0x000000c2       0x66 main.o
                 0x000000c2                wait_until_button_released
- .text.main     0x00000128       0xb0 main.o
+ .text.main     0x00000128       0xcc main.o
                 0x00000128                main
  .text.__vector_3
-                0x000001d8       0x2a main.o
-                0x000001d8                __vector_3
+                0x000001f4       0x2a main.o
+                0x000001f4                __vector_3
  .text.__vector_7
-                0x00000202       0x1e main.o
-                0x00000202                __vector_7
+                0x0000021e       0x1e main.o
+                0x0000021e                __vector_7
  .text.__vector_8
-                0x00000220       0x84 main.o
-                0x00000220                __vector_8
+                0x0000023c       0x84 main.o
+                0x0000023c                __vector_8
  .text.__vector_13
-                0x000002a4       0x60 main.o
-                0x000002a4                __vector_13
+                0x000002c0       0x60 main.o
+                0x000002c0                __vector_13
  .text.avr-libc
-                0x00000304       0x26 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3/short-calls\libc.a(printf.o)
-                0x00000304                printf
+                0x00000320       0x26 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3/short-calls\libc.a(printf.o)
+                0x00000320                printf
  .text.avr-libc
-                0x0000032a       0x60 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3/short-calls\libc.a(puts.o)
-                0x0000032a                puts
+                0x00000346       0x60 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3/short-calls\libc.a(puts.o)
+                0x00000346                puts
  .text.avr-libc
-                0x0000038a      0x3a4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3/short-calls\libc.a(vfprintf_std.o)
-                0x0000038a                vfprintf
+                0x000003a6      0x3a4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3/short-calls\libc.a(vfprintf_std.o)
+                0x000003a6                vfprintf
  .text.avr-libc
-                0x0000072e       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3/short-calls\libc.a(strnlen_P.o)
-                0x0000072e                strnlen_P
+                0x0000074a       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3/short-calls\libc.a(strnlen_P.o)
+                0x0000074a                strnlen_P
  .text.avr-libc
-                0x00000744       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3/short-calls\libc.a(strnlen.o)
-                0x00000744                strnlen
+                0x00000760       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3/short-calls\libc.a(strnlen.o)
+                0x00000760                strnlen
  .text.avr-libc
-                0x0000075a       0x78 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3/short-calls\libc.a(fputc.o)
-                0x0000075a                fputc
+                0x00000776       0x78 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3/short-calls\libc.a(fputc.o)
+                0x00000776                fputc
  .text.avr-libc
-                0x000007d2       0xbc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3/short-calls\libc.a(ultoa_invert.o)
-                0x000007d2                __ultoa_invert
+                0x000007ee       0xbc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3/short-calls\libc.a(ultoa_invert.o)
+                0x000007ee                __ultoa_invert
  .text.libgcc.prologue
-                0x0000088e       0x32 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_prologue.o)
-                0x0000088e                __prologue_saves__
+                0x000008aa       0x32 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_prologue.o)
+                0x000008aa                __prologue_saves__
  .text.libgcc.prologue
-                0x000008c0       0x30 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_epilogue.o)
-                0x000008c0                __epilogue_restores__
-                0x000008f0                . = ALIGN (0x2)
+                0x000008dc       0x30 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_epilogue.o)
+                0x000008dc                __epilogue_restores__
+                0x0000090c                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000008f0        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_exit.o)
-                0x000008f0                _exit
-                0x000008f0                exit
+ .fini9         0x0000090c        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_exit.o)
+                0x0000090c                _exit
+                0x0000090c                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -447,21 +447,21 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000008f0        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_exit.o)
+ .fini0         0x0000090c        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avrxmega3/short-calls\libgcc.a(_exit.o)
  *(.fini0)
-                0x000008f4                _etext = .
+                0x00000910                _etext = .
 
-.rodata         0x000088f4       0xb6 load address 0x000008f4
+.rodata         0x00008910       0xba load address 0x00000910
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x000088f4       0x94 main.o
+                0x00008910       0x98 main.o
  .rodata.port_a_b_outs
-                0x00008988       0x22 main.o
-                0x00008988                port_a_b_outs
+                0x000089a8       0x22 main.o
+                0x000089a8                port_a_b_outs
  *(.gnu.linkonce.r*)
 
-.data           0x00803f00        0x0 load address 0x000009aa
+.data           0x00803f00        0x0 load address 0x000009ca
                 0x00803f00                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -484,8 +484,8 @@ END GROUP
  COMMON         0x00803f0a        0x6 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avrxmega3/short-calls\libc.a(iob.o)
                 0x00803f0a                __iob
                 0x00803f10                PROVIDE (__bss_end, .)
-                0x000009aa                __data_load_start = LOADADDR (.data)
-                0x000009aa                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000009ca                __data_load_start = LOADADDR (.data)
+                0x000009ca                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00803f10        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -570,34 +570,34 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x278d
+.debug_info     0x00000000     0x2811
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000     0x1566 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATtiny_DFP/1.10.348/gcc/dev/attiny414/avrxmega3/short-calls/crtattiny414.o
- .debug_info    0x00001566     0x1227 main.o
+ .debug_info    0x00001566     0x12ab main.o
 
-.debug_abbrev   0x00000000     0x1756
+.debug_abbrev   0x00000000     0x17a4
  *(.debug_abbrev)
  .debug_abbrev  0x00000000     0x143e C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATtiny_DFP/1.10.348/gcc/dev/attiny414/avrxmega3/short-calls/crtattiny414.o
- .debug_abbrev  0x0000143e      0x318 main.o
+ .debug_abbrev  0x0000143e      0x366 main.o
 
-.debug_line     0x00000000      0x4b5
+.debug_line     0x00000000      0x531
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x136 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATtiny_DFP/1.10.348/gcc/dev/attiny414/avrxmega3/short-calls/crtattiny414.o
- .debug_line    0x00000136      0x37f main.o
+ .debug_line    0x00000136      0x3fb main.o
 
 .debug_frame    0x00000000      0x18c
  *(.debug_frame)
  .debug_frame   0x00000000      0x18c main.o
 
-.debug_str      0x00000000     0x11f0
+.debug_str      0x00000000     0x123b
  *(.debug_str)
  .debug_str     0x00000000      0x921 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATtiny_DFP/1.10.348/gcc/dev/attiny414/avrxmega3/short-calls/crtattiny414.o
- .debug_str     0x00000921      0x8cf main.o
-                                0x953 (size before relaxing)
+ .debug_str     0x00000921      0x91a main.o
+                                0x99e (size before relaxing)
 
-.debug_loc      0x00000000      0x307
+.debug_loc      0x00000000      0x34d
  *(.debug_loc)
- .debug_loc     0x00000000      0x307 main.o
+ .debug_loc     0x00000000      0x34d main.o
 
 .debug_macinfo
  *(.debug_macinfo)
