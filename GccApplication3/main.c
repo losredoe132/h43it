@@ -134,9 +134,13 @@ int main() {
 
 	// Button setup
 	PORTA.PIN6CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
-
+	
+	// Initalize variables
+	consecutive_counts_pressed=0;
+	consecutive_counts_released=0;
 	x=7;
 	i=0;
+	
 	sei();
 	SLPCTRL.CTRLA |= SLPCTRL_SMODE_STDBY_gc; // set POWER DOWN as sleep mode
 	SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
@@ -157,12 +161,13 @@ int main() {
 		
 		if (consecutive_counts_released>200){
 			printf("going to sleep...");
+			
 			sleep_cpu();
 			printf("waking up...");
 			consecutive_counts_pressed=0;
 			consecutive_counts_released=0;
 			sei();
-			SLPCTRL.CTRLA |= SLPCTRL_SMODE_STDBY_gc; // set POWER DOWN as sleep mode
+			SLPCTRL.CTRLA |= SLPCTRL_SMODE_PDOWN_gc; // set POWER DOWN as sleep mode
 			SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
 			// wait until user releases button
 			
