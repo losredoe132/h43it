@@ -122,6 +122,15 @@ void allLEDoff(){
 	PORTA.OUT = port_a_b_outs[0][0];
 	PORTB.OUT= port_a_b_outs[0][1];
 }
+
+void wait_until_button_released()
+{
+	while(consecutive_counts_released<6){printf("Waiting for release with consecutive_counts_pressed:%d, consecutive_counts_released:%d\n",consecutive_counts_pressed, consecutive_counts_released );}
+	consecutive_counts_pressed=0;
+	consecutive_counts_released=0;
+	printf("Released\n");
+}
+
 int main() {
 
 
@@ -134,8 +143,9 @@ int main() {
 
 	// Button setup
 	PORTA.PIN6CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
+
 	
-	// Initalize variables
+	// Initialize variables
 	consecutive_counts_pressed=0;
 	consecutive_counts_released=0;
 	x=7;
@@ -145,35 +155,28 @@ int main() {
 	SLPCTRL.CTRLA |= SLPCTRL_SMODE_STDBY_gc; // set POWER DOWN as sleep mode
 	SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
 	
-	while(consecutive_counts_released<6){printf("Waiting for release with consecutive_counts_pressed:%d, consecutive_counts_released:%d\n",consecutive_counts_pressed, consecutive_counts_released );}
-	printf("Released");
+	wait_until_button_released();
 
 	while(1){
 		
-		if (consecutive_counts_pressed> 10){
+		if (consecutive_counts_pressed> 25){
 			x++;
-			printf("Increasing x to %d", x);
-				consecutive_counts_pressed=0;
-				consecutive_counts_released=0;
-			while(consecutive_counts_released<6){printf("Waiting for release with consecutive_counts_pressed:%d, consecutive_counts_released:%d\n",consecutive_counts_pressed, consecutive_counts_released );}
-			printf("Released");
+			printf("Increasing x to %d\n", x);
+
+			wait_until_button_released();
 		}
 		
-		if (consecutive_counts_released>200){
-			printf("going to sleep...");
-			
+		if (consecutive_counts_released>50){
+			printf("going to sleep...\n");
+			allLEDoff();
 			sleep_cpu();
-			printf("waking up...");
-			consecutive_counts_pressed=0;
-			consecutive_counts_released=0;
-			sei();
-			SLPCTRL.CTRLA |= SLPCTRL_SMODE_PDOWN_gc; // set POWER DOWN as sleep mode
-			SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
+			printf("waking up...\n");
+// 
+// 			sei();
+// 			SLPCTRL.CTRLA |= SLPCTRL_SMODE_PDOWN_gc; // set POWER DOWN as sleep mode
+// 			SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
 			// wait until user releases button
-			
-			while(consecutive_counts_released<6){printf("Waiting for release with consecutive_counts_pressed:%d, consecutive_counts_released:%d\n",consecutive_counts_pressed, consecutive_counts_released );}
-			printf("Released");
-			
+			wait_until_button_released();
 
 		}
 		
