@@ -10,6 +10,7 @@
 #include <avr/interrupt.h>
 
 #include <stdint.h>
+#include <stdio.h>
 
 #include <util/delay.h>
 
@@ -38,14 +39,46 @@ const uint8_t port_a_b_outs[17][2]={
 	{0b11111101,0b00000010}, // LED 16
 };
 
+#define USART0_BAUD_RATE(BAUD_RATE) ((float)(F_CPU * 64 / (16 * (float)BAUD_RATE)) + 0.5)
+static void USART0_sendChar(char c)
+{
+	while (!(USART0.STATUS & USART_DREIF_bm))
+	{
+		;                                   /* Wait for USART ready for receiving next char */
+	}
+	USART0.TXDATAL = c;
+}
+
+static int USART0_printChar(char c, FILE *stream)
+{
+	USART0_sendChar(c);
+	return 0;
+}
+
+static FILE USART_stream = FDEV_SETUP_STREAM(USART0_printChar, NULL, _FDEV_SETUP_WRITE);
+
+void USART0_init(void)
+{
+
+	PORTB.DIR &= ~PIN3_bm;                  /* Configure RX pin as an input */
+	PORTB.DIR |= PIN2_bm;                   /* Configure TX pin as an output */
+
+	USART0.BAUD = (uint16_t)USART0_BAUD_RATE(9600);
+
+	USART0.CTRLB |= USART_TXEN_bm;          /* Transmitter Enable bit mask. */
+
+	stdout = &USART_stream;                 /* Bind UART to stdio output stream */
+}
+
+
 const uint8_t btn_pin = PIN6_bm;
 
 volatile uint8_t manully_triggered = 0;
 volatile int x ;
 int i ;
 int j ;
-volatile uint8_t consecutive_counts_pressed ;
-volatile uint8_t consecutive_counts_released ;
+volatile uint16_t consecutive_counts_pressed ;
+volatile uint16_t consecutive_counts_released ;
 
 
 
@@ -73,7 +106,7 @@ void TCB0_init (void)
 	TCB0.CCMP = TCB_CMP_EXAMPLE_VALUE;
 	
 	/* Enable TCB and set CLK_PER divider to 1 (No Prescaling) */
-	TCB0.CTRLA = TCB_CLKSEL_CLKDIV1_gc | TCB_ENABLE_bm ;
+	TCB0.CTRLA = TCB_CLKSEL_CLKDIV2_gc | TCB_ENABLE_bm ;
 	
 	/* Enable Capture or Timeout interrupt */
 	TCB0.INTCTRL = TCB_CAPT_bm;
@@ -89,56 +122,58 @@ void allLEDoff(){
 	PORTA.OUT = port_a_b_outs[0][0];
 	PORTB.OUT= port_a_b_outs[0][1];
 }
-
 int main() {
 
 
 	//RTCA_init(1); // set periodic RTC triggering "awakening" delay in seconds
 	TCA0_init(1);
 	TCB0_init();
-	
 	PORTA.DIRSET = 0b10111111;
 	PORTB.DIRSET = 0b11111111;
+	//USART0_init();
 
 	// Button setup
 	PORTA.PIN6CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
 
 	x=7;
 	i=0;
-
-	consecutive_counts_pressed=0;
-	consecutive_counts_released=0;
-
 	sei();
-
-	
-	while (consecutive_counts_released<10){;}
-
-	// TODO AWAKEING Animation!
-
 	SLPCTRL.CTRLA |= SLPCTRL_SMODE_STDBY_gc; // set POWER DOWN as sleep mode
 	SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
-	// wait until user releases button
-
-
 	
+	while(consecutive_counts_released<6){printf("Waiting for release with consecutive_counts_pressed:%d, consecutive_counts_released:%d\n",consecutive_counts_pressed, consecutive_counts_released );}
+	printf("Released");
+
 	while(1){
 		
-		if (consecutive_counts_pressed>50){
-			
-			x ++;
-			while (consecutive_counts_released<10){;}
-			
+		if (consecutive_counts_pressed> 10){
+			x++;
+			printf("Increasing x to %d", x);
+				consecutive_counts_pressed=0;
+				consecutive_counts_released=0;
+			while(consecutive_counts_released<6){printf("Waiting for release with consecutive_counts_pressed:%d, consecutive_counts_released:%d\n",consecutive_counts_pressed, consecutive_counts_released );}
+			printf("Released");
 		}
-		if (consecutive_counts_released>100){
-			allLEDoff();
-			_delay_ms(300);
-			//TCA0.SINGLE.CTRLA = 0x01;
-			TCB0.CTRLA =  0x01;
-		}
-
 		
+		if (consecutive_counts_released>200){
+			printf("going to sleep...");
+			sleep_cpu();
+			printf("waking up...");
+			consecutive_counts_pressed=0;
+			consecutive_counts_released=0;
+			sei();
+			SLPCTRL.CTRLA |= SLPCTRL_SMODE_STDBY_gc; // set POWER DOWN as sleep mode
+			SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
+			// wait until user releases button
+			
+			while(consecutive_counts_released<6){printf("Waiting for release with consecutive_counts_pressed:%d, consecutive_counts_released:%d\n",consecutive_counts_pressed, consecutive_counts_released );}
+			printf("Released");
+			
 
+		}
+		
+		// TODO AWAKEING Animation!
+		
 		
 	}
 
@@ -156,14 +191,15 @@ ISR(RTC_PIT_vect)
 ISR(TCA0_OVF_vect)
 {
 	i++;
-	
+
 	if (i<=x){LEDOnById(i);}
 	else{allLEDoff();}
-	
+
 	if (i>16){i=0;}
 
 	// The interrupt flag has to be cleared manually
 	TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;
+	
 }
 
 
@@ -179,5 +215,4 @@ ISR(TCB0_INT_vect)
 		consecutive_counts_released++;
 	}
 	TCB0.INTFLAGS = TCB_CAPT_bm; /* Clear the interrupt flag */
-
 }
