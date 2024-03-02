@@ -132,19 +132,14 @@ int main() {
 		}
 		if (consecutive_counts_released>100){
 			allLEDoff();
-			sleep_cpu();
+			_delay_ms(300);
+			//TCA0.SINGLE.CTRLA = 0x01;
+			TCB0.CTRLA =  0x01;
 		}
 
 		
 
-		//
-		// 		//
-		//
-		// 		// 		manully_triggered  = 0 ;
-		// 		// 		PORTA_INTFLAGS |= PORT_INT7_bm;
-		// 		// 		// Toggle state of pin 4
-		//
-		//
+		
 	}
 
 
