@@ -2,7 +2,8 @@
 #define STAY_ON_TIME 5 // s
 #define RUN_TROUGH_SPEED 1 // ms
 #define TCB_CMP_EXAMPLE_VALUE   (0xffff)
-
+#define TCAdelay 1
+#define RTCdelay
 #include <avr/io.h>
 
 #include <avr/sleep.h>
@@ -75,14 +76,24 @@ const uint8_t btn_pin = PIN6_bm;
 
 volatile uint8_t manully_triggered = 0;
 volatile int x ;
+volatile uint8_t pit_interrupt;
 int i ;
 int j ;
 volatile uint16_t consecutive_counts_pressed ;
 volatile uint16_t consecutive_counts_released ;
+volatile uint16_t pit_interrupts_since_last_increase;
 
 
+void RTCA_init(){
+	RTC.CLKSEL = RTC_CLKSEL_INT1K_gc;				// 1024 Hz from OSCULP32K
+	RTC.CTRLA = RTC_RTCEN_bm;					// enable RTC
+	RTC.PITINTCTRL = RTC_PI_bm;					// enable periodic interrupt
+	RTC.PITCTRLA = RTC_PERIOD_CYC8192_gc | RTC_PITEN_bm;		// set period; enable PIT
+	//RTC.PITCTRLA = RTC_PERIOD_CYC1024_gc | RTC_PITEN_bm;		// set period; enable PIT
+	
+}
 
-void TCA0_init(int TCAdelay)
+void TCA0_init()
 {
 	// enable overflow interrupt
 	TCA0.SINGLE.INTCTRL = TCA_SINGLE_OVF_bm;
@@ -134,12 +145,13 @@ void wait_until_button_released()
 int main() {
 
 
-	//RTCA_init(1); // set periodic RTC triggering "awakening" delay in seconds
-	TCA0_init(1);
+	RTCA_init(10); // set periodic RTC triggering "awakening" delay in seconds
+	TCA0_init();
 	TCB0_init();
+	//USART0_init();
+
 	PORTA.DIRSET = 0b10111111;
 	PORTB.DIRSET = 0b11111111;
-	//USART0_init();
 
 	// Button setup
 	PORTA.PIN6CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
@@ -148,8 +160,10 @@ int main() {
 	// Initialize variables
 	consecutive_counts_pressed=0;
 	consecutive_counts_released=0;
-	x=7;
+	pit_interrupts_since_last_increase=0; // TODO read this from EEPROM
+	x=5;
 	i=0;
+	pit_interrupt=0;
 	
 	sei();
 	SLPCTRL.CTRLA |= SLPCTRL_SMODE_STDBY_gc; // set POWER DOWN as sleep mode
@@ -160,8 +174,19 @@ int main() {
 
 	while(1){
 		if (consecutive_counts_pressed> 25){
-			x++;
-			printf("Increasing x to %d\n", x);
+			
+			if (pit_interrupts_since_last_increase< 2){
+				printf("Increase not possible because not enough time has passed since the last time.\n");
+				allLEDoff();
+				_delay_ms(250);
+			}
+			else{
+				printf("Increasing x to %d \n", x);
+				
+				x++;
+				pit_interrupts_since_last_increase =0 ;
+				
+			}
 
 			wait_until_button_released();
 		}
@@ -170,14 +195,42 @@ int main() {
 			printf("going to sleep...\n");
 			allLEDoff();
 			sleep_cpu();
-			consecutive_counts_pressed=0;
-			consecutive_counts_released=0;
-			_delay_ms(10);
-	
 			
-			wait_until_button_released();
+			
+			if (pit_interrupt==0){
+				consecutive_counts_pressed=0;
+				consecutive_counts_released=0;
+				_delay_ms(10);
+				wait_until_button_released();
+			}
+
 
 		}
+		
+		if (pit_interrupt==1){
+			allLEDoff();
+			_delay_ms(10);
+			
+			pit_interrupt=0;
+			pit_interrupts_since_last_increase++;
+			if (pit_interrupts_since_last_increase > 3){
+				printf("Reseting x due to long inactivity\n");
+				x= 1;
+			}
+			printf("again just PIT with %d \n", pit_interrupts_since_last_increase);
+
+			allLEDoff();
+			
+			if (pit_interrupts_since_last_increase%5){
+				printf("every nth PIT should be visible\n ");
+			}
+			else{
+				sleep_cpu();
+			}
+			
+		}
+		
+
 		
 		// TODO AWAKEING Animation!
 		
@@ -187,22 +240,25 @@ int main() {
 
 }
 ISR(PORTA_PORT_vect) {
+	pit_interrupt = 0 ;
 	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
 }
 
 ISR(RTC_PIT_vect)
 {
+	pit_interrupt = 1;
 	RTC.PITINTFLAGS = RTC_PI_bm;// Clear interrupt flag
 }
 
 ISR(TCA0_OVF_vect)
 {
+	// "Running" trough the LED table defined above and switch LEDs on & off according to the x value
 	i++;
 
 	if (i<=x){LEDOnById(i);}
 	else{allLEDoff();}
 
-	if (i>16){i=0;}
+	if (i>16){i=0;} // i overflow carrying
 
 	// The interrupt flag has to be cleared manually
 	TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;
@@ -212,7 +268,7 @@ ISR(TCA0_OVF_vect)
 
 ISR(TCB0_INT_vect)
 {
-	// Counting consecutive ticks of pressed or released button. Debouncing and short and long press detection.
+	// Counting consecutive ticks of pressed or released button. Use case: Debouncing and short and long press detection.
 	if (~PORTA.IN & btn_pin){
 		consecutive_counts_pressed++;
 		consecutive_counts_released=0;
