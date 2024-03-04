@@ -88,7 +88,7 @@ void RTCA_init(){
 	RTC.CLKSEL = RTC_CLKSEL_INT1K_gc;				// 1024 Hz from OSCULP32K
 	RTC.CTRLA = RTC_RTCEN_bm;					// enable RTC
 	RTC.PITINTCTRL = RTC_PI_bm;					// enable periodic interrupt
-	RTC.PITCTRLA = RTC_PERIOD_CYC8192_gc | RTC_PITEN_bm;		// set period; enable PIT
+	RTC.PITCTRLA = RTC_PERIOD_CYC32768_gc | RTC_PITEN_bm;		// set period; enable PIT
 	//RTC.PITCTRLA = RTC_PERIOD_CYC1024_gc | RTC_PITEN_bm;		// set period; enable PIT
 	
 }
@@ -161,7 +161,7 @@ int main() {
 	consecutive_counts_pressed=0;
 	consecutive_counts_released=0;
 	pit_interrupts_since_last_increase=0; // TODO read this from EEPROM
-	x=5;
+	x=1;
 	i=0;
 	pit_interrupt=0;
 	
@@ -173,9 +173,9 @@ int main() {
 	wait_until_button_released();
 
 	while(1){
-		if (consecutive_counts_pressed> 25){
+		if (consecutive_counts_pressed> 10){
 			
-			if (pit_interrupts_since_last_increase< 2){
+			if (pit_interrupts_since_last_increase< 0){
 				printf("Increase not possible because not enough time has passed since the last time.\n");
 				allLEDoff();
 				_delay_ms(250);
@@ -184,6 +184,8 @@ int main() {
 				printf("Increasing x to %d \n", x);
 				
 				x++;
+				if (x>16){x=1;} // i overflow carrying
+		
 				pit_interrupts_since_last_increase =0 ;
 				
 			}
@@ -213,7 +215,7 @@ int main() {
 			
 			pit_interrupt=0;
 			pit_interrupts_since_last_increase++;
-			if (pit_interrupts_since_last_increase > 3){
+			if (pit_interrupts_since_last_increase > 90){
 				printf("Reseting x due to long inactivity\n");
 				x= 1;
 			}
@@ -223,6 +225,7 @@ int main() {
 			
 			if (pit_interrupts_since_last_increase%5){
 				printf("every nth PIT should be visible\n ");
+				
 			}
 			else{
 				sleep_cpu();
