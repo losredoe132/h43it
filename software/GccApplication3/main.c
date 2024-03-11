@@ -79,6 +79,7 @@ volatile int x ;
 volatile uint8_t pit_interrupt;
 int i ;
 int j ;
+int c;
 volatile uint16_t consecutive_counts_pressed ;
 volatile uint16_t consecutive_counts_released ;
 volatile uint16_t pit_interrupts_since_last_increase;
@@ -117,7 +118,7 @@ void TCB0_init (void)
 	TCB0.CCMP = TCB_CMP_EXAMPLE_VALUE;
 	
 	/* Enable TCB and set CLK_PER divider to 1 (No Prescaling) */
-	TCB0.CTRLA = TCB_CLKSEL_CLKDIV2_gc | TCB_ENABLE_bm ;
+	TCB0.CTRLA = TCB_CLKSEL_CLKDIV1_gc | TCB_ENABLE_bm ;
 	
 	/* Enable Capture or Timeout interrupt */
 	TCB0.INTCTRL = TCB_CAPT_bm;
@@ -161,7 +162,7 @@ int main() {
 	consecutive_counts_pressed=0;
 	consecutive_counts_released=0;
 	pit_interrupts_since_last_increase=0; // TODO read this from EEPROM
-	x=1;
+	x=10;
 	i=0;
 	pit_interrupt=0;
 	
@@ -173,7 +174,7 @@ int main() {
 	wait_until_button_released();
 
 	while(1){
-		if (consecutive_counts_pressed> 10){
+		if (consecutive_counts_pressed> 5){
 			
 			if (pit_interrupts_since_last_increase< 0){
 				printf("Increase not possible because not enough time has passed since the last time.\n");
@@ -184,13 +185,20 @@ int main() {
 				printf("Increasing x to %d \n", x);
 				
 				x++;
-				if (x>16){x=1;} // i overflow carrying
-		
+				
+				
 				pit_interrupts_since_last_increase =0 ;
 				
 			}
 
 			wait_until_button_released();
+			if (x>16){
+				
+				for ( c=16; c>=1; c--){x=c;_delay_ms(100);				}
+				for ( c=1; c<=16; c++){x=c;_delay_ms(100);				}
+				for ( c=16; c>=1; c--){x=c;_delay_ms(100);				}
+				
+			x=1;} // i overflow carrying
 		}
 		
 		if (consecutive_counts_released>200){
@@ -215,7 +223,7 @@ int main() {
 			
 			pit_interrupt=0;
 			pit_interrupts_since_last_increase++;
-			if (pit_interrupts_since_last_increase > 90){
+			if (pit_interrupts_since_last_increase > 360){
 				printf("Reseting x due to long inactivity\n");
 				x= 1;
 			}
