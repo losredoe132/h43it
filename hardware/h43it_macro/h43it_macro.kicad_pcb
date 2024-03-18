@@ -39,6 +39,8 @@
 
   (setup
     (pad_to_mask_clearance 0)
+    (aux_axis_origin 115 70)
+    (grid_origin 115 70)
     (pcbplotparams
       (layerselection 0x00010fc_ffffffff)
       (plot_on_all_layers_selection 0x0000000_00000000)
@@ -216,7 +218,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 07e9108c-ad87-432a-9ac6-04e62047d19f)
-    (at 60.2255 56.388)
+    (at 75 28)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -274,7 +276,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 08dab05d-e1ba-476b-b525-c444ff7edfaa)
-    (at 47.2165 136.071)
+    (at 121.5625 125.994)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -536,7 +538,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 14fd971c-67fb-4b83-af01-b2fc5a9992bc)
-    (at 47.2165 156.059)
+    (at 72.5625 73.991)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -594,7 +596,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 17645fe2-157e-4ae2-8ce4-f3bdd3d75290)
-    (at 47.2165 151.062)
+    (at 72.5625 68.994)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -652,7 +654,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 18020799-cd72-472b-9d12-e54705d69190)
-    (at 43.7665 111.086)
+    (at 151.55 53.5)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -710,7 +712,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 2ad2e3c1-0d77-4226-9dde-9986564cec89)
-    (at 43.7665 106.089)
+    (at 151.55 48.503)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -768,7 +770,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 2ed33953-469b-4e03-986d-bf1e72922cd8)
-    (at 43.7665 101.092)
+    (at 156.9375 33.5)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -826,7 +828,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 36b389f5-887d-41c1-9693-3d4421d3e571)
-    (at 43.7665 156.059)
+    (at 69.1125 73.991)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -884,7 +886,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 36bda63c-8b55-43ff-a88d-81bb69891c27)
-    (at 43.7665 141.068)
+    (at 69.1125 59)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -996,7 +998,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 48112694-82df-4520-a3a2-521cd2f1825b)
-    (at 43.7665 151.062)
+    (at 69.1125 68.994)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -1054,7 +1056,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 5c6203b9-a1f4-45ef-aaa1-d3ecc87911e0)
-    (at 43.7665 121.08)
+    (at 118.1125 111.003)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -1166,7 +1168,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 6de4237f-2a5c-460d-9fe3-85401220f576)
-    (at 74.02 56.388)
+    (at 99.968 27.746)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -1224,7 +1226,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 7be1aaf1-5e50-43e2-bf8e-ee53f9876388)
-    (at 70.57 56.388)
+    (at 96.518 27.746)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -1282,7 +1284,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 7e99a5c0-04bf-4cf2-8569-f78e3a87fef3)
-    (at 47.2165 116.083)
+    (at 155 58.497)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -1340,7 +1342,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 8b766715-e127-441f-90f3-13c81affed0f)
-    (at 82.9885 56.388)
+    (at 108.9365 27.746)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -1398,7 +1400,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 8c4751f4-dfaa-4846-88a2-c23c423b4a7c)
-    (at 47.2165 121.08)
+    (at 121.5625 111.003)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -1456,7 +1458,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 8f3cf178-3c86-4b06-80ad-e82eb6557ab2)
-    (at 43.7665 146.065)
+    (at 69.1125 63.997)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -1514,7 +1516,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 96f83749-1f2d-407e-882c-635cfe426962)
-    (at 47.2165 146.065)
+    (at 72.5625 63.997)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -1572,7 +1574,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 9bb516e7-3932-4b76-b53f-eae434b0416c)
-    (at 43.7665 136.071)
+    (at 118.1125 125.994)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -1630,7 +1632,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp 9c8e8582-e94f-4a1a-bad1-26c9135fba8d)
-    (at 47.2165 106.089)
+    (at 155 48.503)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -1688,7 +1690,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp a1ce9b23-4f48-4a18-b7d7-de77acd36aa2)
-    (at 47.2165 141.068)
+    (at 72.5625 59)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -1800,7 +1802,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp b422f6fb-c54f-4ef0-a51e-3c631a5f3cc6)
-    (at 63.6755 56.388)
+    (at 89.6235 27.746)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -1858,7 +1860,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp c6427e67-77f7-4b6f-a2de-a30b3d97575c)
-    (at 47.2165 111.086)
+    (at 155 53.5)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -2038,7 +2040,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp d6d745a3-989b-4f62-8aea-cdf6bbe25bcf)
-    (at 47.2165 126.077)
+    (at 121.5625 116)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -2096,7 +2098,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp dd307160-fbb2-43e4-9edf-6213013850e3)
-    (at 43.7665 126.077)
+    (at 118.1125 116)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -2154,7 +2156,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp dd414562-fe34-44ed-8477-627b5cc248d8)
-    (at 43.7665 131.074)
+    (at 118.1125 120.997)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -2212,7 +2214,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp e697b27b-bb18-4cb7-aff7-0cb266352626)
-    (at 86.4385 56.388)
+    (at 112.3865 27.746)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -2270,7 +2272,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp e72f9073-7e07-49a9-bd8b-d94628105605)
-    (at 94.1645 56.642)
+    (at 120.1125 28)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -2328,7 +2330,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp f11ab965-225c-424a-be97-adf099584c69)
-    (at 47.2165 131.074)
+    (at 121.5625 120.997)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -2483,7 +2485,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp f4d8d406-5e09-408a-ba64-7af43b10072b)
-    (at 97.6145 56.642)
+    (at 123.5625 28)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -2541,7 +2543,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp f4e1495b-33dd-42b9-8c2e-5920ff0839d9)
-    (at 43.7665 116.083)
+    (at 151.55 58.497)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -2599,7 +2601,7 @@
 
   (footprint "LED_SMD:LED_0805_2012Metric" (layer "F.Cu")
     (tstamp f5dfff05-5f1e-4413-a9b9-078deeb27676)
-    (at 47.2165 101.092)
+    (at 155 43.506)
     (descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
     (tags "LED")
     (property "Sheetfile" "h43it_macro.kicad_sch")
@@ -2657,7 +2659,7 @@
 
   (footprint "MyLib:Battery_holder_AAA_534-2479" (layer "B.Cu")
     (tstamp c27c919e-b206-4268-9915-03678a65f50e)
-    (at 57.912 96.774)
+    (at 90 70)
     (property "Sheetfile" "h43it_macro.kicad_sch")
     (property "Sheetname" "")
     (property "ki_description" "Single-cell battery")
@@ -2700,7 +2702,7 @@
       (net 2 "GND") (pinfunction "-") (pintype "passive") (tstamp 3c7ba41b-bb61-4256-a155-9204f10bf144))
   )
 
-  (gr_rect (start 38.334 53.811) (end 128.334 143.811)
+  (gr_rect locked (start 70 25) (end 160 115)
     (stroke (width 0.2) (type default)) (fill none) (layer "Edge.Cuts") (tstamp 4a31002a-2b9f-4104-a108-f5e5c0ba33d0))
 
 )
