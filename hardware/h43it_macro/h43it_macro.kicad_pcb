@@ -2585,7 +2585,7 @@
 
   (footprint "MyLib:FSM2JSMAATR" (layer "F.Cu")
     (tstamp f43a0188-e831-4ad7-95a6-4d791aa9fd0c)
-    (at 114.746 56.32)
+    (at 114.746 48.41)
     (property "Sheetfile" "h43it_macro.kicad_sch")
     (property "Sheetname" "")
     (property "ki_description" "Push button switch, generic, two pins")
@@ -2936,8 +2936,8 @@
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp f134adbd-8081-4546-9500-c619af9a5cb8))
   (gr_line locked (start 80 115) (end 150 115)
     (stroke (width 0.1) (type default)) (layer "Edge.Cuts") (tstamp f34aa885-e5c3-459a-8680-d13b0afe6c7d))
-  (gr_text "TOUCH ME!" (at 104.078 64.158) (layer "F.SilkS") (tstamp f14628d7-7431-4502-8011-6eeada136d6c)
-    (effects (font (size 3 3) (thickness 0.3) bold) (justify left bottom))
+  (gr_text "TOUCH ME \nIF YOU CAN" (at 116.016 63.396) (layer "F.SilkS") (tstamp f14628d7-7431-4502-8011-6eeada136d6c)
+    (effects (font (size 3 3) (thickness 0.3) bold) (justify bottom))
   )
 
   (segment (start 133 87) (end 131.326 88.674) (width 0.25) (layer "F.Cu") (net 28) (tstamp 39d62d27-7c4d-4c0b-9f49-232f9922a4a2))
