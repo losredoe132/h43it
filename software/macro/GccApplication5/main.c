@@ -16,12 +16,45 @@
 #include <util/delay.h>
 
 
-const uint8_t port_a_b_c_outs[2][3]={
+const uint8_t port_a_b_c_outs[33][3]={
 	// TSxxxxxx,0bxxRQPONM, 0bxxxxDCBA
 	{0b11000000, 0b00111111, 0b00000000}, // ALL OFF
 		
-	{0b11000000, 0b00111111, 0b00000000}, // LED 1
+	{0b11000000, 0b11111110, 0b00000001}, // LED 1
+	{0b11000000, 0b11111101, 0b00000001}, // LED 2
+	{0b11000000, 0b11111011, 0b00000001}, // LED 3
+	{0b11000000, 0b11110111, 0b00000001}, // LED 4
+	{0b11000000, 0b11101111, 0b00000001}, // LED 5
+	{0b11000000, 0b11011111, 0b00000001}, // LED 6
+	{0b01000000, 0b11111111, 0b00000001}, // LED 7
+	{0b10000000, 0b11111111, 0b00000001}, // LED 8
 	
+	{0b11000000, 0b11111110, 0b00000010}, // LED 9
+	{0b11000000, 0b11111101, 0b00000010}, // LED 10
+	{0b11000000, 0b11111011, 0b00000010}, // LED 11
+	{0b11000000, 0b11110111, 0b00000010}, // LED 12
+	{0b11000000, 0b11101111, 0b00000010}, // LED 13
+	{0b11000000, 0b11011111, 0b00000010}, // LED 14
+	{0b01000000, 0b11111111, 0b00000010}, // LED 15
+	{0b10000000, 0b11111111, 0b00000010}, // LED 16
+		
+	{0b11000000, 0b11111110, 0b00000100}, // LED 17
+	{0b11000000, 0b11111101, 0b00000100}, // LED 18
+	{0b11000000, 0b11111011, 0b00000100}, // LED 19
+	{0b11000000, 0b11110111, 0b00000100}, // LED 20
+	{0b11000000, 0b11101111, 0b00000100}, // LED 21
+	{0b11000000, 0b11011111, 0b00000100}, // LED 22
+	{0b01000000, 0b11111111, 0b00000100}, // LED 23
+	{0b10000000, 0b11111111, 0b00000100}, // LED 24
+		
+	{0b11000000, 0b11111110, 0b00001000}, // LED 25
+	{0b11000000, 0b11111101, 0b00001000}, // LED 26
+	{0b11000000, 0b11111011, 0b00001000}, // LED 27
+	{0b11000000, 0b11110111, 0b00001000}, // LED 28
+	{0b11000000, 0b11101111, 0b00001000}, // LED 29
+	{0b11000000, 0b11011111, 0b00001000}, // LED 30
+	{0b01000000, 0b11111111, 0b00001000}, // LED 31
+	{0b10000000, 0b11111111, 0b00001000}, // LED 32
 
 };
 
@@ -111,15 +144,15 @@ void TCB0_init (void)
 
 
 void LEDOnById(int i){
-	PORTA.OUT = ~port_a_b_c_outs[i][0];
-	PORTB.OUT= ~port_a_b_c_outs[i][1];
-	PORTC.OUT= ~port_a_b_c_outs[i][2];
+	PORTA.OUT = port_a_b_c_outs[i][0];
+	PORTB.OUT= port_a_b_c_outs[i][1];
+	PORTC.OUT= port_a_b_c_outs[i][2];
 }
 
 void allLEDoff(){
-	PORTA.OUT = ~port_a_b_c_outs[0][0];
-	PORTB.OUT= ~port_a_b_c_outs[0][1];
-	PORTC.OUT= ~port_a_b_c_outs[0][2];
+	PORTA.OUT = port_a_b_c_outs[0][0];
+	PORTB.OUT= port_a_b_c_outs[0][1];
+	PORTC.OUT= port_a_b_c_outs[0][2];
 }
 
 void wait_until_button_released()
@@ -150,7 +183,7 @@ int main() {
 	consecutive_counts_pressed=0;
 	consecutive_counts_released=0;
 	pit_interrupts_since_last_increase=0; // TODO read this from EEPROM
-	x=0;
+	x=12;
 	i=0;
 	pit_interrupt=0;
 	
