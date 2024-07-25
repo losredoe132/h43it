@@ -78,9 +78,9 @@ static FILE USART_stream = FDEV_SETUP_STREAM(USART0_printChar, NULL, _FDEV_SETUP
 
 void USART0_init(void)
 {
-
-	PORTB.DIR &= ~PIN3_bm;                  /* Configure RX pin as an input */
-	PORTB.DIR |= PIN2_bm;                   /* Configure TX pin as an output */
+	PORTMUX.CTRLB=PORTMUX_USART0_ALTERNATE_gc;		//Use alt UARTpins
+	//PORTA.DIR &= ~PIN3_bm;                  /* Configure RX pin as an input */
+	PORTA.DIR |= PIN1_bm;                   /* Configure TX pin as an output */
 
 	USART0.BAUD = (uint16_t)USART0_BAUD_RATE(9600);
 
@@ -169,7 +169,7 @@ int main() {
 	RTCA_init(10); // set periodic RTC triggering "awakening" delay in seconds
 	TCA0_init();
 	TCB0_init();
-	//USART0_init();
+	USART0_init();
 
 	PORTA.DIRSET = 0b11100011;
 	PORTB.DIRSET = 0b11111111;
