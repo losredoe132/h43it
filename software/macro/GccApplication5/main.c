@@ -13,81 +13,15 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#include "include/usart.c"
+#include "include/led_pins.c"
+#include "include/system_init.c"
+#include "include/button_interaction.c"
+
+
 #include <util/delay.h>
 
 
-const uint8_t port_a_b_c_outs[33][3]={
-	// TSxxxxxx,0bxxRQPONM, 0bxxxxDCBA
-	{0b11000000, 0b00111111, 0b00000000}, // ALL OFF
-	
-	{0b11000000, 0b11111110, 0b00000001},
-	{0b11000000, 0b11111101, 0b00000001},
-	{0b11000000, 0b11111011, 0b00000001},
-	{0b11000000, 0b11110111, 0b00000001},
-	{0b11000000, 0b11101111, 0b00000001},
-	{0b11000000, 0b11011111, 0b00000001},
-	{0b10000000, 0b11111111, 0b00000001},
-	{0b01000000, 0b11111111, 0b00000001},
-	
-	{0b11000000, 0b11101111, 0b00000010},
-	{0b11000000, 0b11011111, 0b00000010},
-	{0b10000000, 0b11111111, 0b00000010},
-	{0b01000000, 0b11111111, 0b00000010},
-	{0b11000000, 0b11111110, 0b00000010},
-	{0b11000000, 0b11111101, 0b00000010},
-	{0b11000000, 0b11111011, 0b00000010},
-	{0b11000000, 0b11110111, 0b00000010},
-
-	{0b11000000, 0b11101111, 0b00000100},
-	{0b11000000, 0b11011111, 0b00000100},
-	{0b10000000, 0b11111111, 0b00000100},
-	{0b01000000, 0b11111111, 0b00000100},
-	{0b11000000, 0b11111110, 0b00000100},
-	{0b11000000, 0b11111101, 0b00000100},
-	{0b11000000, 0b11111011, 0b00000100},
-	{0b11000000, 0b11110111, 0b00000100},
-	
-	{0b11000000, 0b11101111, 0b00001000},
-	{0b11000000, 0b11011111, 0b00001000},
-	{0b10000000, 0b11111111, 0b00001000},
-	{0b01000000, 0b11111111, 0b00001000},
-	{0b11000000, 0b11111110, 0b00001000},
-	{0b11000000, 0b11111101, 0b00001000},
-	{0b11000000, 0b11111011, 0b00001000},
-	{0b11000000, 0b11110111, 0b00001000},
-	
-};
-
-#define USART0_BAUD_RATE(BAUD_RATE) ((float)(F_CPU * 64 / (16 * (float)BAUD_RATE)) + 0.5)
-static void USART0_sendChar(char c)
-{
-	while (!(USART0.STATUS & USART_DREIF_bm))
-	{
-		;                                   /* Wait for USART ready for receiving next char */
-	}
-	USART0.TXDATAL = c;
-}
-
-static int USART0_printChar(char c, FILE *stream)
-{
-	USART0_sendChar(c);
-	return 0;
-}
-
-static FILE USART_stream = FDEV_SETUP_STREAM(USART0_printChar, NULL, _FDEV_SETUP_WRITE);
-
-void USART0_init(void)
-{
-	PORTMUX.CTRLB=PORTMUX_USART0_ALTERNATE_gc;		//Use alt UARTpins
-	//PORTA.DIR &= ~PIN3_bm;                  /* Configure RX pin as an input */
-	PORTA.DIR |= PIN1_bm;                   /* Configure TX pin as an output */
-
-	USART0.BAUD = (uint16_t)USART0_BAUD_RATE(9600);
-
-	USART0.CTRLB |= USART_TXEN_bm;          /* Transmitter Enable bit mask. */
-
-	stdout = &USART_stream;                 /* Bind UART to stdio output stream */
-}
 
 
 const uint8_t btn_pin = PIN2_bm;
@@ -98,70 +32,9 @@ volatile uint8_t pit_interrupt;
 int i ;
 int j ;
 int c;
-volatile uint16_t consecutive_counts_pressed ;
-volatile uint16_t consecutive_counts_released ;
-volatile uint16_t pit_interrupts_since_last_increase;
 
 
-void RTCA_init(){
-	RTC.CLKSEL = RTC_CLKSEL_INT1K_gc;				// 1024 Hz from OSCULP32K
-	RTC.CTRLA = RTC_RTCEN_bm;					// enable RTC
-	RTC.PITINTCTRL = RTC_PI_bm;					// enable periodic interrupt
-	RTC.PITCTRLA = RTC_PERIOD_CYC32768_gc | RTC_PITEN_bm;		// set period; enable PIT
-	//RTC.PITCTRLA = RTC_PERIOD_CYC1024_gc | RTC_PITEN_bm;		// set period; enable PIT
-	
-}
 
-void TCA0_init()
-{
-	// enable overflow interrupt
-	TCA0.SINGLE.INTCTRL = TCA_SINGLE_OVF_bm;
-
-	// set Normal mode
-	TCA0.SINGLE.CTRLB = TCA_SINGLE_WGMODE_NORMAL_gc;
-
-	// disable event counting
-	TCA0.SINGLE.EVCTRL &= ~(TCA_SINGLE_CNTEI_bm);
-
-	// set the period
-	TCA0.SINGLE.PER = TCAdelay;
-
-	// set clock
-	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1024_gc | TCA_SINGLE_ENABLE_bm;    /* source (sys_clk/8) +  start timer */
-}
-
-void TCB0_init (void)
-{
-	/* Load the Compare or Capture register with the timeout value*/
-	TCB0.CCMP = TCB_CMP_EXAMPLE_VALUE;
-	
-	/* Enable TCB and set CLK_PER divider to 1 (No Prescaling) */
-	TCB0.CTRLA = TCB_CLKSEL_CLKDIV1_gc | TCB_ENABLE_bm ;
-	
-	/* Enable Capture or Timeout interrupt */
-	TCB0.INTCTRL = TCB_CAPT_bm;
-}
-
-
-void LEDOnById(int i){
-	PORTA.OUT = port_a_b_c_outs[i][0];
-	PORTB.OUT= port_a_b_c_outs[i][1];
-	PORTC.OUT= port_a_b_c_outs[i][2];
-}
-
-void allLEDoff(){
-	PORTA.OUT = port_a_b_c_outs[0][0];
-	PORTB.OUT= port_a_b_c_outs[0][1];
-	PORTC.OUT= port_a_b_c_outs[0][2];
-}
-
-void wait_until_button_released()
-{
-	while(consecutive_counts_released<6){printf("Waiting for release with consecutive_counts_pressed:%d, consecutive_counts_released:%d\n",consecutive_counts_pressed, consecutive_counts_released );}
-	consecutive_counts_pressed=0;
-	consecutive_counts_released=0;
-	printf("Released\n");
-}
 
 int main() {
 
