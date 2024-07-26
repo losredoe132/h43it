@@ -36,14 +36,14 @@ typedef struct State State_t;
 
 // Example condition functions
 bool conditionAlwaysTrue() {
-	if (consecutive_counts_pressed >10){
+	if (consecutive_counts_pressed >2){
 		return true;}
 	else{
 		return false; }
 }
 
 bool conditionAlwaysFalse() {
-   if (consecutive_counts_released >10){
+   if (consecutive_counts_released >100){
 		return true;}
 	else{
 		return false; }
@@ -51,11 +51,13 @@ bool conditionAlwaysFalse() {
 
 // Example state action functions
 void stateAEnter() {
+	LEDOnById(1);
     printf("Entering State A\n");
 }
 
 void stateBEnter() {
-    printf("Entering State B\n");
+	LEDOnById(2);
+	printf("Entering State B\n");
 }
 
 State stateA, stateB;
@@ -95,6 +97,8 @@ int main(void) {
 	PORTC.DIRSET = 0b11111111;
 	USART0_init();
 	TCB0_init();
+	TCA0_init();
+	
 
 	// Button setup
 	PORTA.PIN2CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
@@ -103,7 +107,7 @@ int main(void) {
 	
 
 	
-	printf("Test USATR...\n"); 
+	printf("Booting finished\n"); 
 	State* currentState = &stateA;
 
     // Initial state action
@@ -113,7 +117,7 @@ int main(void) {
 
     // Example FSM execution loop
     while(true) {
-		_delay_ms(1000);
+		_delay_ms(1);
         printf("Current State: %s\n", currentState->name);
 			printf("consecutive_counts_pressed: %d \n", consecutive_counts_pressed);
 			printf("consecutive_counts_released: %d \n", consecutive_counts_released);
