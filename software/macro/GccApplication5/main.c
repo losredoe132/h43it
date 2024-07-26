@@ -115,6 +115,8 @@ int main(void) {
     while(true) {
 		_delay_ms(1000);
         printf("Current State: %s\n", currentState->name);
+			printf("consecutive_counts_pressed: %d \n", consecutive_counts_pressed);
+			printf("consecutive_counts_released: %d \n", consecutive_counts_released);
         transitionState(&currentState);
     }
 

@@ -54,8 +54,7 @@ uint8_t  consecutive_counts_released=0;
 
 ISR(TCB0_INT_vect)
 {
-	printf("consecutive_counts_pressed: %d \n", consecutive_counts_pressed);
-	printf("consecutive_counts_released: %d \n", consecutive_counts_released);
+
 	// Counting consecutive ticks of pressed or released button. Use case: Debouncing and short and long press detection.
 	if (~PORTA.IN & btn_pin){
 		consecutive_counts_pressed++;
@@ -66,4 +65,8 @@ ISR(TCB0_INT_vect)
 		consecutive_counts_released++;
 	}
 	TCB0.INTFLAGS = TCB_CAPT_bm; /* Clear the interrupt flag */
+}
+
+ISR(PORTA_PORT_vect) {
+	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
 }
