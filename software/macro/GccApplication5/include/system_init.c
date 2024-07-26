@@ -4,8 +4,8 @@ void RTCA_init(){
 	RTC.CLKSEL = RTC_CLKSEL_INT1K_gc;				// 1024 Hz from OSCULP32K
 	RTC.CTRLA = RTC_RTCEN_bm;					// enable RTC
 	RTC.PITINTCTRL = RTC_PI_bm;					// enable periodic interrupt
-	RTC.PITCTRLA = RTC_PERIOD_CYC32768_gc | RTC_PITEN_bm;		// set period; enable PIT
-	//RTC.PITCTRLA = RTC_PERIOD_CYC1024_gc | RTC_PITEN_bm;		// set period; enable PIT
+	//RTC.PITCTRLA = RTC_PERIOD_CYC32768_gc | RTC_PITEN_bm;		// set period; enable PIT
+	RTC.PITCTRLA = RTC_PERIOD_CYC1024_gc | RTC_PITEN_bm;		// set period; enable PIT
 	
 }
 
