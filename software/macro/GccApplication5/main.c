@@ -6,53 +6,117 @@
 #include <avr/interrupt.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <util/delay.h>
+const uint8_t btn_pin = PIN2_bm;
+
 
 #include "include/usart.c"
 #include "include/led_pins.c"
 #include "include/system_init.c"
-#include "include/button_interaction.c"
-
-const uint8_t btn_pin = PIN2_bm;
 
 
-const struct State {
-	const uint8_t Out; // 6-bit output
-	const struct State *Next[4]; // next states
+// Forward declaration of state struct for function pointer types
+struct State;
+
+typedef struct {
+    struct State* nextState;
+    bool (*condition)();  // Function pointer to a condition function
+} Transition;
+
+typedef struct State {
+    const char* name;
+    void (*onEnter)();  // Function pointer to onEnter function
+    Transition* transitions;
+    size_t numTransitions;
+} State;
+
+typedef struct State State_t;
+
+
+// Example condition functions
+bool conditionAlwaysTrue() {
+	if (consecutive_counts_pressed >10){
+		return true;}
+	else{
+		return false; }
+}
+
+bool conditionAlwaysFalse() {
+   if (consecutive_counts_released >10){
+		return true;}
+	else{
+		return false; }
+}
+
+// Example state action functions
+void stateAEnter() {
+    printf("Entering State A\n");
+}
+
+void stateBEnter() {
+    printf("Entering State B\n");
+}
+
+State stateA, stateB;
+
+// Define transitions for each state
+Transition stateATransitions[] = {
+    { &stateB, conditionAlwaysTrue }
 };
 
-typedef const struct State State_t;
-
-#define goN &FSM[0]
-#define waitN &FSM[1]
-#define goE &FSM[2]
-#define waitE &FSM[3]
-
-State_t FSM[4] = {
-	{21,{goN,waitN,goN,waitN}},
-	{22,{goE,goE,goE,goE}},
-	{11,{goE,goE,waitE,waitE}},
-	{12,{goN,goN,goN,goN}}
+Transition stateBTransitions[] = {
+    { &stateA, conditionAlwaysFalse }
 };
+
+// Define states
+State stateA = { "State A", stateAEnter, stateATransitions, 1 };
+State stateB = { "State B", stateBEnter, stateBTransitions, 1 };
+
+
+
+void transitionState(State** currentState) {
+    for (size_t i = 0; i < (*currentState)->numTransitions; ++i) {
+        if ((*currentState)->transitions[i].condition()) {
+            *currentState = (*currentState)->transitions[i].nextState;
+            if ((*currentState)->onEnter) {
+                (*currentState)->onEnter();
+            }
+            return;
+        }
+    }
+}
+
 
 int main(void) {
+
+	PORTA.DIRSET = 0b11100011;
+	PORTB.DIRSET = 0b11111111;
+	PORTC.DIRSET = 0b11111111;
 	USART0_init();
+	TCB0_init();
+
+	// Button setup
+	PORTA.PIN2CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
+
+	sei();
 	
+
 	
-	State_t *pt; // pointer to current state
-	uint32_t input; // car sensor input
-	pt = goN; // initial state
-	printf("Starting: \n");
-	printf(" %d ", pt->Out);
-	while(1){
-		// 1) set lights to current state's Out
-		printf("%d",pt->Out);
-		// 2) specified wait for this state
+	printf("Test USATR...\n"); 
+	State* currentState = &stateA;
+
+    // Initial state action
+    if (currentState->onEnter) {
+        currentState->onEnter();
+    }
+
+    // Example FSM execution loop
+    while(true) {
 		_delay_ms(1000);
-		// 3) input from car detectors
-		input = 1;
-		// 4) next depends on state and input
-		pt = pt->Next[input];
-	}
+        printf("Current State: %s\n", currentState->name);
+        transitionState(&currentState);
+    }
+
 	return 0;
 }

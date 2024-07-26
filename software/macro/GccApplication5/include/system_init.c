@@ -27,6 +27,16 @@ void TCA0_init()
 	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1024_gc | TCA_SINGLE_ENABLE_bm;    /* source (sys_clk/8) +  start timer */
 }
 
+ISR(TCA0_OVF_vect)
+{
+	// "Running" trough the LED table defined above and switch LEDs on & off according to the x value
+	
+
+	// The interrupt flag has to be cleared manually
+	TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;
+	
+}
+
 void TCB0_init (void)
 {
 	/* Load the Compare or Capture register with the timeout value*/
@@ -37,4 +47,23 @@ void TCB0_init (void)
 	
 	/* Enable Capture or Timeout interrupt */
 	TCB0.INTCTRL = TCB_CAPT_bm;
+}
+
+uint8_t consecutive_counts_pressed=0;
+uint8_t  consecutive_counts_released=0;
+
+ISR(TCB0_INT_vect)
+{
+	printf("consecutive_counts_pressed: %d \n", consecutive_counts_pressed);
+	printf("consecutive_counts_released: %d \n", consecutive_counts_released);
+	// Counting consecutive ticks of pressed or released button. Use case: Debouncing and short and long press detection.
+	if (~PORTA.IN & btn_pin){
+		consecutive_counts_pressed++;
+		consecutive_counts_released=0;
+	}
+	else{
+		consecutive_counts_pressed=0;
+		consecutive_counts_released++;
+	}
+	TCB0.INTFLAGS = TCB_CAPT_bm; /* Clear the interrupt flag */
 }
