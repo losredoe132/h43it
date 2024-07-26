@@ -34,46 +34,87 @@ typedef struct State {
 typedef struct State State_t;
 
 
-// Example condition functions
-bool conditionAlwaysTrue() {
-	if (consecutive_counts_pressed >2){
+#define CONSECUTIVE_COUNTS_PRESSED_SHORT 30
+#define CONSECUTIVE_COUNTS_PRESSED_LONG 100
+// Condition functions
+bool consecutive_counts_pressed_greater_0() {
+	if (consecutive_counts_pressed >0){
 		return true;}
 	else{
 		return false; }
 }
 
-bool conditionAlwaysFalse() {
-   if (consecutive_counts_released >100){
+bool consecutive_counts_released_greater_0() {
+	if (consecutive_counts_released>0){
+	return true;}
+	else{
+	return false; }
+}
+
+bool consecutive_counts_pressed_short() {
+   if ((consecutive_counts_pressed >100)){
 		return true;}
 	else{
 		return false; }
 }
+
+bool consecutive_counts_pressed_long() {
+	if ((consecutive_counts_pressed >CONSECUTIVE_COUNTS_PRESSED_LONG)){
+	return true;}
+	else{
+	return false; }
+}
+
 
 // Example state action functions
 void stateAEnter() {
 	LEDOnById(1);
-    printf("Entering State A\n");
+    printf("Entering stateA \n");
 }
 
 void stateBEnter() {
 	LEDOnById(2);
-	printf("Entering State B\n");
+	printf("Entering stateB \n");
+}
+void stateCEnter() {
+	LEDOnById(3);
+	printf("Entering stateC \n");
 }
 
-State stateA, stateB;
+void stateDEnter() {
+	LEDOnById(5);
+	printf("Entering stateD \n");
+}
+
+
+State stateA, stateB, stateC, stateD;
 
 // Define transitions for each state
 Transition stateATransitions[] = {
-    { &stateB, conditionAlwaysTrue }
+    { &stateB, consecutive_counts_pressed_greater_0 }
 };
 
 Transition stateBTransitions[] = {
-    { &stateA, conditionAlwaysFalse }
+    { &stateA, consecutive_counts_released_greater_0 }, 
+    { &stateC, consecutive_counts_pressed_short }
+		
+};
+
+Transition stateCTransitions[] = {
+	{ &stateA, consecutive_counts_released_greater_0 },
+	{ &stateD, consecutive_counts_pressed_long }
+	
+};
+Transition stateDTransitions[] = {
+	{ &stateA, consecutive_counts_released_greater_0 }
+	
 };
 
 // Define states
 State stateA = { "State A", stateAEnter, stateATransitions, 1 };
-State stateB = { "State B", stateBEnter, stateBTransitions, 1 };
+State stateB = { "State B", stateBEnter, stateBTransitions, 2};
+State stateC = { "State B", stateCEnter, stateCTransitions, 1 };
+State stateD = { "State D", stateDEnter, stateDTransitions, 1 };
 
 
 
@@ -118,9 +159,6 @@ int main(void) {
     // Example FSM execution loop
     while(true) {
 		_delay_ms(1);
-        printf("Current State: %s\n", currentState->name);
-			printf("consecutive_counts_pressed: %d \n", consecutive_counts_pressed);
-			printf("consecutive_counts_released: %d \n", consecutive_counts_released);
         transitionState(&currentState);
     }
 
