@@ -3,22 +3,22 @@
         {
             "state": "Idle",
             "condition": "button_short_push",
-            "next_state": "SHORT"
+            "next_state": "Short"
         },
         {
             "state": "Short",
             "condition": "button_released",
-            "next_state": "IDLE"
+            "next_state": "Idle"
         },
         {
             "state": "Short",
             "condition": "button_long_push",
-            "next_state": "LONG"
+            "next_state": "Long"
         },
         {
             "state": "Long",
             "condition": "button_released",
-            "next_state": "IDLE"
+            "next_state": "Idle"
         }
     ]
 }
