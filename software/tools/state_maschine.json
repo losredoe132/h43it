@@ -1,24 +1,34 @@
 {
     "transitions": [
         {
-            "state": "A",
+            "state": "IDLE",
             "condition": "button_short_push",
-            "next_state": "B"
+            "next_state": "SHORT"
         },
         {
-            "state": "A",
+            "state": "SHORT",
             "condition": "button_released",
-            "next_state": "B"
+            "next_state": "IDLE"
         },
         {
-            "state": "B",
+            "state": "SHORT",
             "condition": "button_long_push",
-            "next_state": "C"
+            "next_state": "LONG"
         },
         {
-            "state": "C",
+            "state": "LONG",
             "condition": "button_released",
-            "next_state": "A"
+            "next_state": "IDLE"
+        },
+        {
+            "state": "SHORT",
+            "condition": "button_extralong_push",
+            "next_state": "XLONG"
+        },
+        {
+            "state": "XLONG",
+            "condition": "button_released",
+            "next_state": "IDLE"
         }
     ]
 }

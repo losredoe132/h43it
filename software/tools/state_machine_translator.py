@@ -22,18 +22,20 @@ def generate_FSM_code(fsm_description: dict, output_dir: Path):
 
 
 def get_state_html(x, y, name):
-    html = f"""<circle class="state" cx="{x}" cy="{y}" r="40" id="{name}"></circle>
+    html = f"""<g class="state">
+    <circle class="state-circle" cx="{x}" cy="{y}" r="40" id="{name}"></circle>
     <text class="state-label" x="{x}" y="{y}">{name}</text>
-    """
+    </g>"""
     return html
 
 
 def get_transition_html(x1, y1, x2, y2, name):
-    x_center = (x1 + x2) / 2
-    y_center = (y1 + y2) / 2
-    html = f"""<line class="transition" x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}"></line>
+    x_center = x1 * 0.4 + x2 * 0.6
+    y_center = y1 * 0.4 + y2 * 0.6
+    html = f"""<g class="transition">
+    <line class="transition-edge" x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}"></line>
     <text class="condition-label" x="{x_center}" y="{y_center}">{name}</text>
-    """
+    </g>"""
     return html
 
 
@@ -61,11 +63,11 @@ def generate_FSM_html(fsm_description: dict, output_file: Path):
         autoescape=select_autoescape(),
     )
 
-    canvas_dimensions = np.array([600, 400])
+    canvas_dimensions = np.array([800, 800])
     raw_positions = np.stack(list(state_positions.values()))
 
-    offset = raw_positions.min(axis=0)
-    scale = raw_positions.max(axis=0) - raw_positions.min(axis=0)
+    offset = raw_positions.min(axis=0) - 0.2
+    scale = raw_positions.max(axis=0) - raw_positions.min(axis=0) + 0.3
 
     states_html = []
     for state_name, position in state_positions.items():
