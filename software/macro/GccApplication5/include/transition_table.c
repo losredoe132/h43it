@@ -1,11 +1,22 @@
 // Define States 
-State  Idle ,   Short ,   Long  ;
+State  SHORT ,   Long ,   Idle ,   IDLE ,   Short ,   LONG  ;
 
 // Define transitions for each state
 
+Transition SHORTTransitions[] = {
+    
+};
+Transition LongTransitions[] = {
+    
+    { &IDLE, pred_button_released}  
+    
+};
 Transition IdleTransitions[] = {
     
     { &SHORT, pred_button_short_push}  
+    
+};
+Transition IDLETransitions[] = {
     
 };
 Transition ShortTransitions[] = {
@@ -15,16 +26,20 @@ Transition ShortTransitions[] = {
     { &LONG, pred_button_long_push}  
     
 };
-Transition LongTransitions[] = {
-    
-    { &IDLE, pred_button_released}  
+Transition LONGTransitions[] = {
     
 };
 
 // Define states with transitions
 
-State stateA = { "Idle", IdleAction, IdleTransitions, 1 };
+State SHORT = { "SHORT", SHORTAction, SHORTTransitions, 0 };
 
-State stateA = { "Short", ShortAction, ShortTransitions, 2 };
+State Long = { "Long", LongAction, LongTransitions, 1 };
 
-State stateA = { "Long", LongAction, LongTransitions, 1 };
+State Idle = { "Idle", IdleAction, IdleTransitions, 1 };
+
+State IDLE = { "IDLE", IDLEAction, IDLETransitions, 0 };
+
+State Short = { "Short", ShortAction, ShortTransitions, 2 };
+
+State LONG = { "LONG", LONGAction, LONGTransitions, 0 };

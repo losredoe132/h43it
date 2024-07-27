@@ -11,5 +11,5 @@ Transition {{state}}Transitions[] = {
 
 // Define states with transitions
 {%for state, transitions in transition_table.items() %}
-State stateA = { "{{state}}", {{state}}Action, {{state}}Transitions, {{transitions|count}} };
+State {{state}} = { "{{state}}", {{state}}Action, {{state}}Transitions, {{transitions|count}} };
 {%endfor%}

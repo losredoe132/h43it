@@ -38,8 +38,8 @@ typedef struct State State_t;
 #define CONSECUTIVE_COUNTS_PRESSED_LONG 100
 
 #include "include/transition_conditions.c"
-#include "include/transition_table.c"
 #include "include/state_actions.c"
+#include "include/transition_table.c"
 
 
 void transitionState(State** currentState) {
@@ -73,7 +73,7 @@ int main(void) {
 
 	
 	printf("Booting finished\n"); 
-	State* currentState = &stateA;
+	State* currentState = &Idle;
 
     // Initial state action
     if (currentState->onEnter) {

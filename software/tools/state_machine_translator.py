@@ -35,16 +35,16 @@ def generate_FSM_code(
     # TODO implement code generation
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    transition_table_sorted_by_state = defaultdict(list)
-    for transition in fsm_description["transitions"]:
-        transition_table_sorted_by_state[transition["state"]].append(transition)
-
     states = set()
     conditions = set()
     for transition in fsm_description["transitions"]:
         conditions.add(transition["condition"])
         states.add(transition["state"])
         states.add(transition["next_state"])
+
+    transition_table_sorted_by_state = {state: [] for state in states}
+    for transition in fsm_description["transitions"]:
+        transition_table_sorted_by_state[transition["state"]].append(transition)
 
     # State Actions
     if create_state_actions:
@@ -60,8 +60,6 @@ def generate_FSM_code(
 
     # Transition Table
     if create_transition_table:
-        transition_table = None
-
         template = env.get_template("FSM_transition_table.c.jinja")
         with open(output_dir / "transition_table.c", "w") as fh:
             fh.writelines(
