@@ -33,6 +33,11 @@
         {
             "state": "Stop_released",
             "condition": "button_short_push",
+            "next_state": "Stop_released_wait"
+        },
+        {
+            "state": "Stop_released_wait",
+            "condition": "button_released",
             "next_state": "Idle"
         }
     ]

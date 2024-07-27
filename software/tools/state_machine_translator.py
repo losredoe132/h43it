@@ -14,7 +14,10 @@ env = Environment(
 def generate_FSM(config_path: Path):
     fsm_description = read_json(config_path)
     generate_FSM_code(
-        fsm_description, output_dir=Path("./software/macro/GccApplication5/include")
+        fsm_description,
+        output_dir=Path("./software/macro/GccApplication5/include"),
+        create_transition_conditions=False,
+        create_state_actions=False,
     )
     generate_FSM_html(fsm_description, output_file="FSM.html")
 
@@ -48,12 +51,14 @@ def generate_FSM_code(
 
     # State Actions
     if create_state_actions:
+        # TODO check which actions to be updated
         template = env.get_template("FSM_state_actions.c.jinja")
         with open(output_dir / "state_actions.c", "w") as fh:
             fh.writelines(template.render(states=states))
 
     # Transition Conditions
     if create_transition_conditions:
+        # TODO check which conditions
         template = env.get_template("FSM_transition_conditions.c.jinja")
         with open(output_dir / "transition_conditions.c", "w") as fh:
             fh.writelines(template.render(conditions=conditions))

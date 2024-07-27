@@ -60,33 +60,38 @@
         <!-- States and State Labels-->
         
         <g class="state">
-    <circle class="state-circle " cx="73.5632183908046" cy="129.29292929292924" r="40" id="Stop_released"></circle>
-    <text class="state-label" x="73.5632183908046" y="129.29292929292924">Stop_released</text>
+    <circle class="state-circle " cx="77.00534759358288" cy="165.51724137931035" r="40" id="Stop_released"></circle>
+    <text class="state-label" x="77.00534759358288" y="165.51724137931035">Stop_released</text>
     </g>
         
         <g class="state">
-    <circle class="state-circle " cx="303.44827586206895" cy="533.3333333333333" r="40" id="Idle"></circle>
-    <text class="state-label" x="303.44827586206895" y="533.3333333333333">Idle</text>
+    <circle class="state-circle " cx="333.6898395721926" cy="717.2413793103449" r="40" id="Stop_released_wait"></circle>
+    <text class="state-label" x="333.6898395721926" y="717.2413793103449">Stop_released_wait</text>
     </g>
         
         <g class="state">
-    <circle class="state-circle " cx="418.39080459770116" cy="735.3535353535352" r="40" id="Short"></circle>
-    <text class="state-label" x="418.39080459770116" y="735.3535353535352">Short</text>
+    <circle class="state-circle " cx="504.81283422459904" cy="717.2413793103449" r="40" id="Short"></circle>
+    <text class="state-label" x="504.81283422459904" y="717.2413793103449">Short</text>
     </g>
         
         <g class="state">
-    <circle class="state-circle " cx="648.2758620689656" cy="331.31313131313124" r="40" id="Long"></circle>
-    <text class="state-label" x="648.2758620689656" y="331.31313131313124">Long</text>
+    <circle class="state-circle " cx="419.2513368983958" cy="533.3333333333333" r="40" id="Idle"></circle>
+    <text class="state-label" x="419.2513368983958" y="533.3333333333333">Idle</text>
     </g>
         
         <g class="state">
-    <circle class="state-circle " cx="763.2183908045978" cy="129.29292929292924" r="40" id="Stop"></circle>
-    <text class="state-label" x="763.2183908045978" y="129.29292929292924">Stop</text>
+    <circle class="state-circle " cx="675.9358288770055" cy="349.42528735632186" r="40" id="Long"></circle>
+    <text class="state-label" x="675.9358288770055" y="349.42528735632186">Long</text>
+    </g>
+        
+        <g class="state">
+    <circle class="state-circle " cx="761.4973262032087" cy="165.51724137931035" r="40" id="Stop"></circle>
+    <text class="state-label" x="761.4973262032087" y="165.51724137931035">Stop</text>
     </g>
         
 
         <!-- Transitions (arrows) -->
-        ['<g class="transition">\n    <line class="transition-edge" x1="303.44827586206895" y1="533.3333333333333" x2="418.39080459770116" y2="735.3535353535352"></line>\n    <text class="condition-label" x="372.41379310344826" y="654.5454545454545">button_short_push</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="418.39080459770116" y1="735.3535353535352" x2="303.44827586206895" y2="533.3333333333333"></line>\n    <text class="condition-label" x="349.42528735632186" y="614.1414141414141">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="418.39080459770116" y1="735.3535353535352" x2="648.2758620689656" y2="331.31313131313124"></line>\n    <text class="condition-label" x="556.3218390804598" y="492.92929292929284">button_long_push</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="648.2758620689656" y1="331.31313131313124" x2="303.44827586206895" y2="533.3333333333333"></line>\n    <text class="condition-label" x="441.37931034482756" y="452.5252525252524">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="648.2758620689656" y1="331.31313131313124" x2="763.2183908045978" y2="129.29292929292924"></line>\n    <text class="condition-label" x="717.2413793103449" y="210.10101010101005">button_x_long</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="763.2183908045978" y1="129.29292929292924" x2="73.5632183908046" y2="129.29292929292924"></line>\n    <text class="condition-label" x="349.42528735632186" y="129.29292929292924">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="73.5632183908046" y1="129.29292929292924" x2="303.44827586206895" y2="533.3333333333333"></line>\n    <text class="condition-label" x="211.4942528735632" y="371.71717171717165">button_short_push</text>\n    </g>']
+        ['<g class="transition">\n    <line class="transition-edge" x1="419.2513368983958" y1="533.3333333333333" x2="504.81283422459904" y2="717.2413793103449"></line>\n    <text class="condition-label" x="470.58823529411774" y="643.6781609195402">button_short_push</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="504.81283422459904" y1="717.2413793103449" x2="419.2513368983958" y2="533.3333333333333"></line>\n    <text class="condition-label" x="453.4759358288771" y="606.8965517241379">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="504.81283422459904" y1="717.2413793103449" x2="675.9358288770055" y2="349.42528735632186"></line>\n    <text class="condition-label" x="607.486631016043" y="496.55172413793105">button_long_push</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="675.9358288770055" y1="349.42528735632186" x2="419.2513368983958" y2="533.3333333333333"></line>\n    <text class="condition-label" x="521.9251336898396" y="459.7701149425287">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="675.9358288770055" y1="349.42528735632186" x2="761.4973262032087" y2="165.51724137931035"></line>\n    <text class="condition-label" x="727.2727272727274" y="239.08045977011494">button_x_long</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="761.4973262032087" y1="165.51724137931035" x2="77.00534759358288" y2="165.51724137931035"></line>\n    <text class="condition-label" x="350.8021390374332" y="165.51724137931035">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="77.00534759358288" y1="165.51724137931035" x2="333.6898395721926" y2="717.2413793103449"></line>\n    <text class="condition-label" x="231.01604278074873" y="496.55172413793105">button_short_push</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="333.6898395721926" y1="717.2413793103449" x2="419.2513368983958" y2="533.3333333333333"></line>\n    <text class="condition-label" x="385.0267379679145" y="606.8965517241379">button_released</text>\n    </g>']
       </svg>
     </div>
   </body>

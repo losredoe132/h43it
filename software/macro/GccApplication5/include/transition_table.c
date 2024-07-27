@@ -1,13 +1,8 @@
 // Define States 
-State  Idle ,   Short ,   Stop_released ,   Long ,   Stop  ;
+State  Short ,   Stop_released_wait ,   Long ,   Idle ,   Stop_released ,   Stop  ;
 
 // Define transitions for each state
 
-Transition IdleTransitions[] = {
-    
-    { &Short, pred_button_short_push}  
-    
-};
 Transition ShortTransitions[] = {
     
     { &Idle, pred_button_released} ,  
@@ -15,9 +10,9 @@ Transition ShortTransitions[] = {
     { &Long, pred_button_long_push}  
     
 };
-Transition Stop_releasedTransitions[] = {
+Transition Stop_released_waitTransitions[] = {
     
-    { &Idle, pred_button_short_push}  
+    { &Idle, pred_button_released}  
     
 };
 Transition LongTransitions[] = {
@@ -25,6 +20,16 @@ Transition LongTransitions[] = {
     { &Idle, pred_button_released} ,  
     
     { &Stop, pred_button_x_long}  
+    
+};
+Transition IdleTransitions[] = {
+    
+    { &Short, pred_button_short_push}  
+    
+};
+Transition Stop_releasedTransitions[] = {
+    
+    { &Stop_released_wait, pred_button_short_push}  
     
 };
 Transition StopTransitions[] = {
@@ -35,12 +40,14 @@ Transition StopTransitions[] = {
 
 // Define states with transitions
 
-State Idle = { "Idle", IdleAction, IdleTransitions, 1 };
-
 State Short = { "Short", ShortAction, ShortTransitions, 2 };
 
-State Stop_released = { "Stop_released", Stop_releasedAction, Stop_releasedTransitions, 1 };
+State Stop_released_wait = { "Stop_released_wait", Stop_released_waitAction, Stop_released_waitTransitions, 1 };
 
 State Long = { "Long", LongAction, LongTransitions, 2 };
+
+State Idle = { "Idle", IdleAction, IdleTransitions, 1 };
+
+State Stop_released = { "Stop_released", Stop_releasedAction, Stop_releasedTransitions, 1 };
 
 State Stop = { "Stop", StopAction, StopTransitions, 1 };

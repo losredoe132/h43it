@@ -25,4 +25,10 @@ void StopAction() {
     printf("Entering state Stop \n");
 }
 
+void Stop_released_waitAction() {
+	LEDOnById(6);
+    printf("Entering state Stop_released_wait \n");
+}
+
+
 
