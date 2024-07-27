@@ -19,16 +19,6 @@
             "state": "LONG",
             "condition": "button_released",
             "next_state": "IDLE"
-        },
-        {
-            "state": "SHORT",
-            "condition": "button_extralong_push",
-            "next_state": "XLONG"
-        },
-        {
-            "state": "XLONG",
-            "condition": "button_released",
-            "next_state": "IDLE"
         }
     ]
 }

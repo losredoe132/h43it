@@ -33,6 +33,9 @@
         stroke-width: 2px;
         marker-end: url(#arrowhead);
       }
+      .is-inital{
+        stroke:red;
+      }
     </style>
   </head>
   <body>
@@ -57,28 +60,23 @@
         <!-- States and State Labels-->
         
         <g class="state">
-    <circle class="state-circle" cx="265.2555601511884" cy="408.55193912950364" r="40" id="SHORT"></circle>
-    <text class="state-label" x="265.2555601511884" y="408.55193912950364">SHORT</text>
+    <circle class="state-circle " cx="69.56521739130433" cy="123.07692307692308" r="40" id="LONG"></circle>
+    <text class="state-label" x="69.56521739130433" y="123.07692307692308">LONG</text>
     </g>
         
         <g class="state">
-    <circle class="state-circle" cx="87.95105303365075" cy="72.752889224098" r="40" id="LONG"></circle>
-    <text class="state-label" x="87.95105303365075" y="72.752889224098">LONG</text>
+    <circle class="state-circle " cx="765.2173913043479" cy="123.07692307692308" r="40" id="IDLE"></circle>
+    <text class="state-label" x="765.2173913043479" y="123.07692307692308">IDLE</text>
     </g>
         
         <g class="state">
-    <circle class="state-circle" cx="756.0244734831746" cy="375.23265191685584" r="40" id="IDLE"></circle>
-    <text class="state-label" x="756.0244734831746" y="375.23265191685584">IDLE</text>
-    </g>
-        
-        <g class="state">
-    <circle class="state-circle" cx="155.84574659167006" cy="763.6235553879511" r="40" id="XLONG"></circle>
-    <text class="state-label" x="155.84574659167006" y="763.6235553879511">XLONG</text>
+    <circle class="state-circle " cx="417.39130434782606" cy="738.4615384615386" r="40" id="SHORT"></circle>
+    <text class="state-label" x="417.39130434782606" y="738.4615384615386">SHORT</text>
     </g>
         
 
         <!-- Transitions (arrows) -->
-        ['<g class="transition">\n    <line class="transition-edge" x1="756.0244734831746" y1="375.23265191685584" x2="265.2555601511884" y2="408.55193912950364"></line>\n    <text class="condition-label" x="461.56312548398284" y="395.2242242444445">button_short_push</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="265.2555601511884" y1="408.55193912950364" x2="756.0244734831746" y2="375.23265191685584"></line>\n    <text class="condition-label" x="559.71690815038" y="388.56036680191494">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="265.2555601511884" y1="408.55193912950364" x2="87.95105303365075" y2="72.752889224098"></line>\n    <text class="condition-label" x="158.8728558806658" y="207.07250918626028">button_long_push</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="87.95105303365075" y1="72.752889224098" x2="756.0244734831746" y2="375.23265191685584"></line>\n    <text class="condition-label" x="488.79510530336506" y="254.2407468397527">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="265.2555601511884" y1="408.55193912950364" x2="155.84574659167006" y2="763.6235553879511"></line>\n    <text class="condition-label" x="199.60967201547737" y="621.5949088845721">button_extralong_push</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="155.84574659167006" y1="763.6235553879511" x2="756.0244734831746" y2="375.23265191685584"></line>\n    <text class="condition-label" x="515.9529827265728" y="530.589013305294">button_released</text>\n    </g>']
+        ['<g class="transition">\n    <line class="transition-edge" x1="765.2173913043479" y1="123.07692307692308" x2="417.39130434782606" y2="738.4615384615386"></line>\n    <text class="condition-label" x="556.5217391304348" y="492.3076923076924">button_short_push</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="417.39130434782606" y1="738.4615384615386" x2="765.2173913043479" y2="123.07692307692308"></line>\n    <text class="condition-label" x="626.0869565217391" y="369.2307692307693">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="417.39130434782606" y1="738.4615384615386" x2="69.56521739130433" y2="123.07692307692308"></line>\n    <text class="condition-label" x="208.69565217391303" y="369.2307692307693">button_long_push</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="69.56521739130433" y1="123.07692307692308" x2="765.2173913043479" y2="123.07692307692308"></line>\n    <text class="condition-label" x="486.95652173913044" y="123.07692307692307">button_released</text>\n    </g>']
       </svg>
     </div>
   </body>

@@ -1,0 +1,15 @@
+// Define States 
+State {% for state in transition_table.keys() %} {{state}} {{ ", " if not loop.last else "" }} {% endfor %};
+
+// Define transitions for each state
+{%for state, transitions in transition_table.items() %}
+Transition {{state}}Transitions[] = {
+    {% for transition in transitions %}
+    { &{{transition["next_state"]}}, {{transition["condition"]}} }
+    {%endfor%}
+};{%endfor%}
+
+// Define states with transitions
+{%for state in transition_table.values() %}
+State stateA = { "State A", stateAEnter, stateATransitions, 1 };
+{%endfor%}

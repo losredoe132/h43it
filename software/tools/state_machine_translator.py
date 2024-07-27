@@ -3,11 +3,19 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import networkx as nx
 import numpy as np
+from collections import defaultdict
+
+env = Environment(
+    loader=FileSystemLoader(searchpath="./software/tools/templates/"),
+    autoescape=select_autoescape(),
+)
 
 
 def generate_FSM(config_path: Path):
     fsm_description = read_json(config_path)
-    generate_FSM_code(fsm_description, output_dir=Path("macro/generated/"))
+    generate_FSM_code(
+        fsm_description, output_dir=Path("software\macro\GccApplication5\include")
+    )
     generate_FSM_html(fsm_description, output_file="FSM.html")
 
 
@@ -17,13 +25,53 @@ def read_json(file: Path) -> dict:
     return j
 
 
-def generate_FSM_code(fsm_description: dict, output_dir: Path):
-    pass
+def generate_FSM_code(
+    fsm_description: dict,
+    output_dir: Path,
+    create_state_actions: bool = True,
+    create_transition_conditions: bool = True,
+    create_transition_table: bool = True,
+):
+    # TODO implement code generation
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    transition_table_sorted_by_state = defaultdict(list)
+    for transition in fsm_description["transitions"]:
+        transition_table_sorted_by_state[transition["state"]].append(transition)
+
+    states = set()
+    conditions = set()
+    for transition in fsm_description["transitions"]:
+        conditions.add(transition["condition"])
+        states.add(transition["state"])
+
+    # State Actions
+    if create_state_actions:
+        template = env.get_template("FSM_state_actions.c.jinja")
+        with open(output_dir / "state_actions_c", "w") as fh:
+            fh.writelines(template.render(states=states))
+
+    # Transition Conditions
+    if create_transition_conditions:
+        template = env.get_template("FSM_transition_conditions.c.jinja")
+        with open(output_dir / "transition_conditions.c", "w") as fh:
+            fh.writelines(template.render(conditions=conditions))
+
+    # Transition Table
+    if create_transition_table:
+        transition_table = None
+
+        template = env.get_template("FSM_transition_table.c.jinja")
+        with open(output_dir / "transition_table.c", "w") as fh:
+            fh.writelines(
+                template.render(transition_table=transition_table_sorted_by_state)
+            )
 
 
-def get_state_html(x, y, name):
+def get_state_html(x, y, name: str, is_intial=False):
+    is_intial_str = "is-inital" if is_intial else ""
     html = f"""<g class="state">
-    <circle class="state-circle" cx="{x}" cy="{y}" r="40" id="{name}"></circle>
+    <circle class="state-circle {is_intial_str}" cx="{x}" cy="{y}" r="40" id="{name}"></circle>
     <text class="state-label" x="{x}" y="{y}">{name}</text>
     </g>"""
     return html
@@ -56,12 +104,7 @@ def generate_FSM_html(fsm_description: dict, output_file: Path):
     G = nx.DiGraph()
 
     G.add_edges_from(edges)
-    state_positions = nx.spring_layout(G)
-
-    env = Environment(
-        loader=FileSystemLoader(searchpath="./software/tools/templates/"),
-        autoescape=select_autoescape(),
-    )
+    state_positions = nx.planar_layout(G)
 
     canvas_dimensions = np.array([800, 800])
     raw_positions = np.stack(list(state_positions.values()))
@@ -70,7 +113,7 @@ def generate_FSM_html(fsm_description: dict, output_file: Path):
     scale = raw_positions.max(axis=0) - raw_positions.min(axis=0) + 0.3
 
     states_html = []
-    for state_name, position in state_positions.items():
+    for idx, (state_name, position) in enumerate(state_positions.items()):
         html_canvas_position = scale_position(
             position=position,
             offset=offset,

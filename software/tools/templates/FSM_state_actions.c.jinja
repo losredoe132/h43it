@@ -1,0 +1,9 @@
+// State action functions
+{% for state in states %}
+void {{state}}Action() {
+	LEDOnById(1);
+    printf("Entering state {{state}} \n");
+}
+{% endfor %}
+
+

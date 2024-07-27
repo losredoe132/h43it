@@ -36,86 +36,10 @@ typedef struct State State_t;
 
 #define CONSECUTIVE_COUNTS_PRESSED_SHORT 30
 #define CONSECUTIVE_COUNTS_PRESSED_LONG 100
-// Condition functions
-bool consecutive_counts_pressed_greater_0() {
-	if (consecutive_counts_pressed >0){
-		return true;}
-	else{
-		return false; }
-}
 
-bool consecutive_counts_released_greater_0() {
-	if (consecutive_counts_released>0){
-	return true;}
-	else{
-	return false; }
-}
-
-bool consecutive_counts_pressed_short() {
-   if ((consecutive_counts_pressed >70)){
-		return true;}
-	else{
-		return false; }
-}
-
-bool consecutive_counts_pressed_long() {
-	if ((consecutive_counts_pressed >CONSECUTIVE_COUNTS_PRESSED_LONG)){
-	return true;}
-	else{
-	return false; }
-}
-
-
-// Example state action functions
-void stateAEnter() {
-	LEDOnById(1);
-    printf("Entering stateA \n");
-}
-
-void stateBEnter() {
-	LEDOnById(2);
-	printf("Entering stateB \n");
-}
-void stateCEnter() {
-	LEDOnById(3);
-	printf("Entering stateC \n");
-}
-
-void stateDEnter() {
-	LEDOnById(5);
-	printf("Entering stateD \n");
-}
-
-
-State stateA, stateB, stateC, stateD;
-
-// Define transitions for each state
-Transition stateATransitions[] = {
-    { &stateB, consecutive_counts_pressed_greater_0 }
-};
-
-Transition stateBTransitions[] = {
-    { &stateA, consecutive_counts_released_greater_0 }, 
-    { &stateC, consecutive_counts_pressed_short }
-		
-};
-
-Transition stateCTransitions[] = {
-	{ &stateA, consecutive_counts_released_greater_0 },
-	{ &stateD, consecutive_counts_pressed_long }
-	
-};
-Transition stateDTransitions[] = {
-	{ &stateA, consecutive_counts_released_greater_0 }
-	
-};
-
-// Define states
-State stateA = { "State A", stateAEnter, stateATransitions, 1 };
-State stateB = { "State B", stateBEnter, stateBTransitions, 2};
-State stateC = { "State B", stateCEnter, stateCTransitions, 1 };
-State stateD = { "State D", stateDEnter, stateDTransitions, 1 };
-
+#include "include/transition_conditions.c"
+#include "include/transition_table.c"
+#include "include/state_actions.c"
 
 
 void transitionState(State** currentState) {
