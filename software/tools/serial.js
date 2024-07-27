@@ -34,9 +34,9 @@ if ("serial" in navigator) {
           // Process the line (print it to the console in this case)
 
           if (line.startsWith("Entering ")) {
-            state_serial = line.split(" ")[1];
+            state_serial = line.split(" ")[2];
             console.log(state_serial);
-            var states = document.getElementsByClassName("state");
+            var states = document.getElementsByClassName("state-circle");
             console.log(states);
             for (var index = 0; index < states.length; index++) {
               state = states[index];

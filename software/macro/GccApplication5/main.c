@@ -82,7 +82,7 @@ int main(void) {
 
     // Example FSM execution loop
     while(true) {
-		_delay_ms(1);
+		_delay_ms(1000);
         transitionState(&currentState);
     }
 
