@@ -19,6 +19,11 @@
             "state": "Long",
             "condition": "button_released",
             "next_state": "Idle"
+        },
+        {
+            "state": "Long",
+            "condition": "button_x_long",
+            "next_state": "Stop"
         }
     ]
 }
