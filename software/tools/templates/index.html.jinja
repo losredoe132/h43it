@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Serial Port Example</title>
+    <style>
+      .state {
+        fill: lightblue;
+        stroke: black;
+        stroke-width: 2;
+      }
+      svg {
+        border: 1px solid black;
+        width: {{size[0]}}px;
+        height: {{size[1]}}px;
+      }
+
+      .state-label {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        text-anchor: middle;
+      }
+      .condition-label {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        text-anchor: middle;
+      }
+      .transition {
+        fill: none;
+        stroke: black;
+        stroke-width: 2px;
+        marker-end: url(#arrowhead);
+      }
+    </style>
+  </head>
+  <body>
+    <button id="connectButton">Connect to Serial Port</button>
+    <script src="serial.js"></script>
+
+    <div>
+      <svg>
+        <defs>
+          <marker
+            id="arrowhead"
+            markerWidth="10"
+            markerHeight="7"
+            refX="10"
+            refY="3.5"
+            orient="auto"
+          >
+            <polygon points="0 0, 10 3.5, 0 7" />
+          </marker>
+        </defs>
+
+        <!-- States and State Labels-->
+        {%for state in states %}
+        {{state}}
+        {% endfor %}
+       
+        
+
+        <!-- Transitions (arrows) -->
+        {{transitions}}
+        
+      </svg>
+    </div>
+  </body>
+</html>

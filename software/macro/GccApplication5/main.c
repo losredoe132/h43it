@@ -52,7 +52,7 @@ bool consecutive_counts_released_greater_0() {
 }
 
 bool consecutive_counts_pressed_short() {
-   if ((consecutive_counts_pressed >100)){
+   if ((consecutive_counts_pressed >70)){
 		return true;}
 	else{
 		return false; }
