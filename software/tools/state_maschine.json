@@ -24,6 +24,16 @@
             "state": "Long",
             "condition": "button_x_long",
             "next_state": "Stop"
+        },
+        {
+            "state": "Stop",
+            "condition": "button_released",
+            "next_state": "Stop_released"
+        },
+        {
+            "state": "Stop_released",
+            "condition": "button_short_push",
+            "next_state": "Idle"
         }
     ]
 }

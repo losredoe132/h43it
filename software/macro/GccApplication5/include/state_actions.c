@@ -1,8 +1,8 @@
 // State action functions
 
-void StopAction() {
+void IdleAction() {
 	LEDOnById(1);
-    printf("Entering state Stop \n");
+    printf("Entering state Idle \n");
 }
 
 void ShortAction() {
@@ -10,14 +10,19 @@ void ShortAction() {
     printf("Entering state Short \n");
 }
 
-void IdleAction() {
-	LEDOnById(3);
-    printf("Entering state Idle \n");
+void Stop_releasedAction() {
+	LEDOnById(5);
+    printf("Entering state Stop_released \n");
 }
 
 void LongAction() {
-	LEDOnById(4);
+	LEDOnById(3);
     printf("Entering state Long \n");
+}
+
+void StopAction() {
+	LEDOnById(4);
+    printf("Entering state Stop \n");
 }
 
 
