@@ -5,11 +5,11 @@ State {% for state in transition_table.keys() %} {{state}} {{ ", " if not loop.l
 {%for state, transitions in transition_table.items() %}
 Transition {{state}}Transitions[] = {
     {% for transition in transitions %}
-    { &{{transition["next_state"]}}, {{transition["condition"]}} }
-    {%endfor%}
+    { &{{transition["next_state"]}}, pred_{{transition["condition"]}}} {{ ", " if not loop.last else "" }} 
+    {% endfor %}
 };{%endfor%}
 
 // Define states with transitions
-{%for state in transition_table.values() %}
-State stateA = { "State A", stateAEnter, stateATransitions, 1 };
+{%for state, transitions in transition_table.items() %}
+State stateA = { "{{state}}", {{state}}Action, {{state}}Transitions, {{transitions|count}} };
 {%endfor%}
