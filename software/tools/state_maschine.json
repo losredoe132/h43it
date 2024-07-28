@@ -1,0 +1,44 @@
+{
+    "transitions": [
+        {
+            "state": "Idle",
+            "condition": "button_short_push",
+            "next_state": "Short"
+        },
+        {
+            "state": "Short",
+            "condition": "button_released",
+            "next_state": "Idle"
+        },
+        {
+            "state": "Short",
+            "condition": "button_long_push",
+            "next_state": "Long"
+        },
+        {
+            "state": "Long",
+            "condition": "button_released",
+            "next_state": "Idle"
+        },
+        {
+            "state": "Long",
+            "condition": "button_x_long",
+            "next_state": "Stop"
+        },
+        {
+            "state": "Stop",
+            "condition": "button_released",
+            "next_state": "Stop_released"
+        },
+        {
+            "state": "Stop_released",
+            "condition": "button_short_push",
+            "next_state": "Stop_released_wait"
+        },
+        {
+            "state": "Stop_released_wait",
+            "condition": "button_released",
+            "next_state": "Idle"
+        }
+    ]
+}

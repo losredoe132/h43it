@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Serial Port Example</title>
+    <style>
+
+      svg {
+        border: 1px solid black;
+        width: 800px;
+        height: 800px;
+      }
+      .transition:hover{
+        stroke:green;
+      }
+      .state-circle {
+        fill: lightblue;
+        stroke: black;
+        stroke-width: 2;
+      }
+      .state-label {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        text-anchor: middle;
+      }
+      .condition-label {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        text-anchor: middle;
+      }
+      .transition-edge {
+        fill: none;
+        stroke: black;
+        stroke-width: 2px;
+        marker-end: url(#arrowhead);
+      }
+      .is-inital{
+        stroke:red;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="connectButton">Connect to Serial Port</button>
+    <script src="software/tools/serial.js"></script>
+
+    <div>
+      <svg>
+        <defs>
+          <marker
+            id="arrowhead"
+            markerWidth="10"
+            markerHeight="7"
+            refX="10"
+            refY="3.5"
+            orient="auto"
+          >
+            <polygon points="0 0, 10 3.5, 0 7" />
+          </marker>
+        </defs>
+
+        <!-- States and State Labels-->
+        
+        <g class="state">
+    <circle class="state-circle " cx="84.21052631578945" cy="145.4545454545455" r="40" id="Long"></circle>
+    <text class="state-label" x="84.21052631578945" y="145.4545454545455">Long</text>
+    </g>
+        
+        <g class="state">
+    <circle class="state-circle " cx="505.26315789473676" cy="581.8181818181819" r="40" id="Idle"></circle>
+    <text class="state-label" x="505.26315789473676" y="581.8181818181819">Idle</text>
+    </g>
+        
+        <g class="state">
+    <circle class="state-circle " cx="421.05263157894734" cy="727.2727272727273" r="40" id="Short"></circle>
+    <text class="state-label" x="421.05263157894734" y="727.2727272727273">Short</text>
+    </g>
+        
+        <g class="state">
+    <circle class="state-circle " cx="673.6842105263158" cy="290.90909090909093" r="40" id="Stop_released"></circle>
+    <text class="state-label" x="673.6842105263158" y="290.90909090909093">Stop_released</text>
+    </g>
+        
+        <g class="state">
+    <circle class="state-circle " cx="589.4736842105262" cy="436.36363636363643" r="40" id="Stop_released_wait"></circle>
+    <text class="state-label" x="589.4736842105262" y="436.36363636363643">Stop_released_wait</text>
+    </g>
+        
+        <g class="state">
+    <circle class="state-circle " cx="757.8947368421052" cy="145.4545454545455" r="40" id="Stop"></circle>
+    <text class="state-label" x="757.8947368421052" y="145.4545454545455">Stop</text>
+    </g>
+        
+
+        <!-- Transitions (arrows) -->
+        ['<g class="transition">\n    <line class="transition-edge" x1="505.26315789473676" y1="581.8181818181819" x2="421.05263157894734" y2="727.2727272727273"></line>\n    <text class="condition-label" x="454.7368421052631" y="669.090909090909">button_short_push</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="421.05263157894734" y1="727.2727272727273" x2="505.26315789473676" y2="581.8181818181819"></line>\n    <text class="condition-label" x="471.578947368421" y="640.0">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="421.05263157894734" y1="727.2727272727273" x2="84.21052631578945" y2="145.4545454545455"></line>\n    <text class="condition-label" x="218.94736842105263" y="378.18181818181824">button_long_push</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="84.21052631578945" y1="145.4545454545455" x2="505.26315789473676" y2="581.8181818181819"></line>\n    <text class="condition-label" x="336.8421052631578" y="407.2727272727273">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="84.21052631578945" y1="145.4545454545455" x2="757.8947368421052" y2="145.4545454545455"></line>\n    <text class="condition-label" x="488.4210526315789" y="145.4545454545455">button_x_long</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="757.8947368421052" y1="145.4545454545455" x2="673.6842105263158" y2="290.90909090909093"></line>\n    <text class="condition-label" x="707.3684210526316" y="232.72727272727275">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="673.6842105263158" y1="290.90909090909093" x2="589.4736842105262" y2="436.36363636363643"></line>\n    <text class="condition-label" x="623.1578947368421" y="378.18181818181824">button_short_push</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="589.4736842105262" y1="436.36363636363643" x2="505.26315789473676" y2="581.8181818181819"></line>\n    <text class="condition-label" x="538.9473684210525" y="523.6363636363637">button_released</text>\n    </g>']
+      </svg>
+    </div>
+  </body>
+</html>
