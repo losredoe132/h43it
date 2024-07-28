@@ -4,7 +4,7 @@ static void USART0_sendChar(char c)
 {
 	while (!(USART0.STATUS & USART_DREIF_bm))
 	{
-		;                                   /* Wait for USART ready for receiving next char */
+		; /* Wait for USART ready for receiving next char */
 	}
 	USART0.TXDATAL = c;
 }
@@ -19,14 +19,13 @@ static FILE USART_stream = FDEV_SETUP_STREAM(USART0_printChar, NULL, _FDEV_SETUP
 
 void USART0_init(void)
 {
-	PORTMUX.CTRLB=PORTMUX_USART0_ALTERNATE_gc;		//Use alt UARTpins
-	//PORTA.DIR &= ~PIN3_bm;                  /* Configure RX pin as an input */
-	PORTA.DIR |= PIN1_bm;                   /* Configure TX pin as an output */
+	PORTMUX.CTRLB = PORTMUX_USART0_ALTERNATE_gc; // Use alt UARTpins
+	// PORTA.DIR &= ~PIN3_bm;                  /* Configure RX pin as an input */
+	PORTA.DIR |= PIN1_bm; /* Configure TX pin as an output */
 
 	USART0.BAUD = (uint16_t)USART0_BAUD_RATE(9600);
 
-	USART0.CTRLB |= USART_TXEN_bm;          /* Transmitter Enable bit mask. */
+	USART0.CTRLB |= USART_TXEN_bm; /* Transmitter Enable bit mask. */
 
-	stdout = &USART_stream;                 /* Bind UART to stdio output stream */
+	stdout = &USART_stream; /* Bind UART to stdio output stream */
 }
-
