@@ -12,10 +12,10 @@ const uint8_t btn_pin = PIN2_bm;
 
 uint8_t array_day_activation[32];
 uint8_t n_counts_awake ; 
-
+uint8_t day_counter ; 
 uint8_t i ;
-
-
+uint8_t steps_since_last_activation;
+uint8_t is_PIT_ISR; 
 
 #include "include/usart.c"
 #include "include/led_pins.c"
@@ -68,17 +68,19 @@ int main(void) {
 	USART0_init();
 	TCA0_init();
 	TCB0_init();
-
+	RTCA_init();
 	// Button setup
 	PORTA.PIN2CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
 
-	
+	is_PIT_ISR = 0; 
 	i =0;	
+	day_counter = 1; 
+	steps_since_last_activation=0; 
 	n_counts_awake=0; 
-	for(int idx = 0; idx <= 32; idx++) {
-		array_day_activation[idx] = 1; // Initialize each element to 0
+	for(int idx = 0; idx < 32; idx++) {
+		array_day_activation[idx] = 0; // Initialize each element to 0
 	}
-	
+
 	sei();
 	SLPCTRL.CTRLA |= SLPCTRL_SMODE_STDBY_gc; // set POWER DOWN as sleep mode
 	SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode

@@ -45,7 +45,17 @@ uint8_t  consecutive_counts_released=0;
 
 ISR(PORTA_PORT_vect) {
 	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
+	is_PIT_ISR = 0; 
 }
+
+ISR(RTC_PIT_vect)
+{
+	is_PIT_ISR = 1; 
+	steps_since_last_activation ++;
+
+	RTC.PITINTFLAGS = RTC_PI_bm;// Clear interrupt flag
+}
+
 
 
 ISR(TCA0_OVF_vect)
@@ -56,7 +66,7 @@ ISR(TCA0_OVF_vect)
 	if (array_day_activation[i]==1){LEDOnById(i);}
 	else{allLEDoff();}
 
-	if (i>32){i=0;} // i overflow carrying
+	if (i>30){i=0;} // i overflow carrying
 
 	// The interrupt flag has to be cleared manually
 	TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;

@@ -21,7 +21,7 @@
             "next_state": "Idle"
         },
         {
-            "state": "Idle",
+            "state": "PIT",
             "condition": "activation_missed",
             "next_state": "MissedActivation"
         },
@@ -47,8 +47,18 @@
         },
         {
             "state": "JustWokeUp",
-            "condition": "true",
+            "condition": "is_button_ISR",
             "next_state": "Idle"
+        },
+        {
+            "state": "JustWokeUp",
+            "condition": "is_PIT_ISR",
+            "next_state": "PIT"
+        },
+        {
+            "state": "PIT",
+            "condition": "true",
+            "next_state": "GoingToBed"
         }
     ]
 }

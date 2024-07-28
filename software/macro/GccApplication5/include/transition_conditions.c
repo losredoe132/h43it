@@ -1,8 +1,13 @@
 
 
 bool pred_activation_missed() {
-	// TODO This is an auto-generated function, returning True everytime it gets called. PLease define the condition according to you needs. 
-    return false; 
+	
+	if (steps_since_last_activation >5){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 bool pred_button_push_long() {
@@ -53,9 +58,23 @@ bool pred_ISRs() {
     return true; 
 }
 
+bool pred_is_PIT_ISR() {
+	 if (is_PIT_ISR ==1){
+		 return true;
+	 }
+	 else{
+		 return false;
+	 }
+}
 
-
-
+bool pred_is_button_ISR() {
+	 if (is_PIT_ISR ==0){
+		 return true;
+	 }
+	 else{
+		 return false;
+	 }
+}
 
 
 

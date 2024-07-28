@@ -118,7 +118,7 @@ def generate_FSM_html(fsm_description: dict, output_file: Path):
     G = nx.DiGraph()
 
     G.add_edges_from(edges)
-    state_positions = nx.planar_layout(G)
+    state_positions = nx.spring_layout(G)
 
     canvas_dimensions = np.array([800, 800])
     raw_positions = np.stack(list(state_positions.values()))
