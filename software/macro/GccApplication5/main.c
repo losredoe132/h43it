@@ -10,6 +10,12 @@
 #include <util/delay.h>
 const uint8_t btn_pin = PIN2_bm;
 
+uint8_t array_day_activation[32];
+uint8_t n_counts_awake ; 
+
+uint8_t i ;
+
+
 
 #include "include/usart.c"
 #include "include/led_pins.c"
@@ -46,13 +52,12 @@ void transitionState(State** currentState) {
     for (size_t i = 0; i < (*currentState)->numTransitions; ++i) {
         if ((*currentState)->transitions[i].condition()) {
             *currentState = (*currentState)->transitions[i].nextState;
-            if ((*currentState)->onEnter) {
-                (*currentState)->onEnter();
-            }
+            (*currentState)->onEnter();
             return;
         }
     }
 }
+
 
 
 int main(void) {
@@ -61,14 +66,20 @@ int main(void) {
 	PORTB.DIRSET = 0b11111111;
 	PORTC.DIRSET = 0b11111111;
 	USART0_init();
-	TCB0_init();
 	TCA0_init();
-	
+	TCB0_init();
 
 	// Button setup
 	PORTA.PIN2CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
 
 	sei();
+	
+	i =0;	
+	n_counts_awake=0; 
+	for(int idx = 0; idx <= 32; idx++) {
+		array_day_activation[idx] = 1; // Initialize each element to 0
+	}
+	
 	
 	printf("Booting finished\n"); 
 	
@@ -82,7 +93,7 @@ int main(void) {
 
     // Example FSM execution loop
     while(true) {
-		_delay_ms(1);
+		_delay_ms(100);
         transitionState(&currentState);
     }
 

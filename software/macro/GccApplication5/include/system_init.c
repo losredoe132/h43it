@@ -27,15 +27,6 @@ void TCA0_init()
 	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1024_gc | TCA_SINGLE_ENABLE_bm;    /* source (sys_clk/8) +  start timer */
 }
 
-ISR(TCA0_OVF_vect)
-{
-	// "Running" trough the LED table defined above and switch LEDs on & off according to the x value
-	
-
-	// The interrupt flag has to be cleared manually
-	TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;
-	
-}
 
 void TCB0_init (void)
 {
@@ -52,9 +43,28 @@ void TCB0_init (void)
 uint8_t consecutive_counts_pressed=0;
 uint8_t  consecutive_counts_released=0;
 
+ISR(PORTA_PORT_vect) {
+	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
+}
+
+
+
+ISR(TCA0_OVF_vect)
+{
+	// "Running" trough the LED table defined above and switch LEDs on & off according to the x value
+	i++;
+
+	if (array_day_activation[i]==1){LEDOnById(i);}
+	else{allLEDoff();}
+
+	if (i>32){i=0;} // i overflow carrying
+
+	// The interrupt flag has to be cleared manually
+	TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;
+}
+
 ISR(TCB0_INT_vect)
 {
-
 	// Counting consecutive ticks of pressed or released button. Use case: Debouncing and short and long press detection.
 	if (~PORTA.IN & btn_pin){
 		consecutive_counts_pressed++;
@@ -65,8 +75,4 @@ ISR(TCB0_INT_vect)
 		consecutive_counts_released++;
 	}
 	TCB0.INTFLAGS = TCB_CAPT_bm; /* Clear the interrupt flag */
-}
-
-ISR(PORTA_PORT_vect) {
-	PORTA.INTFLAGS |= btn_pin; // Clear interrupt flag
 }

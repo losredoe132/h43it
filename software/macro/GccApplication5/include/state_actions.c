@@ -1,32 +1,41 @@
 
 void IdleAction() {
-	LEDOnById(1);
-    printf("Entering state Idle \n");
+	n_counts_awake ++;	
+	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1024_gc | TCA_SINGLE_ENABLE_bm;    /* source (sys_clk/8) +  start timer */
+
+    printf("Entering state Idle with n_counts_awake= %d \n", n_counts_awake);
 }
 
-void LongAction() {
-	LEDOnById(2);
-    printf("Entering state Long \n");
+void ActivationAction() {
+    printf("Entering state Activation \n");
 }
 
-void ShortAction() {
-	LEDOnById(3);
-    printf("Entering state Short \n");
+void GoingToBedAction() {
+    printf("Entering state GoingToBed \n");
+	TCA0.SINGLE.CTRLA =  ~TCA_SINGLE_ENABLE_bm;    /* source (sys_clk/8) +  start timer */
+	allLEDoff();
+	
+	sleep_cpu(); // actually going to sleep
+	
+	
 }
 
-void StopAction() {
-	LEDOnById(4);
-    printf("Entering state Stop \n");
+void MissedActivationAction() {
+    printf("Entering state MissedActivation \n");
 }
 
-void Stop_releasedAction() {
-	LEDOnById(5);
-    printf("Entering state Stop_released \n");
+void ResetAction() {
+    printf("Entering state Reset \n");
 }
 
-void Stop_released_waitAction() {
-	LEDOnById(6);
-    printf("Entering state Stop_released_wait \n");
-}
+
+
+
+
+
+
+
+
+
 
 
