@@ -1,5 +1,4 @@
 
-
 void RTCA_init()
 {
 	RTC.CLKSEL = RTC_CLKSEL_INT1K_gc; // 1024 Hz from OSCULP32K
@@ -24,7 +23,7 @@ void TCA0_init()
 	TCA0.SINGLE.PER = TCAdelay;
 
 	// set clock
-	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1024_gc | TCA_SINGLE_ENABLE_bm; /* source (sys_clk/8) +  start timer */
+	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV256_gc | TCA_SINGLE_ENABLE_bm; /* source (sys_clk/8) +  start timer */
 }
 
 void TCB0_init(void)
@@ -57,7 +56,7 @@ ISR(RTC_PIT_vect)
 		h_of_this_day++;
 		s_of_this_day = 0;
 	}
-	if (h_of_this_day > 24)
+	if (s_of_this_day > 10)
 	{
 		printf("New day: %d\n", day_counter);
 		day_counter++;
@@ -72,20 +71,30 @@ ISR(TCA0_OVF_vect)
 {
 	// "Running" trough the LED table defined above and switch LEDs on & off according to the x value
 	i++;
-
-	if (array_day_activation[i] == 1)
-	{
-		LEDOnById(i);
+	if (i <=32*5){
+		if (i%32<31){
+		if (array_day_activation[i%32] == 1)
+		{
+			LEDOnById(i%32);
+		}
+		else
+		{
+			allLEDoff();
+		}
+		}
+		else{
+			if ((i/32)>2){
+				LEDOnById(day_counter);
+			
+			}
+		}
 	}
-	else
-	{
-		allLEDoff();
+
+	else{
+		i=0;
 	}
 
-	if (i > 30)
-	{
-		i = 0;
-	} // i overflow carrying
+
 
 	// The interrupt flag has to be cleared manually
 	TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;
