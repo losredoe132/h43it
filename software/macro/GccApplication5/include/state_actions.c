@@ -1,6 +1,6 @@
 
 void IdleAction() {
-    printf("Entering state Idle with n_counts_awake=%d and s_of_this_day=%d of day %d \n", n_counts_awake, s_of_this_day, day_counter);
+    printf("Entering state Idle with n_counts_awake=%d and %d hours and %d seconds of day %d \n", n_counts_awake, h_of_this_day, s_of_this_day,  day_counter);
 	n_counts_awake ++;	
 	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1024_gc | TCA_SINGLE_ENABLE_bm;    /* source (sys_clk/8) +  start timer */
 
@@ -26,6 +26,7 @@ void ResetAction() {
     printf("Entering state Reset \n");
 	n_counts_awake=0;
 	s_of_this_day=0; 
+	h_of_this_day = 0; 
 	day_counter = 1; 
 	is_PIT_ISR = 0;
 	i =0;

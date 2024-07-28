@@ -15,6 +15,7 @@ uint8_t n_counts_awake ;
 uint8_t day_counter ; 
 uint8_t i ;
 uint16_t s_of_this_day;
+uint8_t h_of_this_day; 
 uint8_t is_PIT_ISR; 
 
 #include "include/usart.c"
