@@ -70,9 +70,9 @@ int main(void) {
 
 	sei();
 	
-
-	
 	printf("Booting finished\n"); 
+	
+	// Set initial state 
 	State* currentState = &Idle;
 
     // Initial state action

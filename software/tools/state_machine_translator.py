@@ -29,7 +29,6 @@ def generate_FSM_code(
     fsm_description: dict,
     output_dir: Path,
 ):
-    # TODO implement code generation
     output_dir.mkdir(parents=True, exist_ok=True)
 
     states = set()
@@ -38,10 +37,10 @@ def generate_FSM_code(
         conditions.add(transition["condition"])
         states.add(transition["state"])
         states.add(transition["next_state"])
-    
+
     states = sorted(states)
-    conditions=sorted(conditions)
-    
+    conditions = sorted(conditions)
+
     transition_table_sorted_by_state = {state: [] for state in states}
     for transition in fsm_description["transitions"]:
         transition_table_sorted_by_state[transition["state"]].append(transition)
@@ -57,12 +56,12 @@ def generate_FSM_code(
         ]
 
     template = env.get_template("FSM_state_actions.c.jinja")
-    with open(state_actions_code_path, "a") as fh:
+    with open(state_actions_code_path, "a", encoding="utf-8") as fh:
         fh.writelines(template.render(states=states))
 
     # Transition Conditions
     transition_conditions_code_path = output_dir / "transition_conditions.c"
-    # TODO check which conditions
+    # check which conditions to be added
     if transition_conditions_code_path.exists():
         with transition_conditions_code_path.open("r") as fh:
             code_content = "\n".join(fh.readlines())
@@ -72,12 +71,12 @@ def generate_FSM_code(
             if not f"pred_{condition}()" in code_content
         ]
     template = env.get_template("FSM_transition_conditions.c.jinja")
-    with open(transition_conditions_code_path, "a") as fh:
+    with open(transition_conditions_code_path, "a", encoding="utf-8") as fh:
         fh.writelines(template.render(conditions=conditions))
 
     # Transition Table
     template = env.get_template("FSM_transition_table.c.jinja")
-    with open(output_dir / "transition_table.c", "w") as fh:
+    with open(output_dir / "transition_table.c", "w", encoding="utf-8") as fh:
         fh.writelines(
             template.render(transition_table=transition_table_sorted_by_state)
         )
@@ -175,7 +174,7 @@ def generate_FSM_html(fsm_description: dict, output_file: Path):
         }
     )
 
-    with open(output_file, "w") as fh:
+    with open(output_file, "w", encoding="utf-8") as fh:
         fh.writelines(rendered_html)
 
 
