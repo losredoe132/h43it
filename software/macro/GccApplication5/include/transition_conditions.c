@@ -1,15 +1,4 @@
 
-
-bool pred_activation_missed() {
-	
-	if (steps_since_last_activation >5){
-		return true;
-	}
-	else{
-		return false;
-	}
-}
-
 bool pred_button_push_long() {
 	if (consecutive_counts_pressed >100){
 		return true;
@@ -20,7 +9,7 @@ bool pred_button_push_long() {
 }
 
 bool pred_button_push_short() {
-	if (consecutive_counts_pressed >3){
+	if (consecutive_counts_pressed >2){
 		return true;
 	}
 	else{
@@ -29,7 +18,7 @@ bool pred_button_push_short() {
 }
 
 bool pred_button_released() {
-	if (consecutive_counts_released >3){
+	if (consecutive_counts_released >2){
 		return true;
 	}
 	else{
@@ -75,6 +64,14 @@ bool pred_is_button_ISR() {
 		 return false;
 	 }
 }
+
+
+
+
+
+
+
+
 
 
 

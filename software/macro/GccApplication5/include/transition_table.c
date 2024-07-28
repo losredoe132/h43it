@@ -1,4 +1,4 @@
-State  Activation ,   GoingToBed ,   Idle ,   JustWokeUp ,   MissedActivation ,   PIT ,   Reset  ;
+State  Activation ,   GoingToBed ,   Idle ,   JustWokeUp ,   PIT ,   Reset ,   WaitUntilRelease  ;
 
 // Define transitions for each state
 
@@ -25,24 +25,22 @@ Transition IdleTransitions[] = {
 };
 Transition JustWokeUpTransitions[] = {
     
-    { &Idle, pred_is_button_ISR} ,  
+    { &WaitUntilRelease, pred_is_button_ISR} ,  
     
     { &PIT, pred_is_PIT_ISR}  
     
 };
-Transition MissedActivationTransitions[] = {
-    
-    { &GoingToBed, pred_true}  
-    
-};
 Transition PITTransitions[] = {
-    
-    { &MissedActivation, pred_activation_missed} ,  
     
     { &GoingToBed, pred_true}  
     
 };
 Transition ResetTransitions[] = {
+    
+    { &Idle, pred_button_released}  
+    
+};
+Transition WaitUntilReleaseTransitions[] = {
     
     { &Idle, pred_button_released}  
     
@@ -58,8 +56,8 @@ State Idle = { "Idle", IdleAction, IdleTransitions, 3 };
 
 State JustWokeUp = { "JustWokeUp", JustWokeUpAction, JustWokeUpTransitions, 2 };
 
-State MissedActivation = { "MissedActivation", MissedActivationAction, MissedActivationTransitions, 1 };
-
-State PIT = { "PIT", PITAction, PITTransitions, 2 };
+State PIT = { "PIT", PITAction, PITTransitions, 1 };
 
 State Reset = { "Reset", ResetAction, ResetTransitions, 1 };
+
+State WaitUntilRelease = { "WaitUntilRelease", WaitUntilReleaseAction, WaitUntilReleaseTransitions, 1 };

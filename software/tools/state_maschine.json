@@ -21,16 +21,6 @@
             "next_state": "Idle"
         },
         {
-            "state": "PIT",
-            "condition": "activation_missed",
-            "next_state": "MissedActivation"
-        },
-        {
-            "state": "MissedActivation",
-            "condition": "true",
-            "next_state": "GoingToBed"
-        },
-        {
             "state": "Idle",
             "condition": "tired",
             "next_state": "GoingToBed"
@@ -48,6 +38,11 @@
         {
             "state": "JustWokeUp",
             "condition": "is_button_ISR",
+            "next_state": "WaitUntilRelease"
+        },
+        {
+            "state": "WaitUntilRelease",
+            "condition": "button_released",
             "next_state": "Idle"
         },
         {

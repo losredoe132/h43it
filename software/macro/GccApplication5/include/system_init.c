@@ -51,7 +51,12 @@ ISR(PORTA_PORT_vect) {
 ISR(RTC_PIT_vect)
 {
 	is_PIT_ISR = 1; 
-	steps_since_last_activation ++;
+	s_of_this_day++;
+	if (s_of_this_day > 30){
+		printf("New day: %d\n", day_counter);
+		day_counter++;
+		s_of_this_day = 0; 
+	}
 
 	RTC.PITINTFLAGS = RTC_PI_bm;// Clear interrupt flag
 }

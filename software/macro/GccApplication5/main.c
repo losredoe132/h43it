@@ -14,7 +14,7 @@ uint8_t array_day_activation[32];
 uint8_t n_counts_awake ; 
 uint8_t day_counter ; 
 uint8_t i ;
-uint8_t steps_since_last_activation;
+uint16_t s_of_this_day;
 uint8_t is_PIT_ISR; 
 
 #include "include/usart.c"
@@ -72,11 +72,6 @@ int main(void) {
 	// Button setup
 	PORTA.PIN2CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
 
-	is_PIT_ISR = 0; 
-	i =0;	
-	day_counter = 1; 
-	steps_since_last_activation=0; 
-	n_counts_awake=0; 
 	for(int idx = 0; idx < 32; idx++) {
 		array_day_activation[idx] = 0; // Initialize each element to 0
 	}
@@ -88,7 +83,7 @@ int main(void) {
 	printf("Booting finished\n"); 
 	
 	// Set initial state 
-	State* currentState = &Idle;
+	State* currentState = &Reset;
 
     // Initial state action
     if (currentState->onEnter) {
@@ -97,7 +92,7 @@ int main(void) {
 
     // Example FSM execution loop
     while(true) {
-		_delay_ms(10);
+		_delay_ms(1);
         transitionState(&currentState);
     }
 

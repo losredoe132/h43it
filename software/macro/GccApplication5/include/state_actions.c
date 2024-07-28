@@ -1,6 +1,6 @@
 
 void IdleAction() {
-    printf("Entering state Idle with n_counts_awake=%d and steps_since_last_activation=%d\n", n_counts_awake, steps_since_last_activation);
+    printf("Entering state Idle with n_counts_awake=%d and s_of_this_day=%d of day %d \n", n_counts_awake, s_of_this_day, day_counter);
 	n_counts_awake ++;	
 	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1024_gc | TCA_SINGLE_ENABLE_bm;    /* source (sys_clk/8) +  start timer */
 
@@ -22,18 +22,14 @@ void GoingToBedAction() {
 	sleep_mode(); // actually going to sleep	
 }
 
-void MissedActivationAction() {
-	day_counter++;
-	if (day_counter > 31){
-		day_counter = 1; 
-	}
-    printf("Entering state MissedActivation increasing day_counter to %d\n", day_counter);
-	steps_since_last_activation = 0 ; 
-}
-
 void ResetAction() {
     printf("Entering state Reset \n");
 	n_counts_awake=0;
+	s_of_this_day=0; 
+	day_counter = 1; 
+	is_PIT_ISR = 0;
+	i =0;
+		
 	for(int idx = 0; idx < 32; idx++) {
 		array_day_activation[idx] = 0; // Initialize each element to 0
 	}
@@ -47,10 +43,21 @@ void JustWokeUpAction() {
 
 
 void PITAction() {
-    printf("Entering state PIT with steps_since_last_activation=%d\n", steps_since_last_activation);
+   
 }
 
 
+void WaitUntilReleaseAction() {
+    printf("Entering state WaitUntilRelease \n");
+	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1024_gc | TCA_SINGLE_ENABLE_bm;    /* source (sys_clk/8) +  start timer */
+	
+}
+
+
+
+void MissedActivationAction() {
+    printf("Entering state MissedActivation \n");
+}
 
 
 
