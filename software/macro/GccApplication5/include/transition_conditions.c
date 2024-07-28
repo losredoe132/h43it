@@ -34,7 +34,6 @@ bool pred_button_released() {
 
 
 bool pred_tired() {
-	// TODO This is an auto-generated function, returning True everytime it gets called. PLease define the condition according to you needs. 
     if (n_counts_awake > 50){
 		return true; 
 	}
@@ -44,9 +43,31 @@ bool pred_tired() {
 }
 
 bool pred_true() {
-	// TODO This is an auto-generated function, returning True everytime it gets called. PLease define the condition according to you needs. 
     return true; 
 }
+
+
+bool pred_ISRs() {
+	// This is not an actual condition but handled by the Interrupt Service Routines to be
+	// wake up from sleep if a button gets pressed or the Periodic Interrupt Routine is firing. 
+    return true; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

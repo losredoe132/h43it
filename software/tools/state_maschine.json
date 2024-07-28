@@ -39,6 +39,16 @@
             "state": "Idle",
             "condition": "true",
             "next_state": "Idle"
+        },
+        {
+            "state": "GoingToBed",
+            "condition": "ISRs",
+            "next_state": "JustWokeUp"
+        },
+        {
+            "state": "JustWokeUp",
+            "condition": "true",
+            "next_state": "Idle"
         }
     ]
 }

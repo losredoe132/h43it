@@ -72,7 +72,6 @@ int main(void) {
 	// Button setup
 	PORTA.PIN2CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
 
-	sei();
 	
 	i =0;	
 	n_counts_awake=0; 
@@ -80,6 +79,9 @@ int main(void) {
 		array_day_activation[idx] = 1; // Initialize each element to 0
 	}
 	
+	sei();
+	SLPCTRL.CTRLA |= SLPCTRL_SMODE_STDBY_gc; // set POWER DOWN as sleep mode
+	SLPCTRL.CTRLA |= SLPCTRL_SEN_bm; // enable sleep mode
 	
 	printf("Booting finished\n"); 
 	
@@ -93,7 +95,7 @@ int main(void) {
 
     // Example FSM execution loop
     while(true) {
-		_delay_ms(100);
+		_delay_ms(10);
         transitionState(&currentState);
     }
 

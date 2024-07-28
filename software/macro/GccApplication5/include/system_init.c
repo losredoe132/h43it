@@ -48,7 +48,6 @@ ISR(PORTA_PORT_vect) {
 }
 
 
-
 ISR(TCA0_OVF_vect)
 {
 	// "Running" trough the LED table defined above and switch LEDs on & off according to the x value
