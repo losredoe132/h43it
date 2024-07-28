@@ -3,7 +3,6 @@ from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 import networkx as nx
 import numpy as np
-from collections import defaultdict
 
 env = Environment(
     loader=FileSystemLoader(searchpath="./software/tools/templates/"),
@@ -16,8 +15,6 @@ def generate_FSM(config_path: Path):
     generate_FSM_code(
         fsm_description,
         output_dir=Path("./software/macro/GccApplication5/include"),
-        create_transition_conditions=False,
-        create_state_actions=False,
     )
     generate_FSM_html(fsm_description, output_file="FSM.html")
 
@@ -31,9 +28,6 @@ def read_json(file: Path) -> dict:
 def generate_FSM_code(
     fsm_description: dict,
     output_dir: Path,
-    create_state_actions: bool = True,
-    create_transition_conditions: bool = True,
-    create_transition_table: bool = True,
 ):
     # TODO implement code generation
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -44,32 +38,49 @@ def generate_FSM_code(
         conditions.add(transition["condition"])
         states.add(transition["state"])
         states.add(transition["next_state"])
-
+    
+    states = sorted(states)
+    conditions=sorted(conditions)
+    
     transition_table_sorted_by_state = {state: [] for state in states}
     for transition in fsm_description["transitions"]:
         transition_table_sorted_by_state[transition["state"]].append(transition)
 
     # State Actions
-    if create_state_actions:
-        # TODO check which actions to be updated
-        template = env.get_template("FSM_state_actions.c.jinja")
-        with open(output_dir / "state_actions.c", "w") as fh:
-            fh.writelines(template.render(states=states))
+    state_actions_code_path = output_dir / "state_actions.c"
+    # check which actions to be updated
+    if state_actions_code_path.exists():
+        with state_actions_code_path.open("r") as fh:
+            code_content = "\n".join(fh.readlines())
+        states = [
+            state for state in states if not f"void {state}Action()" in code_content
+        ]
+
+    template = env.get_template("FSM_state_actions.c.jinja")
+    with open(state_actions_code_path, "a") as fh:
+        fh.writelines(template.render(states=states))
 
     # Transition Conditions
-    if create_transition_conditions:
-        # TODO check which conditions
-        template = env.get_template("FSM_transition_conditions.c.jinja")
-        with open(output_dir / "transition_conditions.c", "w") as fh:
-            fh.writelines(template.render(conditions=conditions))
+    transition_conditions_code_path = output_dir / "transition_conditions.c"
+    # TODO check which conditions
+    if transition_conditions_code_path.exists():
+        with transition_conditions_code_path.open("r") as fh:
+            code_content = "\n".join(fh.readlines())
+        conditions = [
+            condition
+            for condition in conditions
+            if not f"pred_{condition}()" in code_content
+        ]
+    template = env.get_template("FSM_transition_conditions.c.jinja")
+    with open(transition_conditions_code_path, "a") as fh:
+        fh.writelines(template.render(conditions=conditions))
 
     # Transition Table
-    if create_transition_table:
-        template = env.get_template("FSM_transition_table.c.jinja")
-        with open(output_dir / "transition_table.c", "w") as fh:
-            fh.writelines(
-                template.render(transition_table=transition_table_sorted_by_state)
-            )
+    template = env.get_template("FSM_transition_table.c.jinja")
+    with open(output_dir / "transition_table.c", "w") as fh:
+        fh.writelines(
+            template.render(transition_table=transition_table_sorted_by_state)
+        )
 
 
 def get_state_html(x, y, name: str, is_intial=False):
