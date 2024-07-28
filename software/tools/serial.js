@@ -32,7 +32,10 @@ if ("serial" in navigator) {
           // Remove the line from the buffer
           buffer = buffer.slice(newlineIndex + 1);
           // Process the line (print it to the console in this case)
-
+          document.getElementById("message-windows").innerHTML =
+            line +
+            "<br>" +
+            document.getElementById("message-windows").innerHTML;
           if (line.startsWith("Entering ")) {
             state_serial = line.split(" ")[2];
             console.log(state_serial);
