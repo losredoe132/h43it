@@ -23,7 +23,7 @@ void TCA0_init()
 	TCA0.SINGLE.PER = TCAdelay;
 
 	// set clock
-	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV256_gc | TCA_SINGLE_ENABLE_bm; /* source (sys_clk/8) +  start timer */
+	TCA0.SINGLE.CTRLA = TCA_SINGLE_CLKSEL_DIV1024_gc | TCA_SINGLE_ENABLE_bm; /* source (sys_clk/8) +  start timer */
 }
 
 void TCB0_init(void)
@@ -56,7 +56,7 @@ ISR(RTC_PIT_vect)
 		h_of_this_day++;
 		s_of_this_day = 0;
 	}
-	if (s_of_this_day > 10)
+	if (h_of_this_day > 12)
 	{
 		printf("New day: %d\n", day_counter);
 		day_counter++;
@@ -70,32 +70,38 @@ ISR(RTC_PIT_vect)
 ISR(TCA0_OVF_vect)
 {
 	// "Running" trough the LED table defined above and switch LEDs on & off according to the x value
-	i++;
-	if (i <=32*5){
-		if (i%32<31){
-		if (array_day_activation[i%32] == 1)
+	if (i < (32 * 10))
+	{
+		// 		printf("i = %d ", i);
+		// 		printf("i%32 = %d \n", i%32);
+		if (i % 32 <= 30)
 		{
-			LEDOnById(i%32);
+			if (array_day_activation[i % 32] == 1)
+			{
+				LEDOnById(i % 32);
+				// printf("LED on %d\n", i%32);
+			}
+			else
+			{
+				allLEDoff();
+				// printf("LED off %d\n", i%32);
+			}
 		}
 		else
 		{
-			allLEDoff();
-		}
-		}
-		else{
-			if ((i/32)>2){
+			if (i / 32 >= 5)
+			{
 				LEDOnById(day_counter);
-			
+				// printf("LED on due to today %d\n", day_counter);
 			}
 		}
 	}
-
-	else{
-		i=0;
+	else
+	{
+		i = 0;
 	}
-
-
-
+	i++;
+		
 	// The interrupt flag has to be cleared manually
 	TCA0.SINGLE.INTFLAGS = TCA_SINGLE_OVF_bm;
 }

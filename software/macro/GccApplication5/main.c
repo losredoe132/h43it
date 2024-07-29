@@ -13,7 +13,7 @@ const uint8_t btn_pin = PIN2_bm;
 uint8_t array_day_activation[32];
 uint8_t n_counts_awake;
 uint8_t day_counter;
-uint8_t i;
+uint16_t i;
 uint16_t s_of_this_day;
 uint8_t h_of_this_day;
 uint8_t is_PIT_ISR;
@@ -74,16 +74,14 @@ int main(void)
     // Button setup
     PORTA.PIN2CTRL = PORT_ISC_FALLING_gc | PORT_PULLUPEN_bm; // Enable pull-up resistor
 
-    for (int idx = 0; idx < 32; idx++)
-    {
-        array_day_activation[idx] = 0; // Initialize each element to 0
-    }
+   
 
     sei();
     SLPCTRL.CTRLA |= SLPCTRL_SMODE_STDBY_gc; // set POWER DOWN as sleep mode
     SLPCTRL.CTRLA |= SLPCTRL_SEN_bm;         // enable sleep mode
 
     printf("Booting finished\n");
+	statusLEDtoggle();
 
     // Set initial state
     State *currentState = &Reset;

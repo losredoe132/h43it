@@ -53,3 +53,8 @@ void allLEDoff()
 	PORTB.OUT = port_a_b_c_outs[0][1];
 	PORTC.OUT = port_a_b_c_outs[0][2];
 }
+
+
+void statusLEDtoggle(){
+	PORTA.OUTTGL = 0b00010000;
+}

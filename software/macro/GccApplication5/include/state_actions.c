@@ -32,11 +32,14 @@ void ResetAction()
 	day_counter = 1;
 	is_PIT_ISR = 0;
 	i = 0;
+	
+	
 
 	for (int idx = 0; idx < 32; idx++)
 	{
 		array_day_activation[idx] = 0; // Initialize each element to 0
 	}
+	
 }
 
 void JustWokeUpAction()
