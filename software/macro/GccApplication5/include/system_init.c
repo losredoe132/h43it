@@ -51,12 +51,12 @@ ISR(RTC_PIT_vect)
 {
 	is_PIT_ISR = 1;
 	s_of_this_day++;
-	if (s_of_this_day > 60 * 60)
+	if (s_of_this_day >= 60 * 60)
 	{
 		h_of_this_day++;
 		s_of_this_day = 0;
 	}
-	if (h_of_this_day > 12)
+	if (h_of_this_day >= 24)
 	{
 		printf("New day: %d\n", day_counter);
 		day_counter++;

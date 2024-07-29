@@ -28,18 +28,17 @@ void ResetAction()
 	printf("Entering state Reset \n");
 	n_counts_awake = 0;
 	s_of_this_day = 0;
-	h_of_this_day = 0;
-	day_counter = 1;
+	h_of_this_day = 21;
+	day_counter = 2;
 	is_PIT_ISR = 0;
 	i = 0;
-	
 	
 
 	for (int idx = 0; idx < 32; idx++)
 	{
 		array_day_activation[idx] = 0; // Initialize each element to 0
 	}
-	
+	array_day_activation[1] = 1;
 }
 
 void JustWokeUpAction()
