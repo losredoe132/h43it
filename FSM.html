@@ -65,43 +65,48 @@
         <!-- States and State Labels-->
         
         <g class="state">
-    <circle class="state-circle " cx="72.99630086313196" cy="184.42367601246107" r="40" id="WaitUntilRelease"></circle>
-    <text class="state-label" x="72.99630086313196" y="184.42367601246107">WaitUntilRelease</text>
+    <circle class="state-circle " cx="72.0720720720721" cy="145.45454545454547" r="40" id="Activation"></circle>
+    <text class="state-label" x="72.0720720720721" y="145.45454545454547">Activation</text>
     </g>
         
         <g class="state">
-    <circle class="state-circle " cx="763.5018495684342" cy="184.42367601246107" r="40" id="Idle"></circle>
-    <text class="state-label" x="763.5018495684342" y="184.42367601246107">Idle</text>
+    <circle class="state-circle " cx="763.9639639639641" cy="145.45454545454547" r="40" id="Reset"></circle>
+    <text class="state-label" x="763.9639639639641" y="145.45454545454547">Reset</text>
     </g>
         
         <g class="state">
-    <circle class="state-circle " cx="418.24907521578297" cy="358.87850467289724" r="40" id="GoingToBed"></circle>
-    <text class="state-label" x="418.24907521578297" y="358.87850467289724">GoingToBed</text>
+    <circle class="state-circle " cx="590.9909909909911" cy="261.8181818181818" r="40" id="Idle"></circle>
+    <text class="state-label" x="590.9909909909911" y="261.8181818181818">Idle</text>
     </g>
         
         <g class="state">
-    <circle class="state-circle " cx="211.0974106041924" cy="533.3333333333334" r="40" id="JustWokeUp"></circle>
-    <text class="state-label" x="211.0974106041924" y="533.3333333333334">JustWokeUp</text>
+    <circle class="state-circle " cx="187.38738738738746" cy="378.1818181818182" r="40" id="GoingToBed"></circle>
+    <text class="state-label" x="187.38738738738746" y="378.1818181818182">GoingToBed</text>
     </g>
         
         <g class="state">
-    <circle class="state-circle " cx="280.1479654747226" cy="707.7881619937694" r="40" id="PIT"></circle>
-    <text class="state-label" x="280.1479654747226" y="707.7881619937694">PIT</text>
+    <circle class="state-circle " cx="302.70270270270277" cy="610.909090909091" r="40" id="JustWokeUp"></circle>
+    <text class="state-label" x="302.70270270270277" y="610.909090909091">JustWokeUp</text>
     </g>
         
         <g class="state">
-    <circle class="state-circle " cx="556.3501849568435" cy="707.7881619937694" r="40" id="Reset"></circle>
-    <text class="state-label" x="556.3501849568435" y="707.7881619937694">Reset</text>
+    <circle class="state-circle " cx="360.3603603603604" cy="727.2727272727273" r="40" id="WaitUntilRelease"></circle>
+    <text class="state-label" x="360.3603603603604" y="727.2727272727273">WaitUntilRelease</text>
     </g>
         
         <g class="state">
-    <circle class="state-circle " cx="487.29963008631324" cy="533.3333333333334" r="40" id="Activation"></circle>
-    <text class="state-label" x="487.29963008631324" y="533.3333333333334">Activation</text>
+    <circle class="state-circle " cx="302.70270270270277" cy="494.54545454545456" r="40" id="PIT"></circle>
+    <text class="state-label" x="302.70270270270277" y="494.54545454545456">PIT</text>
+    </g>
+        
+        <g class="state">
+    <circle class="state-circle " cx="648.6486486486489" cy="378.1818181818182" r="40" id="Init"></circle>
+    <text class="state-label" x="648.6486486486489" y="378.1818181818182">Init</text>
     </g>
         
 
         <!-- Transitions (arrows) -->
-        ['<g class="transition">\n    <line class="transition-edge" x1="763.5018495684342" y1="184.42367601246107" x2="487.29963008631324" y2="533.3333333333334"></line>\n    <text class="condition-label" x="597.7805178791616" y="393.7694704049844">button_push_short</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="487.29963008631324" y1="533.3333333333334" x2="763.5018495684342" y2="184.42367601246107"></line>\n    <text class="condition-label" x="653.0209617755859" y="323.98753894081">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="487.29963008631324" y1="533.3333333333334" x2="556.3501849568435" y2="707.7881619937694"></line>\n    <text class="condition-label" x="528.7299630086313" y="638.0062305295951">button_push_long</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="556.3501849568435" y1="707.7881619937694" x2="763.5018495684342" y2="184.42367601246107"></line>\n    <text class="condition-label" x="680.6411837237979" y="393.7694704049844">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="763.5018495684342" y1="184.42367601246107" x2="418.24907521578297" y2="358.87850467289724"></line>\n    <text class="condition-label" x="556.3501849568435" y="289.09657320872276">tired</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="763.5018495684342" y1="184.42367601246107" x2="763.5018495684342" y2="184.42367601246107"></line>\n    <text class="condition-label" x="763.5018495684342" y="184.42367601246107">true</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="418.24907521578297" y1="358.87850467289724" x2="211.0974106041924" y2="533.3333333333334"></line>\n    <text class="condition-label" x="293.9580764488286" y="463.5514018691589">ISRs</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="211.0974106041924" y1="533.3333333333334" x2="72.99630086313196" y2="184.42367601246107"></line>\n    <text class="condition-label" x="128.23674475955613" y="323.98753894081">is_button_ISR</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="72.99630086313196" y1="184.42367601246107" x2="763.5018495684342" y2="184.42367601246107"></line>\n    <text class="condition-label" x="487.2996300863133" y="184.42367601246107">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="211.0974106041924" y1="533.3333333333334" x2="280.1479654747226" y2="707.7881619937694"></line>\n    <text class="condition-label" x="252.5277435265105" y="638.0062305295951">is_PIT_ISR</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="280.1479654747226" y1="707.7881619937694" x2="418.24907521578297" y2="358.87850467289724"></line>\n    <text class="condition-label" x="363.0086313193588" y="498.44236760124613">true</text>\n    </g>']
+        ['<g class="transition">\n    <line class="transition-edge" x1="648.6486486486489" y1="378.1818181818182" x2="763.9639639639641" y2="145.45454545454547"></line>\n    <text class="condition-label" x="717.837837837838" y="238.54545454545456">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="590.9909909909911" y1="261.8181818181818" x2="72.0720720720721" y2="145.45454545454547"></line>\n    <text class="condition-label" x="279.6396396396397" y="192.0">button_push_short</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="72.0720720720721" y1="145.45454545454547" x2="590.9909909909911" y2="261.8181818181818"></line>\n    <text class="condition-label" x="383.42342342342346" y="215.27272727272728">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="72.0720720720721" y1="145.45454545454547" x2="763.9639639639641" y2="145.45454545454547"></line>\n    <text class="condition-label" x="487.2072072072073" y="145.45454545454547">button_push_long</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="763.9639639639641" y1="145.45454545454547" x2="590.9909909909911" y2="261.8181818181818"></line>\n    <text class="condition-label" x="660.1801801801803" y="215.27272727272728">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="590.9909909909911" y1="261.8181818181818" x2="187.38738738738746" y2="378.1818181818182"></line>\n    <text class="condition-label" x="348.82882882882893" y="331.6363636363636">tired</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="590.9909909909911" y1="261.8181818181818" x2="590.9909909909911" y2="261.8181818181818"></line>\n    <text class="condition-label" x="590.9909909909911" y="261.8181818181818">true</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="187.38738738738746" y1="378.1818181818182" x2="302.70270270270277" y2="610.909090909091"></line>\n    <text class="condition-label" x="256.5765765765766" y="517.8181818181819">ISRs</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="302.70270270270277" y1="610.909090909091" x2="360.3603603603604" y2="727.2727272727273"></line>\n    <text class="condition-label" x="337.29729729729735" y="680.7272727272727">is_button_ISR</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="360.3603603603604" y1="727.2727272727273" x2="590.9909909909911" y2="261.8181818181818"></line>\n    <text class="condition-label" x="498.7387387387388" y="448.0">button_released</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="302.70270270270277" y1="610.909090909091" x2="302.70270270270277" y2="494.54545454545456"></line>\n    <text class="condition-label" x="302.70270270270277" y="541.0909090909091">is_PIT_ISR</text>\n    </g>', '<g class="transition">\n    <line class="transition-edge" x1="302.70270270270277" y1="494.54545454545456" x2="187.38738738738746" y2="378.1818181818182"></line>\n    <text class="condition-label" x="233.5135135135136" y="424.72727272727275">true</text>\n    </g>']
       </svg>
       </div>
         <h3>Serial Port Messages:</h3>

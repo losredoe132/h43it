@@ -83,7 +83,7 @@ int main(void)
     printf("Booting finished\n");
 
     // Set initial state
-    State *currentState = &Reset;
+    State *currentState = &Init;
 
     // Initial state action
     if (currentState->onEnter)

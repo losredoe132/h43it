@@ -1,6 +1,11 @@
 {
     "transitions": [
         {
+            "state": "Init",
+            "condition": "button_released",
+            "next_state": "Reset"
+        },
+        {
             "state": "Idle",
             "condition": "button_push_short",
             "next_state": "Activation"
