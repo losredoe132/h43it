@@ -81,7 +81,6 @@ int main(void)
     SLPCTRL.CTRLA |= SLPCTRL_SEN_bm;         // enable sleep mode
 
     printf("Booting finished\n");
-	statusLEDtoggle();
 
     // Set initial state
     State *currentState = &Reset;

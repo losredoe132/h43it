@@ -55,6 +55,11 @@ void allLEDoff()
 }
 
 
-void statusLEDtoggle(){
-	PORTA.OUTTGL = 0b00010000;
+void statusLEDon(){
+	PORTA.OUTSET = 0b00100000;
+}
+
+
+void statusLEDoff(){
+	PORTA.OUTSET = 0b00000000;
 }
